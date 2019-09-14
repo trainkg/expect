@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="barley" default="main">
+	<target unless="no" description="main" name="main">
+	</target>
+	<target unless="no" description="main" name="compile">
+	</target>
+	
+	<!-- 
+		1.初始化安装第三方插件 VUE, 作为业务平台的基础UI库 , 需要优先安装Node.js 
+    -->
+	<target unless="no" description="Compile" name="init">
+		<!-- need install notes and add npm command into the path. -->
+		<exec executable="cmd" failonerror="yes" >
+			<arg line="/c"/>
+			<arg line="npm install -g @vue/cli"/>
+			<arg line="npm install -g @vue/cli-service-global"/>
+			<arg line="npm install -g vue"/>
+			<arg value="-p"/>
+		</exec>
+	</target>
+</project>

@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>bubble.config</groupId>
+    <artifactId>bubble.config</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>config.resourse</artifactId>
+  <build>
+  	<plugins>
+		<plugin>
+		  <groupId>org.eclipse.jetty</groupId>
+		  <artifactId>jetty-maven-plugin</artifactId>
+		  <version>${jetty.web.version}</version>
+		  <configuration>
+			<httpConnector>
+				<port>8081</port>
+			</httpConnector> 
+			<webApp>
+				<resourceBases>src/main/webapp,src/main/statics</resourceBases>
+			</webApp>
+		  </configuration>
+		</plugin>
+  	</plugins>
+  </build>
+</project>

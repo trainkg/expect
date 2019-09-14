@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 定时任务配置文件 -->
+    <!-- 调度任务 -->
+	<!-- 目标任务 -->
+	<bean id="sapUserStatusCheck" class="org.hlj.performance_user.service.impl.SAPUserSyncService" />
+	<bean id="userStatusCheck" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject" ref="sapUserStatusCheck" />  
+	    <property name="targetMethod" value="checkSyncDate" />
+	    <!--将并发设置为false-->  
+	    <property name="concurrent" value="false" />  
+	</bean> 
+	<bean id="userStatusCheckTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="userStatusCheck" />  
+        <!-- 定义触发时间 -->  
+        <property name="cronExpression" value="0 0 1 * * ?" />  
+	</bean>
+	
+	<bean id="sapSynchronized" class="com.sugon.sap.services.impl.SynchronizedSAPDataService" />
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject" ref="sapSynchronized" />  
+	    <property name="targetMethod" value="synchronizedSAPData" />
+	    <!--将并发设置为false-->  
+	    <property name="concurrent" value="false" />  
+	</bean> 
+	<bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+        <property name="jobDetail" ref="jobDetail" />  
+        <!-- 定义触发时间 -->  
+        <property name="cronExpression" value="0 0 0 * * ?" />  
+	</bean>
+	<!--  总管理类如果将lazy-init='false'那么容器启动就会执行调度程序   -->  
+	<bean id="startQuertz" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" >  
+        <property name="triggers">  
+            <list>  
+                <!--作业调度器,list下可加入其他的调度器-->  
+            	<ref bean="trigger" />  
+            	<ref bean="userStatusCheckTrigger" />
+            </list>  
+	    </property>  
+	</bean>
+</beans>
