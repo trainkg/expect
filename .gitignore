@@ -19,5 +19,21 @@
 *.tar.gz
 *.rar
 
+# Other format file.
+**target*
+**RemoteSystemsTempFiles*
+**Server*
+**.metadata*
+velocity.log
+**.project
+**.classpath
+**.settings
+**.log
+*velocity.log*
+*.idea/
+*.iml
+*~
+nb-configuration.xml
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
