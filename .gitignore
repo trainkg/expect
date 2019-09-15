@@ -20,9 +20,6 @@
 *.rar
 
 # Other format file.
-**target*
-**RemoteSystemsTempFiles*
-**Server*
 **.metadata*
 velocity.log
 **.project
