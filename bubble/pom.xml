@@ -2,9 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bubble</artifactId>
   <packaging>pom</packaging>
-  <groupId>bubble</groupId>
   <parent>
-  	<groupId>barley</groupId>
+  	<groupId>org.barley</groupId>
   	<artifactId>org.barley</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   </parent>
@@ -21,18 +20,19 @@
   </modules>
   
   <dependencies>
+  	 <!-- Base line -->
   	 <dependency>
-  	 	<groupId>barley</groupId>
+  	 	<groupId>org.barley</groupId>
 		<artifactId>barley.ls</artifactId>
 		<type>pom</type>
 		<version>${ls.version}</version>
   	 </dependency>
-  	 <dependency>
-	    <groupId>bubble.runtime</groupId>
+  	 <!-- <dependency>
+	    <groupId>bubble</groupId>
 	    <artifactId>config</artifactId>
 	    <version>${project.version}</version>
-	    <type>jar</type>
+	    <type>pom</type>
 	    <scope>runtime</scope>
-  	 </dependency>
+  	 </dependency> -->
   </dependencies>
 </project>
