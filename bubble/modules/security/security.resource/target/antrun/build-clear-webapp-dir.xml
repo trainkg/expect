@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="clear-webapp-dir"  >
-<target unless="no" name="clear-webapp-dir" description="clear D:\zsqworkspace\expect\bubble\modules\security\security.resource\target">
+<target unless="no" description="clear D:\zsqworkspace\expect\bubble\modules\security\security.resource\target" name="clear-webapp-dir">
   <delete includeEmptyDirs="true" verbose="true">
-    <fileset defaultexcludes="no" includes="**/*" dir="D:\zsqworkspace\expect\bubble\modules\security\security.resource/src/main/webapp"/>
+    <fileset dir="D:\zsqworkspace\expect\bubble\modules\security\security.resource/src/main/webapp" includes="**/*" defaultexcludes="no"/>
   </delete>
 </target>
 </project>

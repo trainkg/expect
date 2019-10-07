@@ -40,5 +40,13 @@
   		<artifactId>security.service</artifactId>
   		<version>${project.version}</version>
   	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.barley</groupId>
+  		<artifactId>runtime.pom</artifactId>
+  		<version>${project.version}</version>
+  		<type>pom</type>
+  	</dependency>
+  	
   </dependencies>
 </project>

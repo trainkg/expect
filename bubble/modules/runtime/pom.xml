@@ -11,5 +11,6 @@
   <modules>
   	<module>config</module>
   	<module>runtime.web</module>
+  	<module>runtime.pom.xml</module>
   </modules>
 </project>

@@ -27,13 +27,13 @@
 		<type>pom</type>
 		<version>${ls.version}</version>
   	 </dependency>
-  	 <dependency>
+  	 <!-- <dependency>
 	    <groupId>org.barley</groupId>
 	    <artifactId>runtime.web</artifactId>
 	    <version>${project.version}</version>
 	    <classifier>statics</classifier>
 	    <type>war</type>
 	    <scope>runtime</scope>
-  	 </dependency>
+  	 </dependency> -->
   </dependencies>
 </project>
