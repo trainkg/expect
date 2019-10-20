@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+     <!-- Activiti 配置信息 -->
+	 <bean id="processEngineConfiguration" class="org.activiti5.spring.SpringProcessEngineConfiguration">
+	    <property name="dataSource" ref="dataSource" />
+	    <property name="transactionManager" ref="transactionManager" />
+	    <property name="databaseSchemaUpdate" value="true" />
+	    <property name="asyncExecutorActivate" value="false" />
+	    <!-- 
+	    	自动部署 
+			定制规范，processes目录下面，使用AUTO开头的流程自动部署	    
+	    -->
+	    <property name="deploymentResources" value="classpath*:/processes/auto.*.bpmn20.xml" />
+	    <!-- 部署模式，涉及到流程变更时候，流程定义的刷新问题 -->
+	    <property name="deploymentMode" value="single-resource" />
+	 </bean>
+	
+	<!-- Activiti Engine -->
+	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
+	  <property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<!-- Activiti Services -->
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+</beans>

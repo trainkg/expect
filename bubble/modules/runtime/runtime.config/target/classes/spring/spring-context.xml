@@ -14,12 +14,16 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-
-	<context:component-scan base-package="com.bubble.*"></context:component-scan>
+	<!-- spring context 扫描路径 -->
+	<context:component-scan base-package="org.barley.*"></context:component-scan>
 	
+	<!-- 激活自动注入 -->
 	<context:annotation-config />
+	
+	<!-- 激活 @Async and @Scheduled 注解特性 -->
 	<task:annotation-driven/>
 	
+	<!-- 系统配置信息管理 -->
 	<bean id="sysPropties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		<property name="ignoreResourceNotFound" value="true" />
@@ -37,16 +41,15 @@
 			</props>
 		</property>
 	</bean>
-		
-	<import resource="classpath*:spring/*-spring-context.xml"/>
-	
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
 	     <property name="basename" value="app" />
 	     <property name="defaultEncoding" value="UTF-8"/>
 	     <property name="useCodeAsDefaultMessage" value="true" />
-    </bean> 
+    </bean>
     
-	<bean id="jtaDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<!-- 数据库连接管理 -->
+	<!-- id 统一命名，不允许变更 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.className}"></property>
 		<property name="url" value="${jdbc.url}"></property>
 		<property name="username" value="${jdbc.username}"></property>
@@ -58,7 +61,17 @@
 		<property name="minEvictableIdleTimeMillis" value="3600000" />
 		<property name="validationQuery" value="select 1"></property>
 	</bean>
-
+	
+	<!-- datasource 事务管理 -->
+	<!-- id 统一命名，不允许变更 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource" />
+  	</bean>
+  	<!-- 激活注解 @Transactional and @TransactionAttribute -->
+  	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 使用固定的格式，自动加载 -->
+	<import resource="classpath*:spring/*-spring-context.xml"/>
 	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="jtaDataSource">
 		<property name="dataSource" ref="jtaDataSource" />
 		<property name="packagesToScan">

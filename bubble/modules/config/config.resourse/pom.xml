@@ -23,4 +23,13 @@
 		</plugin>
   	</plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.barley</groupId>
+		<artifactId>runtime.pom</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	    <type>pom</type>
+	    <scope>runtime</scope>
+  	</dependency>
+  </dependencies>
 </project>

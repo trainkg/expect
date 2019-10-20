@@ -5,5 +5,5 @@
     <artifactId>bubble.runtime</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>config</artifactId>
+  <artifactId>runtime.config</artifactId>
 </project>

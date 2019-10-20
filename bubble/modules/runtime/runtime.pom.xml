@@ -12,7 +12,7 @@
   <dependencies>
   	<dependency>
   		<groupId>org.barley</groupId>
-  		<artifactId>config</artifactId>
+  		<artifactId>runtime.config</artifactId>
   		<version>${project.version}</version>
   		<type>jar</type>		
   	</dependency>

@@ -9,7 +9,7 @@
   <artifactId>bubble.runtime</artifactId>
   <packaging>pom</packaging>
   <modules>
-  	<module>config</module>
+  	<module>runtime.config</module>
   	<module>runtime.web</module>
   	<module>runtime.pom.xml</module>
   </modules>

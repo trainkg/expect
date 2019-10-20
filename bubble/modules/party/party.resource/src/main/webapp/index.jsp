@@ -5,8 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	var app = new Vue({
+	  el: '#app',
+	  data: {
+	    message: 'Hello Vue!'
+	  }
+	})
+</script>
 </head>
 <body>
-	this is index.
+	<div id="app">
+	  {{ message }}
+	</div>
 </body>
 </html>
