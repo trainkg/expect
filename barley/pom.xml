@@ -35,7 +35,7 @@
 		<commons.logging>1.2</commons.logging>
 		<commons.io>2.2</commons.io>
 		<org.slf4j>1.7.5</org.slf4j>
-		<spring.version>4.2.5.RELEASE</spring.version>
+		<spring.version>5.2.0.RELEASE</spring.version>
 		<lockback.version>1.0.13</lockback.version>
 		<log4j.over.slf4j>1.7.7</log4j.over.slf4j>
 		<!-- <poi.version>3.9</poi.version> -->
