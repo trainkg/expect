@@ -16,5 +16,6 @@
 		<property name="mailServerHost" value="mail.my-corp.com" />
 		<property name="mailServerPort" value="5025" />
 	</bean>
-
+	
+	<bean class="123123"></bean>
 </beans>

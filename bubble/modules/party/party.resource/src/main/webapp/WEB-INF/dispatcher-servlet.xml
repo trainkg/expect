@@ -17,7 +17,7 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
-	<import resource="classpath*:config/*-servlet-context.xml"/>
+	<!-- <import resource="classpath*:config/*-servlet-context.xml"/> -->
 	
 	<mvc:annotation-driven>
 		<mvc:message-converters>

@@ -63,7 +63,7 @@
 							</httpConnector>
 							<jettyEnvXml>jetty.xml</jettyEnvXml>
 							<webApp>
-								<resourceBases>src/main/webapp</resourceBases>
+								<resourceBases>src/main/webapp,src/main/resources</resourceBases>
 							</webApp>
 						</configuration>
 					</plugin>
