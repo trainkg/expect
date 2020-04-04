@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="clear-webapp-dir"  >
-<target unless="no" description="clear D:\zsqworkspace\bubble\bubble.config\config.resourse\target" name="clear-webapp-dir">
+<target unless="no" name="clear-webapp-dir" description="clear D:\zsqworkspace\expect\bubble\modules\config\config.resourse\target">
   <delete includeEmptyDirs="true" verbose="true">
-    <fileset dir="D:\zsqworkspace\bubble\bubble.config\config.resourse/src/main/webapp" includes="**/*" defaultexcludes="no"/>
+    <fileset defaultexcludes="no" includes="**/*" dir="D:\zsqworkspace\expect\bubble\modules\config\config.resourse/src/main/webapp"/>
   </delete>
 </target>
 </project>

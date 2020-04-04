@@ -2,17 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.barley</groupId>
-    <artifactId>bubble.config</artifactId>
+    <artifactId>bubble.bizflow</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>config.resourse</artifactId>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.barley</groupId>
-		<artifactId>runtime.pom</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
-	    <type>pom</type>
-	    <scope>runtime</scope>
-  	</dependency>
-  </dependencies>
+  <artifactId>flow.core</artifactId>
 </project>

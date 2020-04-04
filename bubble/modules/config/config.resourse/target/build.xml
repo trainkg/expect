@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project name="bubble" default="main">
-	<target unless="no" description="main" name="main">
-	</target>
-	<target unless="no" description="Compile" name="compile">
-	</target>
-</project>

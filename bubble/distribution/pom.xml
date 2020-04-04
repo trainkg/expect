@@ -7,4 +7,16 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>distribution</artifactId>
+  <build>
+  	<plugins>
+		<plugin>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<configuration>
+				<descriptors>
+                  <descriptor>assembly-db.xml</descriptor>
+                </descriptors>
+			</configuration>
+		</plugin>
+  	</plugins>
+  </build>
 </project>

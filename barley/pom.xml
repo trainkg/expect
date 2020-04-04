@@ -44,10 +44,12 @@
 		<freemarker.version>2.3.20</freemarker.version>
 		<ls.module.skip>true</ls.module.skip>
 		<jetty.web.version>9.2.6.v20141205</jetty.web.version>
-		<activiti>6.0.0</activiti>
 	</properties>
 
 	<build>
+		<!-- 
+			管理所有的插件定义，如果模块需要使用插件的话，直接使用maven坐标，可以减少配置
+		 -->
 		<pluginManagement>
 			<plugins>
 				<!-- mybatis 生成插件 -->
@@ -305,16 +307,6 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-		  <groupId>org.activiti</groupId>
-		  <artifactId>activiti5-engine</artifactId>
-		  <version>${activiti}</version>
-		</dependency>
-		<dependency>
-		  <groupId>org.activiti</groupId>
-		  <artifactId>activiti5-spring</artifactId>
-		  <version>${activiti}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -648,6 +640,7 @@
 		-->
 		<profile>
 			<id>module-webresourse</id>
+			<!-- WEB 模块判断条件 / 存在webapp目录 -->
 			<activation>
 				<activeByDefault>false</activeByDefault>
 				<file>
@@ -677,6 +670,7 @@
 							</execution>
 						</executions>
 					</plugin> -->
+					<!-- 通过Ant脚本,在MAVEN clean阶段清除webapp下的模块运行配置 -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
@@ -703,6 +697,7 @@
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 						    <!-- build -->
+						    <!-- copy database script assembly config -->
 							<execution>
 							    <id>copy-config</id>
 							    <phase>generate-sources</phase>
@@ -722,7 +717,7 @@
 									<outputDirectory>target</outputDirectory>
 								</configuration>
 							</execution>
-							<!-- copy-web-config -->
+							<!-- copy-web-config web.xml etc -->
 							<execution>
 							    <id>copy-web-config</id>
 							    <phase>generate-sources</phase>

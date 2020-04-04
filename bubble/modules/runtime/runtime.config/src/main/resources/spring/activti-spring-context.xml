@@ -15,7 +15,7 @@
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
      <!-- Activiti 配置信息 -->
-	 <bean id="processEngineConfiguration" class="org.activiti5.spring.SpringProcessEngineConfiguration">
+	 <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 	    <property name="dataSource" ref="dataSource" />
 	    <property name="transactionManager" ref="transactionManager" />
 	    <property name="databaseSchemaUpdate" value="true" />

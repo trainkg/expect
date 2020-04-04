@@ -14,9 +14,11 @@
   </properties>
   <modules>
   	<module>distribution</module>
+  	<module>modules/config</module>
   	<module>modules/runtime</module>
   	<module>modules/party</module>
   	<module>modules/security</module>
+  	<module>modules/bizflow</module>
   </modules>
   
   <dependencies>
@@ -35,5 +37,68 @@
 	    <type>war</type>
 	    <scope>runtime</scope>
   	 </dependency> -->
-  </dependencies>
+	 </dependencies>
+	
+	<profiles>
+		<profile>
+			<id>bubble-module-webresourse</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<file>
+					<exists>src/main/webapp</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<!-- 
+					为Bubble模块下的web模块提供jetty默认支持
+					 -->
+					<plugin>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>${jetty.web.version}</version>
+						<configuration>
+							<httpConnector>
+								<port>8081</port>
+							</httpConnector>
+							<jettyEnvXml>jetty.xml</jettyEnvXml>
+							<webApp>
+								<resourceBases>src/main/webapp</resourceBases>
+							</webApp>
+						</configuration>
+					</plugin>
+					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+						    <!-- build -->
+						    <!-- copy database configuration , jndi -->
+						    <!-- execution 可以和父项目设定合并，但是ID不能冲突 -->
+						    <!-- 如果要覆盖父模块配置，ID 配置为一样的就可以覆盖 -->
+							<execution>
+							    <id>copy-jndi-config</id>
+							    <phase>generate-sources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>org.barley</groupId>
+											<artifactId>distribution</artifactId>
+											<version>${project.version}</version>
+											<classifier>jndi-dbconfig</classifier>
+											<type>zip</type>
+										</artifactItem>
+									</artifactItems>
+									<outputDirectory>target</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

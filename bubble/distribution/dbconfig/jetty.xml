@@ -1,0 +1,71 @@
+<Configure id="wac" class="org.mortbay.jetty.webapp.WebAppContext">
+	<New id="myds" class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>jdbc/myds</Arg>
+		<Arg>
+			<Call id="dsbyfact" class="com.alibaba.druid.pool.DruidDataSourceFactory"
+				name="createDataSource">
+				<Arg>
+					<Map>
+						<Entry>
+							<Item>driverClass</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>com.mysql.jdbc.Driver</Arg>
+								</New>
+							</Item>
+						</Entry>
+						<Entry>
+							<Item>username</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>root</Arg>
+								</New>
+							</Item>
+						</Entry>
+						<Entry>
+							<Item>password</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>a123456</Arg>
+								</New>
+							</Item>
+						</Entry>
+						<Entry>
+							<Item>url</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull
+									</Arg>
+								</New>
+							</Item>
+						</Entry>
+						<Entry>
+							<Item>maxActive</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>20</Arg>
+								</New>
+							</Item>
+						</Entry>
+						<Entry>
+							<Item>minIdle</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>10</Arg>
+								</New>
+							</Item>
+						</Entry>
+						<Entry>
+							<Item>maxWait</Item>
+							<Item>
+								<New class="java.lang.String">
+									<Arg>60000</Arg>
+								</New>
+							</Item>
+						</Entry>
+					</Map>
+				</Arg>
+			</Call>
+		</Arg>
+	</New>
+</Configure>
