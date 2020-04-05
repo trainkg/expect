@@ -18,10 +18,19 @@
 			<version>${ls.version}</version>
 			<type>jar</type>
 		</dependency>
+		<!-- Jetty 可以将scope runtime中war，自动扫描进入web context中。 -->
 		<dependency>
 			<groupId>org.barley</groupId>
 			<artifactId>barley.statics</artifactId>
 			<classifier>statics</classifier>
+			<version>${ls.version}</version>
+			<type>war</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.barley</groupId>
+			<artifactId>barley.build</artifactId>
+			<classifier>webserver</classifier>
 			<version>${ls.version}</version>
 			<type>war</type>
 			<scope>runtime</scope>

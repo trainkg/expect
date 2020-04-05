@@ -1,9 +1,8 @@
 <Configure id="wac" class="org.mortbay.jetty.webapp.WebAppContext">
-	<New id="myds" class="org.mortbay.jetty.plus.naming.Resource">
-		<Arg>jdbc/myds</Arg>
+	<!-- <New id="myds" class="org.mortbay.jetty.plus.naming.Resource">
+		<Arg>jdbc/bubble</Arg>
 		<Arg>
-			<Call id="dsbyfact" class="com.alibaba.druid.pool.DruidDataSourceFactory"
-				name="createDataSource">
+			<Call id="dsbyfact" class="com.alibaba.druid.pool.DruidDataSourceFactory" name="createDataSource">
 				<Arg>
 					<Map>
 						<Entry>
@@ -67,5 +66,20 @@
 				</Arg>
 			</Call>
 		</Arg>
-	</New>
+	</New> -->
+	
+	<New id="bubble" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>jdbc/bubble</Arg>
+        <Arg>
+            <New class="org.apache.commons.dbcp.BasicDataSource">
+                <Set name="driverClassName">com.mysql.jdbc.Driver</Set>
+                <Set name="url">jdbc:mysql://localhost:3306/bubble?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;rewriteBatchedStatements=true</Set>
+                <Set name="username">root</Set>
+                <Set name="password">a123456</Set>
+                <Set name="maxActive">150</Set>
+                <Set name="minIdle">20</Set>
+                <Set name="maxWait">60000</Set>
+            </New>
+        </Arg>
+    </New>
 </Configure>

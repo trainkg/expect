@@ -6,12 +6,4 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>runtime.config</artifactId>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.barley</groupId>
-  		<artifactId>barley.ls</artifactId>
-  		<version>${ls.version}</version>
-  		<type>pom</type>
-  	</dependency>
-  </dependencies>
 </project>

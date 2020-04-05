@@ -599,6 +599,7 @@
 			</activation>
 			<build>
 				<plugins>
+					<!-- statics模块copy打包配置文件 -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
@@ -697,7 +698,7 @@
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 						    <!-- build -->
-						    <!-- copy database script assembly config -->
+						    <!-- copy database script assembly config. -->
 							<execution>
 							    <id>copy-config</id>
 							    <phase>generate-sources</phase>
@@ -718,7 +719,7 @@
 								</configuration>
 							</execution>
 							<!-- copy-web-config web.xml etc -->
-							<execution>
+							<!-- <execution>
 							    <id>copy-web-config</id>
 							    <phase>generate-sources</phase>
 								<goals>
@@ -736,7 +737,7 @@
 									</artifactItems>
 									<outputDirectory>src/main/webapp</outputDirectory>
 								</configuration>
-							</execution>
+							</execution> -->
 						</executions>
 					</plugin>
 				</plugins>

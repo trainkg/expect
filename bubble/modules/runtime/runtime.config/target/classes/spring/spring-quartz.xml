@@ -31,17 +31,20 @@
 	</bean>
 	
 	<bean id="sapSynchronized" class="com.sugon.sap.services.impl.SynchronizedSAPDataService" />
+	
 	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
 	    <property name="targetObject" ref="sapSynchronized" />  
 	    <property name="targetMethod" value="synchronizedSAPData" />
 	    <!--将并发设置为false-->  
 	    <property name="concurrent" value="false" />  
 	</bean> 
+	
 	<bean id="trigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
         <property name="jobDetail" ref="jobDetail" />  
         <!-- 定义触发时间 -->  
         <property name="cronExpression" value="0 0 0 * * ?" />  
 	</bean>
+	
 	<!--  总管理类如果将lazy-init='false'那么容器启动就会执行调度程序   -->  
 	<bean id="startQuertz" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" >  
         <property name="triggers">  

@@ -34,12 +34,13 @@
 				<value>classpath*:/mail.properties</value>
 			</list>
 		</property>
-		<property name="properties">
+		<!-- 自定义变量 -->
+		<!-- <property name="properties">
 			<props>
 				<prop key="database.type">mysql</prop>
 				<prop key="timeoutUrl">http://oa.sugon.com</prop>
 			</props>
-		</property>
+		</property> -->
 	</bean>
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
 	     <property name="basename" value="app" />
@@ -62,6 +63,15 @@
 		<property name="validationQuery" value="select 1"></property>
 	</bean>
 	
+	<!-- 
+	Jndi 没有搞定
+	<bean id="jndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/bubble</value>
+		</property>
+	</bean> 
+	-->
+	
 	<!-- datasource 事务管理 -->
 	<!-- id 统一命名，不允许变更 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -71,6 +81,7 @@
   	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<!-- 使用固定的格式，自动加载 -->
+	<!-- <import resource="classpath*:spring/spring-quartz.xml"/> -->
 	<import resource="classpath*:spring/*-spring-context.xml"/>
 	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="jtaDataSource">
 		<property name="dataSource" ref="jtaDataSource" />

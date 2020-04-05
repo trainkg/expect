@@ -48,6 +48,16 @@
 					<exists>src/main/webapp</exists>
 				</file>
 			</activation>
+			<!-- 支持单独启动模块加载项目的配置，数据库连接，基本配置文件等 -->
+			<dependencies>
+				<dependency>
+			  		<groupId>org.barley</groupId>
+					<artifactId>runtime.pom</artifactId>
+				    <version>${project.version}</version>
+				    <type>pom</type>
+				    <scope>runtime</scope>
+			  	</dependency>
+			</dependencies>
 			<build>
 				<plugins>
 					<!-- 
@@ -61,7 +71,7 @@
 							<httpConnector>
 								<port>8081</port>
 							</httpConnector>
-							<jettyEnvXml>jetty.xml</jettyEnvXml>
+							<jettyEnvXml>${basedir}/target/jetty-env.xml</jettyEnvXml>
 							<webApp>
 								<resourceBases>src/main/webapp,src/main/resources</resourceBases>
 							</webApp>
