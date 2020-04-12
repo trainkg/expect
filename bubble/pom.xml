@@ -73,7 +73,10 @@
 							</httpConnector>
 							<jettyEnvXml>${basedir}/target/jetty-env.xml</jettyEnvXml>
 							<webApp>
-								<resourceBases>src/main/webapp,src/main/resources</resourceBases>
+								<resourceBases>
+									<resourceBase>src/main/webapp</resourceBase>
+									<resourceBase>src/main/resources</resourceBase>
+								</resourceBases>
 							</webApp>
 						</configuration>
 					</plugin>
