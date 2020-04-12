@@ -67,8 +67,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.3</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>1.8</source>
+						<target>1.8</target>
 						<encoding>utf-8</encoding>
 					</configuration>
 					<executions>
@@ -303,6 +303,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
@@ -540,21 +544,21 @@
 	<!-- 利用profile区别不同的module类型，决定执行不同的脚本 -->
 	<profiles>
 		<profile>
-			<id>JDK1.7</id>
+			<id>JDK1.8</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
-				<jdk>1.7</jdk>
+				<jdk>1.8</jdk>
 			</activation>
 			<properties>
-				<maven.compiler.source>1.7</maven.compiler.source>
-				<maven.compiler.target>1.7</maven.compiler.target>
-				<maven.compiler.compilerVersion>1.7</maven.compiler.compilerVersion>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+				<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 			</properties>
 			<repositories>
 				<repository>
 					<id>central</id>
 					<!-- https 要求开启 TLSv1.2 协议 -->
-					<url>http://repo1.maven.org/maven2</url>
+					<url>https://repo1.maven.org/maven2</url>
 					<releases>
 						<enabled>true</enabled>
 						<checksumPolicy>warn</checksumPolicy>
@@ -567,7 +571,7 @@
 			<pluginRepositories>
 				<pluginRepository>
 					<id>central</id>
-					<url>http://repo1.maven.org/maven2</url>
+					<url>https://repo1.maven.org/maven2</url>
 				</pluginRepository>
 			</pluginRepositories>
 		</profile>

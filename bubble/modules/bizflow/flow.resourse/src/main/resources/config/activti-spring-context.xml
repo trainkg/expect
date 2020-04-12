@@ -40,4 +40,38 @@
 	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
 	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
 	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	
+	
+	<!-- <bean id="threadFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:jboss/ee/concurrency/factory/default" />
+	</bean>
+	 -->
+	<!-- 执行器 --> 
+	<bean id="customJobExecutor" class="org.activiti.engine.impl.jobexecutor.ManagedAsyncJobExecutor">
+		<!-- <property name="threadFactory" ref="threadFactory" /> -->
+		<!-- <property name="asyncExecutorActivate" value="true" /> -->
+		<property name="history" value="audit" />
+		<property name="processDefinitionCacheLimit" value="100" />
+	</bean>
+	
+	<!-- activiti 事件监听器 -->
+	<bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+		<!-- SPI接口 ActivitiEventListener-->
+	    <!-- <property name="eventListeners">
+	      <list>
+	         <bean class="org.activiti.engine.example.MyEventListener" />
+	      </list>
+	    </property> -->
+		
+		<!-- 指定特殊的事件类型监听器,是有序的（list） -->
+		<!-- <property name="typedEventListeners">
+			<map>
+				<entry key="JOB_EXECUTION_SUCCESS,JOB_EXECUTION_FAILURE">
+					<list>
+						<bean class="org.activiti.engine.example.MyJobEventListener" />
+					</list>
+				</entry>
+			</map>
+		</property> -->
+	</bean>
 </beans>
