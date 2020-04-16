@@ -35,7 +35,7 @@
 		<commons.logging>1.2</commons.logging>
 		<commons.io>2.2</commons.io>
 		<org.slf4j>1.7.5</org.slf4j>
-		<spring.version>4.2.5.RELEASE</spring.version>
+		<spring.version>5.2.5.RELEASE</spring.version>
 		<lockback.version>1.0.13</lockback.version>
 		<log4j.over.slf4j>1.7.7</log4j.over.slf4j>
 		<!-- <poi.version>3.9</poi.version> -->
@@ -46,6 +46,7 @@
 		<jetty.web.version>9.2.6.v20141205</jetty.web.version>
 		<mybatis>3.5.4</mybatis>
 		<mybatis.spring>2.0.4</mybatis.spring>
+		<mysql.version>5.1.25</mysql.version>
 	</properties>
 
 	<build>
@@ -58,10 +59,17 @@
 				<plugin>
 					<groupId>org.mybatis.generator</groupId>
 					<artifactId>mybatis-generator-maven-plugin</artifactId>
-					<version>1.3.1</version>
+					<version>1.4.0</version>
 					<configuration>
 						<verbose>true</verbose>
 						<overwrite>true</overwrite>
+						<configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+						<!-- 为 true，则“compile”，“provided”和“system”范围的依赖项将添加到生成器的类路径中 -->
+	                    <includeCompileDependencies>true</includeCompileDependencies>
+	                    <!-- 为true，则将任何范围的依赖项添加到生成器的类路径中 -->
+	                    <includeAllDependencies>true</includeAllDependencies>
+	                    <!-- 配置文件中的 contexts -->
+	                    <contexts>DMySQLTables</contexts>	
 					</configuration>
 				</plugin>
 				<!-- maven 编译插件 version 需要3.3 以上才能支持lombok编译设定 -->
@@ -310,6 +318,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -452,7 +464,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.25</version>
+			<version>${mysql.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

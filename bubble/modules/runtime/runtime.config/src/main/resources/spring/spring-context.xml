@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -13,15 +14,17 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
-        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+  		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 	<!-- spring context 扫描路径 -->
 	<context:component-scan base-package="org.barley.*"></context:component-scan>
-	
 	<!-- 激活自动注入 -->
 	<context:annotation-config />
 	
 	<!-- 激活 @Async and @Scheduled 注解特性 -->
 	<task:annotation-driven/>
+	
+	<util:properties id="hibernateConfig" location="classpath*:/hibernate.properties"/>
 	
 	<!-- 系统配置信息管理 -->
 	<bean id="sysPropties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -72,15 +75,6 @@
 	</bean> 
 	-->
 	
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	  	<property name="dataSource" ref="dataSource" />
-	</bean>
-	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-	  <constructor-arg index="0" ref="sqlSessionFactory" />
-	  <constructor-arg index="1" value="BATCH" />
-	</bean>
-	
 	<!-- datasource 事务管理 -->
 	<!-- id 统一命名，不允许变更 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -90,6 +84,8 @@
   	<!-- 激活注解 @Transactional and @TransactionAttribute -->
   	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
+	<import resource="classpath*:spring/spring-context-override.xml"/>
+	<import resource="classpath*:spring/spring-context-mybatis.xml"/>
 	<!-- 使用固定的格式，自动加载 -->
 	<!-- <import resource="classpath*:spring/spring-quartz.xml"/> -->
 	<import resource="classpath*:spring/*-spring-context.xml"/>
