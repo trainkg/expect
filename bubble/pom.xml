@@ -1,45 +1,104 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>bubble</artifactId>
-  <packaging>pom</packaging>
-  <parent>
-  	<groupId>org.barley</groupId>
-  	<artifactId>org.barley</artifactId>
-  	<version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <properties>
-  	<!-- 采用基线版本 -->
-  	<project.version>0.0.1-SNAPSHOT</project.version>
-  	<ls.version>0.0.1-SNAPSHOT</ls.version>
-  </properties>
-  <modules>
-  	<module>distribution</module>
-  	<module>modules/config</module>
-  	<module>modules/runtime</module>
-  	<module>modules/party</module>
-  	<module>modules/security</module>
-  	<module>modules/bizflow</module>
-  </modules>
-  
-  <dependencies>
-  	 <!-- Base line -->
-  	 <dependency>
-  	 	<groupId>org.barley</groupId>
-		<artifactId>barley.ls</artifactId>
-		<type>pom</type>
-		<version>${ls.version}</version>
-  	 </dependency>
-  	 <!-- <dependency>
-	    <groupId>org.barley</groupId>
-	    <artifactId>runtime.web</artifactId>
-	    <version>${project.version}</version>
-	    <classifier>statics</classifier>
-	    <type>war</type>
-	    <scope>runtime</scope>
-  	 </dependency> -->
-	 </dependencies>
-	
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>bubble</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>org.barley</groupId>
+		<artifactId>org.barley</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<properties>
+		<!-- 采用基线版本 -->
+		<project.version>0.0.1-SNAPSHOT</project.version>
+		<ls.version>0.0.1-SNAPSHOT</ls.version>
+		<v-spring-data-keyvalue>2.2.7</v-spring-data-keyvalue>
+	</properties>
+	<modules>
+		<module>robot</module>
+		<module>distribution</module>
+		<module>modules/config</module>
+		<module>modules/runtime</module>
+		<module>modules/party</module>
+		<module>modules/security</module>
+		<module>modules/bizflow</module>
+	</modules>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.*</include>
+				</includes>
+				<excludes>
+					<exclude>generatorConfig.xml</exclude>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
+	<repositories>
+		<repository>
+			<id>spring-libs-snapshot</id>
+			<name>Spring Snapshot Repository</name>
+			<url>https://repo.spring.io/libs-snapshot</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<dependencies>
+		<!-- Base line -->
+		<dependency>
+			<groupId>org.barley</groupId>
+			<artifactId>barley.ls</artifactId>
+			<version>${ls.version}</version>
+			<type>pom</type>
+		</dependency>
+		<!-- <dependency> <groupId>org.barley</groupId> <artifactId>runtime.web</artifactId> 
+			<version>${project.version}</version> <classifier>statics</classifier> <type>war</type> 
+			<scope>runtime</scope> </dependency> -->
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-keyvalue</artifactId>
+			<version>${v-spring-data-keyvalue}.RELEASE</version>
+		</dependency>
+	</dependencies>
+
 	<profiles>
+		<profile>
+			<id>bubble-module-modal</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<file>
+					<exists>src/main/resources/generatorConfig.xml</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.barley</groupId>
+					<artifactId>runtime.pom</artifactId>
+					<version>${project.version}</version>
+					<type>pom</type>
+				</dependency>
+				<dependency>
+					<groupId>org.barley</groupId>
+					<artifactId>robot</artifactId>
+					<version>${project.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		
 		<profile>
 			<id>bubble-module-webresourse</id>
 			<activation>
@@ -51,18 +110,15 @@
 			<!-- 支持单独启动模块加载项目的配置，数据库连接，基本配置文件等 -->
 			<dependencies>
 				<dependency>
-			  		<groupId>org.barley</groupId>
+					<groupId>org.barley</groupId>
 					<artifactId>runtime.pom</artifactId>
-				    <version>${project.version}</version>
-				    <type>pom</type>
-				    <scope>runtime</scope>
-			  	</dependency>
+					<version>${project.version}</version>
+					<type>pom</type>
+				</dependency>
 			</dependencies>
 			<build>
 				<plugins>
-					<!-- 
-					为Bubble模块下的web模块提供jetty默认支持
-					 -->
+					<!-- 为Bubble模块下的web模块提供jetty默认支持 -->
 					<plugin>
 						<groupId>org.eclipse.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
@@ -80,18 +136,18 @@
 							</webApp>
 						</configuration>
 					</plugin>
-					
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
-						    <!-- build -->
-						    <!-- copy database configuration , jndi -->
-						    <!-- execution 可以和父项目设定合并，但是ID不能冲突 -->
-						    <!-- 如果要覆盖父模块配置，ID 配置为一样的就可以覆盖 -->
+							<!-- build -->
+							<!-- copy database configuration , jndi -->
+							<!-- execution 可以和父项目设定合并，但是ID不能冲突 -->
+							<!-- 如果要覆盖父模块配置，ID 配置为一样的就可以覆盖 -->
 							<execution>
-							    <id>copy-jndi-config</id>
-							    <phase>generate-sources</phase>
+								<id>copy-jndi-config</id>
+								<phase>generate-sources</phase>
 								<goals>
 									<goal>unpack</goal>
 								</goals>

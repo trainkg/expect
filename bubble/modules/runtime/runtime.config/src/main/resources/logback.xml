@@ -23,12 +23,12 @@
             <maxHistory>10</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS}[%t][%p][%c-%M-%L] %-5level - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS}[%t][%c-%M-%L] %-5level - %msg%n</pattern>
         </encoder>
     </appender>
 
     <!-- 输出到控制台和文件，可定义更多的 Appender -->
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="stdout"/>
         <appender-ref ref="RollingFile"/>
     </root>
@@ -38,7 +38,7 @@
     <logger name="org.springframework" level="INFO"/>
     <logger name="com.opensymphony" level="WARN"/>
     <logger name="org.apache" level="INFO"/>
-
+    <logger name="log4j.logger.com.barley.system.delegate" level="DEBUG"/>
     <!-- show parameters for hibernate sql 专为 Hibernate 定制 -->
     <!-- <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
     <logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="DEBUG"/>

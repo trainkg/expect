@@ -11,6 +11,12 @@
 		<groupId>org.activiti</groupId>
 		<artifactId>activiti-spring-boot-starter-basic</artifactId>
 		<version>${activiti}</version>
-	</dependency>
+		<exclusions>
+			<exclusion>
+				<groupId>org.slf4j</groupId>
+				<artifactId>log4j-over-slf4j</artifactId>
+			</exclusion>
+		</exclusions>
+  	</dependency>
   </dependencies>
 </project>

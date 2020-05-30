@@ -10,8 +10,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>party.facade</module>
-  	<module>party.data</module>
-  	<module>party.service</module>
   	<module>party.resource</module>
   </modules>
 </project>

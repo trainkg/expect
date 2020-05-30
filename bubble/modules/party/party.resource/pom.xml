@@ -6,4 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>party.resource</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.barley</groupId>
+  		<artifactId>party.facade</artifactId>
+  		<version>${ls.version}</version>
+  	</dependency>
+  </dependencies>
 </project>

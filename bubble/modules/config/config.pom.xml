@@ -21,13 +21,5 @@
   		<version>${ls.version}</version>
   		<scope>runtime</scope>
   	</dependency>
-  	<dependency>
-  		<groupId>org.barley</groupId>
-  		<artifactId>config.resourse</artifactId>
-  		<version>${ls.version}</version>
-  		<scope>runtime</scope>
-  		<classifier>statics</classifier>
-  		<type>war</type>
-  	</dependency>
   </dependencies>
 </project>

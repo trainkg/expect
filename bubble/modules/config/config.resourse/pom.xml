@@ -9,6 +9,11 @@
   <dependencies>
   	<dependency>
   		<groupId>org.barley</groupId>
+  		<artifactId>config.facede</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.barley</groupId>
 		<artifactId>runtime.pom</artifactId>
 	    <version>0.0.1-SNAPSHOT</version>
 	    <type>pom</type>

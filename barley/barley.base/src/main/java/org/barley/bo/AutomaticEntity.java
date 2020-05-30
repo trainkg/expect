@@ -1,6 +1,6 @@
 package org.barley.bo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 统计信息 <p>
@@ -12,6 +12,6 @@ import java.util.Date;
 public interface AutomaticEntity {
      public Long getInsertBy();
      public Long getUpdateBy();
-     public Date getInsertTime();
-     public Date getUpdateTime();
+     public LocalDateTime getInsertTime();
+     public LocalDateTime getUpdateTime();
 }

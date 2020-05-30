@@ -1,6 +1,8 @@
 package org.barley.bo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Setter;
 
@@ -16,9 +18,11 @@ public class AutomaticEntityImpl extends BasicEntity implements AutomaticEntity{
     @Setter
     private Long UpdateBy;
     @Setter
-    private Date insertTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime insertTime;
     @Setter
-    private Date UpdateTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime UpdateTime;
     
     @Override
     public Long getInsertBy() {
@@ -29,11 +33,11 @@ public class AutomaticEntityImpl extends BasicEntity implements AutomaticEntity{
         return UpdateBy;
     }
     @Override
-    public Date getInsertTime() {
+    public LocalDateTime getInsertTime() {
         return insertTime;
     }
     @Override
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return UpdateTime;
     }
    

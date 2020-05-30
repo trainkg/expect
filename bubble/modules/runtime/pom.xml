@@ -10,7 +10,7 @@
   <packaging>pom</packaging>
   <modules>
   	<module>runtime.config</module>
-  	<module>runtime.web</module>
   	<module>runtime.pom.xml</module>
+  	<module>runtime.demo</module>
   </modules>
 </project>
