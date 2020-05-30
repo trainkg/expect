@@ -24,11 +24,11 @@
 **.classpath
 **.settings
 *.idea/
-**/helloworld/
-**/target/
-**/site/
-**/dist/
-**/node_modules/
+**/helloworld/*
+**/target/*
+**/site/*
+**/dist/*
+**/node_modules/*
 **/webapp/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
