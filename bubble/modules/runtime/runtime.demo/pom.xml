@@ -17,5 +17,20 @@
   		<artifactId>party.resource</artifactId>
   		<version>${ls.version}</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.barley</groupId>
+  		<artifactId>flow.resourse</artifactId>
+  		<version>${ls.version}</version>
+  		<exclusions>
+  			<exclusion>
+  				<groupId>log4j</groupId>
+  				<artifactId>log4j</artifactId>
+  			</exclusion>
+  			<exclusion>
+  				<groupId>org.slf4j</groupId>
+  				<artifactId>slf4j-log4j12</artifactId>
+  			</exclusion>
+  		</exclusions>
+  	</dependency>
   </dependencies>
 </project>

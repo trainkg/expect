@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class UserTypeSearchVO extends UserTypeCriteria {
+	
+	
     private @Getter @Setter Short typeStatus;
 
     public void pushToCriteria() {
@@ -11,5 +13,5 @@ public class UserTypeSearchVO extends UserTypeCriteria {
         if (typeStatus != null) {
             criteria.andTypeStatusEqualTo(typeStatus);
         }
-    }
+    }  
 }

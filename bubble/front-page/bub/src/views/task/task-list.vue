@@ -1,49 +1,53 @@
 <template>
   <div>
-    <b-model title="查询条件">
-      <FormSearch @form-search="search" />
-    </b-model>
-    
-    <b-model title="查询结果">
-      <template v-slot:header="slotProps">
-        {{ slotProps.title }}
-        <div style="float: right">
-          <router-link :to="{name:'maintain-form'}">
-            <a-button>
-              新建
-            </a-button>
-          </router-link>
-        </div>
-      </template>
-
-      <a-table
-        :columns="columns"
-        :row-key="record => record.listId"
-        :data-source="data"
-        :pagination="pagination"
-        :loading="loading"
-        :bordered="false"
-        size="middle"
-        @change="handleTableChange"
-      />
-    </b-model>
+    <a-page-header
+      style="border: 1px solid rgb(235, 237, 240)"
+      title="待办任务中心"
+      sub-title="任务管理 - 待办任务， 日终任务"
+      @back="() => null"
+    />
+    <a-layout-content
+      class="ant-layout-content-ext"
+    >
+      <b-model title="查询条件">
+        这个地方放查询条件
+      </b-model>
+      <b-model title="查询结果">
+        <a-table
+          :columns="columns"
+          :row-key="record => record.id"
+          :data-source="data"
+          :pagination="pagination"
+          :loading="loading"
+          :bordered="false"
+          size="middle"
+          @change="handleTableChange"
+        />
+      </b-model>
+    </a-layout-content>
   </div>
 </template>
 <script>
 import reqwest from 'reqwest'
-import FormSearch from './form-forms/form-search'
+
 const columns = [
   {
-    title: '名称',
-    dataIndex: 'modName',
+    title: '编号',
+    dataIndex: 'id',
     sorter: false,
     width: '20%'
   },
   {
-    title: '描述',
-    dataIndex: 'uri',
-    width: '20%',
-    scopedSlots: { customRender: 'name' }
+    title: '名称',
+    dataIndex: 'loginName',
+    sorter: false,
+    width: '20%'
+  },
+
+  {
+    title: '邮箱',
+    dataIndex: 'email',
+    width: '20%'
   },
   {
     title: '操作',
@@ -54,12 +58,12 @@ const columns = [
 
 export default {
   components: {
-    FormSearch
+
   },
   data() {
     return {
       data: [],
-      pagination: { pageSize: 1, current: 1 },
+      pagination: { pageSize: 10, current: 1 },
       loading: false,
       filter: {},
       columns
@@ -71,7 +75,9 @@ export default {
   beforeCreate() {
 
   },
-  created() {},
+  created() {
+
+  },
   updated() {},
   activated() {
     console.log('activated')
@@ -107,10 +113,9 @@ export default {
       })
     },
     fetch(params = {}) {
-      console.log('params:', params)
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/config/list',
+        url: process.env.VUE_APP_URL + '/user/list',
         method: 'get',
         data: {
           ...params
@@ -120,9 +125,9 @@ export default {
         console.log('this.pagination1 >', this.pagination)
         const pagination = { ...this.pagination }
         // Read total count from server
-        pagination.total = data.totalCount
+        pagination.total = data.total
         this.loading = false
-        this.data = data.results
+        this.data = data.list
         this.pagination = pagination
         console.log('this.pagination >', this.pagination)
       })

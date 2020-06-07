@@ -392,11 +392,11 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons.io}</version>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
 			<version>${log4j.over.slf4j}</version>
-		</dependency> -->
+		</dependency>
 		<!-- ORM -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

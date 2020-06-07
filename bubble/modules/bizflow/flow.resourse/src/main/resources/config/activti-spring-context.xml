@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,8 +12,7 @@
         http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
-        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
      <!-- Activiti 配置信息 -->
 	 <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
 	    <property name="dataSource" ref="dataSource" />
@@ -28,50 +27,31 @@
 	    <!-- 部署模式，涉及到流程变更时候，流程定义的刷新问题 -->
 	    <property name="deploymentMode" value="single-resource" />
 	 </bean>
-	
 	<!-- Activiti Engine -->
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
 	  <property name="processEngineConfiguration" ref="processEngineConfiguration" />
 	</bean>
-	
 	<!-- Activiti Services -->
 	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
 	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
 	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
 	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
 	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
-	
-	
+	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+	<bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+
 	<!-- <bean id="threadFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:jboss/ee/concurrency/factory/default" />
 	</bean>
 	 -->
-	<!-- 执行器 --> 
-	<bean id="customJobExecutor" class="org.activiti.engine.impl.jobexecutor.ManagedAsyncJobExecutor">
-		<!-- <property name="threadFactory" ref="threadFactory" /> -->
-		<!-- <property name="asyncExecutorActivate" value="true" /> -->
+	<!-- <bean id="customJobExecutor" class="org.activiti.engine.impl.jobexecutor.ManagedAsyncJobExecutor">
+		<property name="threadFactory" ref="threadFactory" />
+		<property name="asyncExecutorActivate" value="true" />
 		<property name="history" value="audit" />
 		<property name="processDefinitionCacheLimit" value="100" />
-	</bean>
+	</bean> -->
 	
-	<!-- activiti 事件监听器 -->
-	<bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
-		<!-- SPI接口 ActivitiEventListener-->
-	    <!-- <property name="eventListeners">
-	      <list>
-	         <bean class="org.activiti.engine.example.MyEventListener" />
-	      </list>
-	    </property> -->
-		
-		<!-- 指定特殊的事件类型监听器,是有序的（list） -->
-		<!-- <property name="typedEventListeners">
-			<map>
-				<entry key="JOB_EXECUTION_SUCCESS,JOB_EXECUTION_FAILURE">
-					<list>
-						<bean class="org.activiti.engine.example.MyJobEventListener" />
-					</list>
-				</entry>
-			</map>
-		</property> -->
-	</bean>
+	<bean id="restResponseFactory" class="org.activiti.rest.service.api.RestResponseFactory"/>
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+	<bean id="contentTypeResolver" class="org.activiti.rest.common.application.DefaultContentTypeResolver" />
 </beans>

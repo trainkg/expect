@@ -93,7 +93,7 @@ export default {
   data() {
     return {
       data: [],
-      pagination: { pageSize: 10, current: 1 },
+      pagination: { pageSize: 2, current: 1 },
       loading: false,
       filter: {},
       columns,

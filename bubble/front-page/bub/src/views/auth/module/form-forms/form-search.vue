@@ -17,7 +17,9 @@
       </a-col>
     </a-row>
     <a-row class="b-form-bottom">
-      <a-col :span="24" :style="{ textAlign: 'right' }">
+      <a-col :span="12">
+      </a-col>
+      <a-col :span="12" :style="{ textAlign: 'right' }">
         <a-button type="primary" html-type="submit">
           查询
         </a-button>
