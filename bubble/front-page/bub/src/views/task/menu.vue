@@ -10,6 +10,11 @@
         待办任务
       </router-link>
     </a-menu-item>
+    <a-menu-item key="1-2">
+      <router-link :to="{name:'process-list'}">
+        流程定义
+      </router-link>
+    </a-menu-item>
   </a-sub-menu>
   </a-menu>
 </template>

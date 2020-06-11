@@ -2,8 +2,8 @@
   <div>
     <a-page-header
       style="border: 1px solid rgb(235, 237, 240)"
-      title="待办任务中心"
-      sub-title="任务管理 - 待办任务， 日终任务"
+      title="流程定义"
+      sub-title="管理系统中的流程定义"
       @back="() => null"
     />
     <a-layout-content
@@ -22,7 +22,22 @@
           :bordered="false"
           size="middle"
           @change="handleTableChange"
-        />
+        >
+          <template v-slot:action="text, record">
+            <div class="editable-cell">
+              <router-link :to="{name:'process-start',query:{id:record.id}}">
+                <a>流程发起</a>
+              </router-link>
+            </div>
+          </template>
+
+          <template v-slot:suspended="text, record">
+            <div class="editable-cell">
+              <a v-if="text">挂起</a>
+              <a v-else>激活</a>
+            </div>
+          </template>
+        </a-table>
       </b-model>
     </a-layout-content>
   </div>
@@ -35,22 +50,32 @@ const columns = [
     title: '编号',
     dataIndex: 'id',
     sorter: false,
-    width: '20%'
+    width: '10%'
   },
   {
     title: '名称',
-    dataIndex: 'loginName',
-    sorter: false,
-    width: '20%'
+    dataIndex: 'name',
+    sorter: false
   },
-
   {
-    title: '邮箱',
-    dataIndex: 'email',
-    width: '20%'
+    title: '分类',
+    dataIndex: 'category',
+    sorter: false
+  },
+  {
+    title: '当前状态',
+    dataIndex: 'suspended',
+    scopedSlots: { customRender: 'suspended' },
+    width: '10%'
+  },
+  {
+    title: '版本',
+    dataIndex: 'version',
+    width: '10%'
   },
   {
     title: '操作',
+    width: '20%',
     key: 'action',
     scopedSlots: { customRender: 'action' }
   }
@@ -73,10 +98,8 @@ export default {
     this.fetch()
   },
   beforeCreate() {
-    console.log('before create')
   },
   created() {
-    console.log('create')
   },
   updated() {},
   activated() {
@@ -115,21 +138,19 @@ export default {
     fetch(params = {}) {
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/user/list',
+        url: process.env.VUE_APP_URL + '/repository/process-definitions',
         method: 'get',
         data: {
           ...params
         },
         type: 'json'
       }).then(data => {
-        console.log('this.pagination1 >', this.pagination)
         const pagination = { ...this.pagination }
         // Read total count from server
         pagination.total = data.total
         this.loading = false
-        this.data = data.list
+        this.data = data.data
         this.pagination = pagination
-        console.log('this.pagination >', this.pagination)
       })
     }
   }

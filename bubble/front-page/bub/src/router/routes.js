@@ -45,7 +45,9 @@ const task = {
   component: () => import('@/views/task/'),
   children: [
     { name: 'task-index', path: '', component: () => import('@/views/task/task-content') },
-    { name: 'task-list', path: '/list', component: () => import('@/views/task/task-list') }
+    { name: 'task-list', path: '/list', component: () => import('@/views/task/task-list') },
+    { name: 'process-start', path: '/process-start', component: () => import('@/views/task/process-start'),props: (route) => ({ query: route.query.id }) },
+    { name: 'process-list', path: '/process', component: () => import('@/views/task/process-list') }
   ]
 }
 const routes = [index, system, auth, party, task]
