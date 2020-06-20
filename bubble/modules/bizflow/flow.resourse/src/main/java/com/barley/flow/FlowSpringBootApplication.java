@@ -1,7 +1,5 @@
 package com.barley.flow;
 
-import org.springframework.boot.SpringApplication;
-
 /**
  * Spring Boot 入口
  * 
@@ -11,6 +9,6 @@ import org.springframework.boot.SpringApplication;
 public class FlowSpringBootApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FlowSpringBootApplication.class, args);
+///        SpringApplication.run(FlowSpringBootApplication.class, args);
     }
 }

@@ -22,7 +22,21 @@
           :bordered="false"
           size="middle"
           @change="handleTableChange"
-        />
+        >
+          <template v-slot:suspended="text, record">
+            <div class="editable-cell">
+              <a v-if="text">挂起</a>
+              <a v-else>正常</a>
+            </div>
+          </template>
+
+          <template v-slot:action="text, record">
+            <div class="editable-cell">
+              <a v-if="text">挂起</a>
+              <a v-else>正常</a>
+            </div>
+          </template>
+        </a-table>
       </b-model>
     </a-layout-content>
   </div>
@@ -32,22 +46,44 @@ import reqwest from 'reqwest'
 
 const columns = [
   {
-    title: '编号',
+    title: '流程编号',
     dataIndex: 'id',
-    sorter: false,
-    width: '20%'
+    sorter: false
   },
   {
-    title: '名称',
-    dataIndex: 'loginName',
-    sorter: false,
-    width: '20%'
+    title: '流程名称',
+    dataIndex: 'processDefinitionId',
+    sorter: false
   },
-
   {
-    title: '邮箱',
-    dataIndex: 'email',
-    width: '20%'
+    title: '任务节点',
+    dataIndex: 'name',
+    sorter: false
+  },
+  {
+    title: '受理人员',
+    dataIndex: 'email'
+  },
+  {
+    title: '委托人员',
+    dataIndex: 'assignee'
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime'
+  },
+  {
+    title: '处理时间',
+    dataIndex: 'dueDate'
+  },
+  {
+    title: '是否挂起',
+    scopedSlots: { customRender: 'suspended' },
+    dataIndex: 'suspended'
+  },
+  {
+    title: '分类',
+    dataIndex: 'category'
   },
   {
     title: '操作',
@@ -58,7 +94,6 @@ const columns = [
 
 export default {
   components: {
-
   },
   data() {
     return {
@@ -71,28 +106,6 @@ export default {
   },
   mounted() {
     this.fetch()
-  },
-  beforeCreate() {
-    console.log('before create')
-  },
-  created() {
-    console.log('create')
-  },
-  updated() {},
-  activated() {
-    console.log('activated')
-  },
-  deactivated() {},
-  beforeDestroy() {
-    console.log('before destroy')
-  },
-  destroyed() {
-    console.log('destroyed')
-  },
-  errorCaptured() {
-    console.log('has error')
-  },
-  beforeUpdate() {
   },
   methods: {
     search(form) {
@@ -115,7 +128,7 @@ export default {
     fetch(params = {}) {
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/user/list',
+        url: process.env.VUE_APP_URL + '/runtime/tasks',
         method: 'get',
         data: {
           ...params
@@ -127,7 +140,7 @@ export default {
         // Read total count from server
         pagination.total = data.total
         this.loading = false
-        this.data = data.list
+        this.data = data.data
         this.pagination = pagination
         console.log('this.pagination >', this.pagination)
       })

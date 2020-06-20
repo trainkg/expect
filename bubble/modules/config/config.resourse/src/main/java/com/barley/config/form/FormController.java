@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.barley.config.form.layout.RenderManager;
+import com.barley.config.form.layout.SimpleRenderConfig;
 
 /**
  * @author peculiar.1@163.com
@@ -22,24 +22,20 @@ import com.barley.config.form.layout.RenderManager;
 public class FormController {
         
     /**
-     * 获取form基本模板
+     * 获取form定义
      * @return
      */
     @GetMapping(path = "/template/{formId}")
     @ResponseBody
-    public ResponseEntity<String> loadingFormTemplate(@PathVariable String formId) {
-        RenderManager renderManaer$ = renderManaer;
-        if(renderManaer$ == null) {
-            renderManaer$ = new RenderManager();
-        }
-        return ResponseEntity
-                        .ok()
-                        .cacheControl(CacheControl.maxAge(30, TimeUnit.DAYS))
-                        .body(renderManaer$.render());
+    public ResponseEntity<SimpleRenderConfig> loadingFormTemplate(@PathVariable String formId) {
+    	return ResponseEntity
+                .ok()
+                .cacheControl(CacheControl.maxAge(30, TimeUnit.DAYS))
+                .body(renderManaer.loadFormRender(formId));
     }
     
     
     
     @Autowired(required = false)
-    private RenderManager renderManaer;
+    private FormEngine renderManaer;
 }

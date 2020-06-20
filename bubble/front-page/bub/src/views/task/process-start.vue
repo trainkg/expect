@@ -31,7 +31,7 @@
         <a-button type="primary" @click="back">
           <a-icon type="left" />返回
         </a-button>
-        <a-button type="primary">
+        <a-button type="primary" @click="submitProcess">
           提交<a-icon type="right" />
         </a-button>
       </a-button-group>
@@ -64,6 +64,20 @@ export default {
   methods: {
     back() {
       router.back()
+    },
+    submitProcess(){
+      console.log(this.query)
+      console.log('start ............')
+
+      reqwest({
+        url: process.env.VUE_APP_URL + '/flow/start/' + this.query,
+        method: 'get',
+        data: {
+        },
+        type: 'json'
+      }).then(data => {
+        alert('提交成功')
+      })
     }
   }
 }
