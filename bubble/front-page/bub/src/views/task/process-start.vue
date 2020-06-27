@@ -6,9 +6,7 @@
       sub-title="流程启动"
       @back="() => null"
     />
-    <a-layout-content
-      class="ant-layout-content-ext"
-    >
+    <a-layout-content class="ant-layout-content-ext">
       <a-descriptions title="流程信息">
         <a-descriptions-item label="流程名称">
           Zhou Maomao
@@ -20,10 +18,7 @@
           Zhou Maomao
         </a-descriptions-item>
       </a-descriptions>
-
-      <b-model title="流程表单">
-        流程表单
-      </b-model>
+      <s-form-render ref="formEntity" :form-key="query" :form-data="form" />
     </a-layout-content>
 
     <div id="form-footer-buttons" style="text-align: center;margin-top:10px">
@@ -41,6 +36,14 @@
 <script>
 import reqwest from 'reqwest'
 import router from '@/router/index'
+
+const a = {
+  name: '朱媛媛',
+  address: '银河系伯恩斯星球111',
+  age: 12,
+  test:1231
+}
+
 export default {
   props: {
     query: {
@@ -55,7 +58,7 @@ export default {
         name: '',
         submitTime: ''
       },
-      form: {}
+      form: a
     }
   },
   created() {
@@ -65,11 +68,15 @@ export default {
     back() {
       router.back()
     },
-    submitProcess(){
+    getFormData() {
+      return a
+    },
+    submitProcess() {
       console.log(this.query)
       console.log('start ............')
-
-      reqwest({
+      console.log(this.$data)
+      console.log(this.$refs.formEntity.$data.form)
+      /* reqwest({
         url: process.env.VUE_APP_URL + '/flow/start/' + this.query,
         method: 'get',
         data: {
@@ -77,7 +84,7 @@ export default {
         type: 'json'
       }).then(data => {
         alert('提交成功')
-      })
+      })*/
     }
   }
 }
