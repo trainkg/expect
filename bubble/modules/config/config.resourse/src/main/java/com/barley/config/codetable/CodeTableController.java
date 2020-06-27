@@ -24,7 +24,7 @@ public class CodeTableController {
 	 */
 	@GetMapping("/{codeKey}")
 	@ResponseBody
-	public List<CodeTableItem<?>> loadingCodeTable(@PathVariable String codeKey){
+	public List<CodeTableItem> loadingCodeTable(@PathVariable String codeKey){
 		return codeManager.loadCodeTable(codeKey);
 	}
 	

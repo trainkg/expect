@@ -11,9 +11,10 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
   	
-  	<bean id="dbCodeTable" class="com.barley.config.codetable.DBCodeTable">
+  	<bean id="dbCodeTable" class="com.barley.config.codetable.DBCodeTable" depends-on="sqlSessionFactory">
   		<property name="tableName" value="t_code_table"></property>
-  		<property name="sessionFactory" ref="sqlSessionFactory"></property>
+  		<property name="jdbctemplate" ref="jdbcTemplate"></property>
+  		<property name="mapperCodeTable" ref="codeTableMapper"></property>
   	</bean>
   	
   	<bean id="staticCodeTable" class="com.barley.config.codetable.StaticCodeTable">

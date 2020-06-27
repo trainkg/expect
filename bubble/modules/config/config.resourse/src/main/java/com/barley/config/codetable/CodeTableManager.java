@@ -44,10 +44,17 @@ public class CodeTableManager implements InitializingBean {
 	 * @param codeTableKey
 	 * @return
 	 */
-	public List<CodeTableItem<?>> loadCodeTable(String codeTableKey) {
+	public List<CodeTableItem> loadCodeTable(String codeTableKey) {
+		for (CodeTable codeTable : codeTables) {
+			List<CodeTableItem> list = codeTable.loadingCodeTable(codeTableKey);
+			if(list != null) {
+				return list;
+			}
+		}
 		return null;
 	}
-
+	
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		init();

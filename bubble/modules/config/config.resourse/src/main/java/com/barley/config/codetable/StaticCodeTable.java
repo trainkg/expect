@@ -23,12 +23,12 @@ public class StaticCodeTable implements CodeTable{
 	}
 
 	@Override
-	public List<CodeTableItem<?>> loadingCodeTable(String codeTableKey) {
+	public List<CodeTableItem> loadingCodeTable(String codeTableKey) {
 		return null;
 	}
 
 	@Override
-	public List<CodeTableItem<?>> loadingCodeTableWithCondtion(String codeTableKey, String condtions) {
+	public List<CodeTableItem> loadingCodeTableWithCondtion(String codeTableKey, String condtions) {
 		throw new CodeTableException("not support loading with condtions.");
 	}
 	

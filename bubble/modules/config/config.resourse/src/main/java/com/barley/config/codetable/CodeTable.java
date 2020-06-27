@@ -21,7 +21,7 @@ public interface CodeTable {
 	 * @param codeTableKey
 	 * @return
 	 */
-	List<CodeTableItem<?>> loadingCodeTable(String codeTableKey);
+	List<CodeTableItem> loadingCodeTable(String codeTableKey);
 	
 	
 	/**
@@ -30,5 +30,5 @@ public interface CodeTable {
 	 * @param condtions
 	 * @return
 	 */
-	List<CodeTableItem<?>> loadingCodeTableWithCondtion(String codeTableKey, String condtions);
+	List<CodeTableItem> loadingCodeTableWithCondtion(String codeTableKey, String condtions);
 }
