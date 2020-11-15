@@ -45,10 +45,27 @@
           </a-row>
         </b-model>
       </div>
+      <ct-select
+        code-name="1"
+      />
     </a-form-model>
+    <ct-select-ex placeholder="Select users111" style="width: 100%">
+      <a-select-option key="1">
+        item1
+      </a-select-option>
+      <a-select-option key="2">
+        item2
+      </a-select-option>
+    </ct-select-ex>
+    <a-select
+      placeholder="Select users"
+      style="width: 100%"
+    />
   </div>
 </template>
 <script>
+import ctSelect from './ct-select'
+import ctSelectEx from './ct-select-ex'
 import reqwest from 'reqwest'
 const formData = {
   name: 'Train King',
@@ -56,6 +73,10 @@ const formData = {
   age: 11
 }
 export default {
+  components: {
+    ctSelectEx,
+    ctSelect
+  },
   props: ['formKey', 'formData'],
   data() {
     const formDataInt = this.getFormDateInternal()

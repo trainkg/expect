@@ -9,10 +9,15 @@
   <dependencies>
   	<dependency>
   		<groupId>org.barley</groupId>
-  		<artifactId>config.resourse</artifactId>
+  		<artifactId>batch.core</artifactId>
   		<version>${ls.version}</version>
   	</dependency>
   	<dependency>
+  		<groupId>org.barley</groupId>
+  		<artifactId>config.resourse</artifactId>
+  		<version>${ls.version}</version>
+  	</dependency>
+  	<!-- <dependency>
   		<groupId>org.barley</groupId>
   		<artifactId>party.resource</artifactId>
   		<version>${ls.version}</version>
@@ -31,6 +36,6 @@
   				<artifactId>slf4j-log4j12</artifactId>
   			</exclusion>
   		</exclusions>
-  	</dependency>
+  	</dependency> -->
   </dependencies>
 </project>

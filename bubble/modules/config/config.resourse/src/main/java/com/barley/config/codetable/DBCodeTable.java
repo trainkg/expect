@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
@@ -21,6 +22,7 @@ import lombok.Setter;
 public class DBCodeTable implements CodeTable {
 
 	public static final String DEFAULT_TABLE_NAME = "t_code_table";
+	public static final String CACHE_NAMESPACE = "CA_CODE_TABLE"; 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Setter
 	private String tableName;
@@ -34,7 +36,8 @@ public class DBCodeTable implements CodeTable {
 			logger.debug("init db code table, table name is {}", getTableName());
 		}
 	}
-
+	
+	@Cacheable(cacheNames = CACHE_NAMESPACE, key = "#codeTableKey")
 	@Override
 	public List<CodeTableItem> loadingCodeTable(String codeTableKey) {
 		return loadingCodeTableWithCondtion(codeTableKey, null);

@@ -100,11 +100,14 @@ public class SimpleHibernateDao<T, PK extends Serializable>
      */
     protected boolean containObject(String id)
     {
-        SessionImpl session = (SessionImpl) getSession();
-        // BEAN NAME 要求使用默认
-        EntityPersister ep = session.getFactory().getEntityPersister(entityClass.getName());
-        EntityKey key = new EntityKey(id, ep, session.getTenantIdentifier());
-        return session.getPersistenceContext().containsEntity(key);
+		/*
+		 * SessionImpl session = (SessionImpl) getSession(); // BEAN NAME 要求使用默认
+		 * EntityPersister ep =
+		 * session.getFactory().getEntityPersister(entityClass.getName()); EntityKey key
+		 * = new EntityKey(id, ep, session.getTenantIdentifier()); return
+		 * session.getPersistenceContext().containsEntity(key);
+		 */
+    	return false;
     }
     
     

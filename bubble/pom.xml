@@ -13,7 +13,6 @@
 		<!-- 采用基线版本 -->
 		<project.version>0.0.1-SNAPSHOT</project.version>
 		<ls.version>0.0.1-SNAPSHOT</ls.version>
-		<v-spring-data-keyvalue>2.2.7</v-spring-data-keyvalue>
 	</properties>
 	<modules>
 		<module>robot</module>
@@ -23,6 +22,7 @@
 		<module>modules/party</module>
 		<module>modules/security</module>
 		<module>modules/bizflow</module>
+		<module>applications</module>
 	</modules>
 	<build>
 		<resources>
@@ -71,7 +71,6 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-keyvalue</artifactId>
-			<version>${v-spring-data-keyvalue}.RELEASE</version>
 		</dependency>
 	</dependencies>
 

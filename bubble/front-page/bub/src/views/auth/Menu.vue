@@ -21,5 +21,14 @@
         </router-link>
       </a-menu-item>
     </a-sub-menu>
+
+    <a-sub-menu key="sub2">
+      <span slot="title"><a-icon type="file" />影像系统</span>
+      <a-menu-item key="2-1">
+        <router-link :to="{name:'file-module'}">
+          文件管理
+        </router-link>
+      </a-menu-item>
+    </a-sub-menu>
   </a-menu>
 </template>

@@ -24,6 +24,7 @@ const auth = {
     { name: 'auth-module', path: '/module', component: () => import('@/views/auth/module') },
     { name: 'auth-role', path: '/role', component: () => import('@/views/auth/role') },
     { name: 'form-module', path: '/form', component: () => import('@/views/auth/form') },
+    { name: 'file-module', path: '/file-manager', component: () => import('@/views/auth/file/file-manager') },
     { name: 'maintain-form', path: '/maintain-form', component: () => import('@/views/auth/form-define') }
   ]
 }
@@ -46,7 +47,7 @@ const task = {
   children: [
     { name: 'task-index', path: '', component: () => import('@/views/task/task-content') },
     { name: 'task-list', path: '/list', component: () => import('@/views/task/task-list') },
-    { name: 'process-start', path: '/process-start', component: () => import('@/views/task/process-start'),props: (route) => ({ query: route.query.id }) },
+    { name: 'process-start', path: '/process-start', component: () => import('@/views/task/process-start'), props: (route) => ({ query: route.query.id }) },
     { name: 'process-list', path: '/process', component: () => import('@/views/task/process-list') }
   ]
 }
