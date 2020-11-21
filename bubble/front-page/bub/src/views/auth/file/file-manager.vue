@@ -10,16 +10,16 @@
     <a-layout-content
       class="ant-layout-content-ext"
     >
-      <a-modal
+      <!-- <a-modal
               title="Title"
               :visible="true"
               @ok="handleOk"
               @cancel="handleCancel"
       >
         <p>test</p>
-      </a-modal>
+      </a-modal>-->
 
-      <b-model title="查询条件">
+      <!--<b-model title="查询条件">
         <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
           <a-form-model-item label="文件名称">
             <a-input v-model="form.name" />
@@ -28,7 +28,7 @@
             <a-input v-model="form.format" />
           </a-form-model-item>
         </a-form-model>
-      </b-model>
+      </b-model>-->
       <a-row class="b-form-bottom">
         <a-col :span="24" :style="{ textAlign: 'right' }">
           <a-button type="primary" html-type="submit" @click="handleSearch">
@@ -58,10 +58,10 @@ export default {
     handleSearch() {
       console.log(this.form)
     },
-    handleOk(){
+    handleOk() {
 
     },
-    handleCancel(){
+    handleCancel() {
 
     }
   }

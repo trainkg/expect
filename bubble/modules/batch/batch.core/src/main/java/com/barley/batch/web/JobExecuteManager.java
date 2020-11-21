@@ -4,12 +4,15 @@ import java.util.Date;
 
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barley.batch.core.JobService;
 import com.barley.batch.core.dayend.DayendJob;
+import com.barley.batch.query.Response;
 
 /**
  * JOB 运行管理
@@ -32,7 +35,33 @@ public class JobExecuteManager {
 		seJob.submitJob(jobId, builder.toJobParameters(), JobService.JOB_SUBMIT_TYPE_ONLINE);
 	}
 
+	/**
+	 * 暂停一个batch
+	 * 
+	 * @param executionId
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/suspend/{executionId}")
+	public Response<String> suspendBatch(@PathVariable Long executionId) {
+		return new Response<String>();
+	}
+
+	/**
+	 * 终止一个batch
+	 * 
+	 * @param executionId
+	 * @return
+	 */
+	@GetMapping("/stop/{executionId}")
+	@ResponseBody
+	public Response<String> stopBatch(@PathVariable Long executionId) {
+		seJob.stopJob(executionId);
+		return new Response<String>();
+	}
+	
+	
 	@Autowired
 	private JobService seJob;
-
+	
 }

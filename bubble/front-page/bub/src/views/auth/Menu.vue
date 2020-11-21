@@ -30,5 +30,24 @@
         </router-link>
       </a-menu-item>
     </a-sub-menu>
+
+    <a-sub-menu key="sub3">
+      <span slot="title"><a-icon type="eye" />batch管理</span>
+      <a-menu-item key="3-1">
+        <router-link :to="{name:'batch-manage'}">
+          batch 定义管理
+        </router-link>
+      </a-menu-item>
+      <a-menu-item key="3-2">
+        <router-link :to="{name:'batch-monitor'}">
+          batch 流程监控
+        </router-link>
+      </a-menu-item>
+      <a-menu-item key="3-3">
+        <router-link :to="{name:'manuel-scheduler'}">
+          手动提交
+        </router-link>
+      </a-menu-item>
+    </a-sub-menu>
   </a-menu>
 </template>

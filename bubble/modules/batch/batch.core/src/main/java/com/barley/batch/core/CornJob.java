@@ -8,6 +8,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 
+   系统batch定义 , 在总体分类上面，batch分为定时任务和day end batch任务
+ * 
+ * @author peculiar.1@163.com
+ * @version $ID: CornJob.java, V1.0.0 2020年11月15日 下午5:05:41 $
+ */
 public class CornJob implements Job, NodeData<Long>, Serializable {
 
 	

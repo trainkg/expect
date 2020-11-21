@@ -1,7 +1,13 @@
 package com.barley.batch.query;
 
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.configuration.JobRegistry;
+import org.springframework.batch.core.explore.JobExplorer;
+import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -41,7 +47,17 @@ public class JobQueryService {
 	 * 
 	 * @return
 	 */
-	public List<CornJob> runingJobs() {
+	public Set<JobExecution> runingJobs() {
+		return daoBatchQuery.findAllRunningJobExecutions();
+	}
+	
+	
+	/**
+	 查看当前正在运行的定时任务
+	 * @return
+	 */
+	public List<CornJob> runingCronJobs() {
+		
 		return null;
 	}
 	
@@ -59,9 +75,19 @@ public class JobQueryService {
 	
 	
 	@Autowired
+	private JobRegistry jobRegistry;
+	@Autowired
+	private JobOperator jobOpertate;
+	@Autowired
+	private JobLauncher jobLauncher;
+	@Autowired
+	private JobExplorer jobExplorer;
+	@Autowired
 	private BatchRuntimeManager runtime;
 	@Autowired
 	private JdbcTemplate jdbctemplate;
+	@Autowired
+	private JobBatchQueryDao daoBatchQuery;
 	@Autowired
 	private DefaultDayendJobContext dayendJobContext;
 }

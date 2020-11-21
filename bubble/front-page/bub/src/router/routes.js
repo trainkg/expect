@@ -1,4 +1,5 @@
 // Modules
+// 功能首页
 const index = {
   path: '/index',
   name: 'home-root',
@@ -7,6 +8,8 @@ const index = {
     { name: 'home-index', path: '', component: () => import('@/views/index/index-content') }
   ]
 }
+
+// 系统管理
 const system = {
   path: '/system',
   name: 'system-root',
@@ -15,6 +18,8 @@ const system = {
     { name: 'system-index', path: '', component: () => import('@/views/system/system-content') }
   ]
 }
+
+// 配置中心
 const auth = {
   path: '/auth',
   name: 'auth-root',
@@ -25,9 +30,13 @@ const auth = {
     { name: 'auth-role', path: '/role', component: () => import('@/views/auth/role') },
     { name: 'form-module', path: '/form', component: () => import('@/views/auth/form') },
     { name: 'file-module', path: '/file-manager', component: () => import('@/views/auth/file/file-manager') },
-    { name: 'maintain-form', path: '/maintain-form', component: () => import('@/views/auth/form-define') }
+    { name: 'maintain-form', path: '/maintain-form', component: () => import('@/views/auth/form-define') },
+    { name: 'batch-monitor', path: '/batch-monitor', component: () => import('@/views/auth/batch/monitor') }
+
   ]
 }
+
+// 人员机构管理
 const party = {
   path: '/party',
   name: 'party-root',
@@ -40,6 +49,7 @@ const party = {
   ]
 }
 
+// 系统任务
 const task = {
   path: '/task',
   name: 'task-root',

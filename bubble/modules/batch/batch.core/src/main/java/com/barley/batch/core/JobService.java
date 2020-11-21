@@ -1,10 +1,13 @@
 package com.barley.batch.core;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobExecutionNotRunningException;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.JobOperator;
@@ -12,6 +15,7 @@ import org.springframework.batch.core.launch.NoSuchJobException;
 import org.springframework.batch.core.launch.NoSuchJobExecutionException;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -88,9 +92,14 @@ public class JobService {
 	public void stopJob(long executionId) {
 		try {
 			jobOpertate.stop(executionId);
-		} catch (NoSuchJobExecutionException | JobExecutionNotRunningException e) {
+		} catch (NoSuchJobExecutionException e) {
 			throw new JobException("stop job error, execution id is " + executionId, e);
+		} catch (JobExecutionNotRunningException e2) {
+			//ignore
 		}
+		JobExecution jobExecution = jobExplorer.getJobExecution(executionId);
+		jobExecution.setEndTime(new Date());
+		jobRepository.update(jobExecution);
 	}
 
 	public void restart(long executionId) {
@@ -147,8 +156,8 @@ public class JobService {
 	}
 
 	// use for modular = true
-	// @Autowired
-	// private JobRepository jobRepository;
+	@Autowired
+	private JobRepository jobRepository;
 	@Autowired
 	private JobLauncher jobLauncher;
 	@Autowired
@@ -157,4 +166,6 @@ public class JobService {
 	private BatchRuntimeManager servRuntime;
 	@Autowired
 	private JobOperator jobOpertate;
+	@Autowired
+	private JobExplorer jobExplorer;
 }

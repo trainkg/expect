@@ -3,16 +3,14 @@
  */
 package com.barley.batch.web;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
+import java.util.Set;
+
+import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.batch.core.configuration.annotation.BatchConfigurer;
+import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.JobOperator;
-import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
-import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
-import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -21,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barley.batch.query.GridResponse;
 import com.barley.batch.query.JobDashboard;
 import com.barley.batch.query.JobQueryService;
+import com.barley.batch.query.Response;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * 负责系统batch相关查询
  * 
  * @author peculiar.1@163.com
  * @version $ID: BatchController.java, V1.0.0 2020年10月14日 下午10:20:21 $
@@ -34,20 +35,27 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/batch")
 @Slf4j
-public class BatchController {
+public class BatchQueryController {
 
+	/**
+	 * 加载系统中当前正在运行的batch列表
+	 */
 	@RequestMapping("/run")
-	public void batchJobRun() {
-		System.err.println(jobOpertate);
-		System.out.println(123123123);
-		System.err.println(context.getBean("importUserJob"));
-		Job job = (Job) context.getBean("importUserJob");
-		try {
-			jobLauncher.run(job, new JobParameters());
-		} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
-				| JobParametersInvalidException e) {
-			e.printStackTrace();
-		}
+	@ResponseBody
+	public Response<Set<JobExecution>> batchJobRunning() {
+		Set<JobExecution> data = servQuery.runingJobs();
+		return new GridResponse<Set<JobExecution>>().setTotalCount(data.size()).result(data);
+	}
+
+	/**
+	 * 
+	 * 查看一个job的运行历史记录
+	 * 
+	 * @param jobId
+	 */
+	@RequestMapping("/qry/his")
+	public void batchExecutionHistory(Long jobId) {
+
 	}
 
 	@GetMapping("/dashboard")
@@ -80,6 +88,8 @@ public class BatchController {
 	private JobLauncher jobLauncher;
 	@Autowired
 	private JobQueryService servQuery;
+	@Autowired
+	private JobExplorer servExplorer;
 	@Autowired
 	private ApplicationContext context;
 }
