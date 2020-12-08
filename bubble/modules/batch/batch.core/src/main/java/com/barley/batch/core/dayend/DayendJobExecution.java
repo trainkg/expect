@@ -25,6 +25,8 @@ public class DayendJobExecution {
 	/**
 	 * 执行地图 
 	 */
+	@Getter
+	@Setter
 	private Map<Long,List<Node<NodeData<Long>, Long>>> executeMap;
 	
 	

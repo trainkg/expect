@@ -2,6 +2,7 @@ package com.barley.batch;
 
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -16,16 +17,18 @@ import com.barley.batch.core.dayend.DefaultDayendJobContext;
 
 @Configuration("dayendJobConfiguration")
 @EnableBatchProcessing(modular = true)
+//spring self task scheduler
+//@EnableScheduling
 public class BatchConfiguration {
 
 	/**
-	 * User spring 默认的threadpooltaskexecuter, 控制spring batch job的调度（非 step）
+	 * Use spring 默认的threadpooltaskexecuter, 控制spring batch job的调度（非 step）
 	 * 
 	 * @param executor
 	 * @return
 	 */
 	@Bean
-	public ExtBatchConfig extBatchConfigurer(TaskExecutor executor) {
+	public ExtBatchConfig extBatchConfigurer(@Qualifier("applicationTaskExecutor") TaskExecutor executor) {
 		return new ExtBatchConfig(executor);
 	}
 

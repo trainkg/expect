@@ -19,7 +19,7 @@
       </template>
 
       <span slot="action" slot-scope="text,record">
-        <a-popconfirm title="确认停止选中的JOB?" @confirm="() => onDelete(record.id)">
+        <a-popconfirm title="确认停止选中的JOB?" @confirm="() => onDelete(record.jobDetail.group,record.jobDetail.name)">
           <a href="javascript:;">STOP</a>
         </a-popconfirm>
       </span>
@@ -30,45 +30,36 @@
 import reqwest from 'reqwest'
 const columns = [
   {
-    title: 'Job 执行编号',
-    dataIndex: 'id',
+    title: 'Job 组',
+    dataIndex: 'jobDetail.group',
     sorter: false,
     width: '10%'
   },
   {
-    title: '执行方式',
-    dataIndex: 'type',
-    sorter: false,
-    width: '10%',
-    scopedSlots: { customRender: 'type' }
-  },
-  {
     title: 'Job 名称',
-    dataIndex: 'jobInstance.jobName',
+    dataIndex: 'jobDetail.name',
     width: '20%'
   },
   {
-    title: '启动时间',
-    dataIndex: 'startTime',
+    title: 'Job 描述',
+    dataIndex: 'jobDetail.description',
+    width: '20%'
+  },
+  {
+    title: 'Job CLASS',
+    dataIndex: 'jobDetail.jobClass',
+    width: '20%'
+  },
+  {
+    title: '上次执行时间',
+    dataIndex: 'trigger.previousFireTime',
     sorter: false,
     width: '10%'
 
   },
   {
-    title: '当前状态',
-    dataIndex: 'status',
-    sorter: false,
-    width: '10%'
-  },
-  {
-    title: '退出状态',
-    dataIndex: 'exitStatus.exitCode',
-    sorter: false,
-    width: '10%'
-  },
-  {
-    title: '操作人员',
-    dataIndex: 'operator',
+    title: '下次执行时间',
+    dataIndex: 'trigger.nextFireTime',
     sorter: false,
     width: '10%'
   },
@@ -92,12 +83,16 @@ export default {
     this.fetch()
   },
   methods: {
-    onDelete(executionId) {
+    onDelete(group, jobName) {
       const $this = this
       reqwest({
-        url: process.env.VUE_APP_URL + '/batch/opr/stop/' + executionId,
-        method: 'get',
-        type: 'json'
+        url: process.env.VUE_APP_URL + '/batch/timing/del/',
+        method: 'post',
+        type: 'json',
+        data: {
+          'group': group,
+          'jobName': jobName
+        }
       }).then(data => {
         // 成功通知刷新
         if (data.status === 1) {
@@ -105,10 +100,10 @@ export default {
           $this.fetch()
         } else {
           // 通知信息提示
-          $this.$message.error('Stop batch job ' + executionId + ' failed.')
+          $this.$message.error('Stop batch job ' + jobName + ' failed.')
         }
       }).fail(function() {
-        $this.$message.error('Stop batch job ' + executionId + ' failed.')
+        $this.$message.error('Stop batch job ' + jobName + ' failed.')
       })
     },
     handleTableChange(pagination, filters, sorter) {
@@ -127,7 +122,7 @@ export default {
       console.log('params:', params)
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/batch/run',
+        url: process.env.VUE_APP_URL + '/batch/qtz/run',
         method: 'get',
         data: {
           ...params

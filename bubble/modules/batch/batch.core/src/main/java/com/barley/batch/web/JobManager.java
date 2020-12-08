@@ -23,7 +23,7 @@ import com.barley.batch.core.JobService;
 public class JobManager {
 
 	/**
-	 * 加载系统中所有的脚本
+	 * 加载系统中所有的JOB
 	 * 
 	 * @return
 	 */
@@ -31,6 +31,17 @@ public class JobManager {
 	@GetMapping("/jobs")
 	public List<CornJob> listAllJobs() {
 		List<CornJob> jobs = seJob.findAllJob();
+		return jobs;
+	}
+	
+	/**
+	 * @Description 加载系统中所有的激活的JOB列表
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/actjobs")
+	public List<CornJob> listAllActiveJobs() {
+		List<CornJob> jobs = seJob.findAllActiveJob();
 		return jobs;
 	}
 

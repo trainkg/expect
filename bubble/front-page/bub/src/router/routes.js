@@ -31,8 +31,9 @@ const auth = {
     { name: 'form-module', path: '/form', component: () => import('@/views/auth/form') },
     { name: 'file-module', path: '/file-manager', component: () => import('@/views/auth/file/file-manager') },
     { name: 'maintain-form', path: '/maintain-form', component: () => import('@/views/auth/form-define') },
+    { name: 'quartz-scheduler', path: '/maintain-form', component: () => import('@/views/auth/batch/timetask') },
+    { name: 'manual-scheduler', path: '/manual-scheduler', component: () => import('@/views/auth/batch/schduler') },
     { name: 'batch-monitor', path: '/batch-monitor', component: () => import('@/views/auth/batch/monitor') }
-
   ]
 }
 

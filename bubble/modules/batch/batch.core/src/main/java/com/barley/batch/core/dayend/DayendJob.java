@@ -122,7 +122,8 @@ public class DayendJob extends QuartzJobBean {
 		}
 		Date endDate = new Date(System.currentTimeMillis());
 		Duration jobExecutionDuration = BatchMetrics.calculateDuration(startDate, endDate);
-		log.info("dayend run time waiting {}",(jobExecutionDuration == null ? "" : " in " + BatchMetrics.formatDuration(jobExecutionDuration)));
+		log.info("dayend run time waiting {}",
+				(jobExecutionDuration == null ? "" : " in " + BatchMetrics.formatDuration(jobExecutionDuration)));
 		for (Node<NodeData<Long>, Long> node : subJobs) {
 			internalScheduler(node.getChilds());
 		}
@@ -140,7 +141,6 @@ public class DayendJob extends QuartzJobBean {
 	public List<CornJob> extractDayEndJobs(Date date) {
 		JobSearchVO searchvo = new JobSearchVO();
 		searchvo.setDayend(true);
-		searchvo.setJobNet(true);
 		List<CornJob> list = jobService.findJobs(searchvo);
 		return filterJobList(list, date);
 	}
@@ -153,12 +153,17 @@ public class DayendJob extends QuartzJobBean {
 			return null;
 		}
 
+		// not contain directory.
+		boolean hasRealJob = false;
+
 		List<CornJob> _list = new ArrayList<CornJob>(list.size());
 		for (CornJob cornJob : list) {
 			if (cornJob.isJobNet()) {
 				_list.add(cornJob);
 				continue;
 			} else if (JobStatus.DISABLE.equals(cornJob.getJobStatus())) {
+				continue;
+			} else if (cornJob.getDayendIndi() == null || !cornJob.getDayendIndi()) {
 				continue;
 			}
 
@@ -178,7 +183,11 @@ public class DayendJob extends QuartzJobBean {
 			 * _list.add(cornJob); } } catch (ParseException e) { throw new JobException(e);
 			 * }
 			 */
+			hasRealJob = true;
 			_list.add(cornJob);
+		}
+		if (!hasRealJob) {
+			return null;
 		}
 		return _list;
 	}

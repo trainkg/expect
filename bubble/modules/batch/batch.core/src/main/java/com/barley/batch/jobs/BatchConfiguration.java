@@ -202,7 +202,7 @@ public class BatchConfiguration {
 
 	@Bean
 	public Step step1(JdbcBatchItemWriter<Person> writer) {
-		return stepBuilderFactory.get("step1").<Person, Person>chunk(10).reader(reader())
+		return stepBuilderFactory.get("step1").<Person, Person>chunk(50).reader(reader())
 				// .processor(processor())
 				.writer(writer)
 				// .allowStartIfComplete(true)
@@ -217,15 +217,15 @@ public class BatchConfiguration {
 	 */
 	@Bean
 	public Step step2(JsonFileItemWriter<Person> writer, JdbcCursorItemReader<Person> reader,
-			TaskExecutor taskExecutor) {
+			@Qualifier("applicationTaskExecutor") TaskExecutor taskExecutor) {
 		return stepBuilderFactory.get("step2").<Person, Person>chunk(50).reader(reader).processor(processor2())
 				.writer(writer).allowStartIfComplete(true).taskExecutor(taskExecutor).throttleLimit(4).build();
 	}
 
 	@Bean
 	public Step step3(JdbcPagingItemReader<Person> readerPersonPage, JsonFileItemWriter<Person> jsonFileItemWriter,
-			DataSource dataSource, TaskExecutor taskExecutor) {
-		return stepBuilderFactory.get("step3").<Person, Person>chunk(10).reader(readerPersonPage)
+			DataSource dataSource, @Qualifier("applicationTaskExecutor") TaskExecutor taskExecutor) {
+		return stepBuilderFactory.get("step3").<Person, Person>chunk(50).reader(readerPersonPage)
 				.processor(processor2()).writer(jsonFileItemWriter).allowStartIfComplete(true).build();
 	}
 
@@ -253,7 +253,7 @@ public class BatchConfiguration {
 	}
 
 	@Bean
-	public PartitionHandler partitionHandler(Step step3, TaskExecutor executor) {
+	public PartitionHandler partitionHandler(Step step3, @Qualifier("applicationTaskExecutor") TaskExecutor executor) {
 		log.info("execute partitionHandler, executor type {}", executor);
 		TaskExecutorPartitionHandler retVal = new TaskExecutorPartitionHandler();
 		retVal.setTaskExecutor(executor);

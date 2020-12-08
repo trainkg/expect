@@ -36,7 +36,7 @@ public class TestJobConfig {
 		ItemReader<Person> reader = new JdbcCursorItemReaderBuilder<Person>().name("dbPersonItemReader")
 				.dataSource(dataSource).sql("select * from people").beanRowMapper(Person.class).build();
 
-		return stepBuilderFactory.get("step1").<Person, String>chunk(10).reader(reader)
+		return stepBuilderFactory.get("step1").<Person, String>chunk(50).reader(reader)
 				.processor(new PersonItemProcessor()).writer(new StringItemWriter())
 				.allowStartIfComplete(true)
 				//.taskExecutor(executor)

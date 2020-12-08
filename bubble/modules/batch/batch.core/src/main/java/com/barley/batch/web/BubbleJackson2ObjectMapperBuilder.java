@@ -19,7 +19,8 @@ public class BubbleJackson2ObjectMapperBuilder implements Jackson2ObjectMapperBu
 	@Override
 	public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
 		jacksonObjectMapperBuilder.simpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+		//忽略字段为空
+		jacksonObjectMapperBuilder.failOnEmptyBeans(false);
 		/*
 		 * 可以注册一些对象的序列化设定和反序列化
 		 */

@@ -1,7 +1,14 @@
 package com.barley.batch.core;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -19,8 +26,13 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
 
 import com.barley.batch.BatchRuntimeManager;
@@ -38,18 +50,69 @@ public class JobService {
 	public static final String JOB_SUBMIT_TYPE_DAYEND = "JOB_TYPE_DAYEND";
 	public static final String JOB_SUBMIT_TYPE_ONLINE = "JOB_TYPE_ONLINE";
 	public static final String JOB_PARAMETER_SUBMT_TYPE = "BATCH_SUBMIT_TYPE";
-	
+
 	@Autowired
 	private JdbcTemplate jdbctemplate;
+
+	/**
+	 * find job with job name
+	 * 
+	 * @param jobName
+	 * @return cornjob (unique)
+	 */
+	public CornJob findJobByName(@NotNull String jobName) {
+		final String queryByName = "select * from t_job jb where jb.job_name = ?";
+		BeanPropertyRowMapper<CornJob> rowMapper = new BeanPropertyRowMapper<CornJob>(CornJob.class);
+		List<CornJob> listJob = jdbctemplate.query(queryByName, new String[] { jobName }, rowMapper);
+		if (listJob != null && listJob.size() > 1) {
+			throw new JobException("No unique job name");
+		}
+		if (listJob == null || listJob.size() == 0) {
+			return null;
+		}
+		return listJob.get(0);
+	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<CornJob> findJobs(JobSearchVO searchvo) {
-		String sql = "select * from t_job";
-		BeanPropertyRowMapper<CornJob> rowMapper = new BeanPropertyRowMapper<CornJob>(CornJob.class);
-		return jdbctemplate.query(sql, rowMapper);
+	public List<CornJob> findJobs(final JobSearchVO searchvo) {
+		return jdbctemplate.query(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				String sql = "select * from t_job job where 1=1 ";
+				if (searchvo.getEnabled() != null) {
+					if (searchvo.getEnabled()) {
+						sql += "and job.JOB_STATUS = 'ENABLE'";
+					} else {
+						sql += "and job.JOB_STATUS = 'DISABLE'";
+					}
+				}
+				if (searchvo.getDayend() != null) {
+					if (searchvo.getDayend()) {
+						sql += "and (job.DAYEND_INDI = 'Y' or job.job_net = 'Y')";
+					} else {
+						sql += "and job.DAYEND_INDI = 'N'";
+					}
+				}
+				return con.prepareStatement(sql);
+			}
+		}, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+			}
+		}, new ResultSetExtractor<List<CornJob>>() {
+			@Override
+			public List<CornJob> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				final BeanPropertyRowMapper<CornJob> rowMapper = new BeanPropertyRowMapper<CornJob>(CornJob.class);
+				final List<CornJob> resultList = new ArrayList<CornJob>(50);
+				while (rs.next()) {
+					resultList.add(rowMapper.mapRow(rs, rs.getRow()));
+				}
+				return resultList;
+			}
+		});
 	}
 
 	/**
@@ -64,6 +127,11 @@ public class JobService {
 		return jdbctemplate.queryForObject(sql, new Object[] { jobId }, rowMapper);
 	}
 
+	/**
+	 * 系统所有JOB定义
+	 * 
+	 * @return
+	 */
 	public List<CornJob> findAllJob() {
 		String sql = "select * from t_job";
 		BeanPropertyRowMapper<CornJob> rowMapper = new BeanPropertyRowMapper<CornJob>(CornJob.class);
@@ -71,7 +139,52 @@ public class JobService {
 	}
 
 	/**
-	   关闭接受提交batch job
+	 * 系统激活的,可执行的JOB定义列表
+	 * 
+	 * @return
+	 */
+	public List<CornJob> findAllActiveJob() {
+		String sql = "select * from t_job job where job.job_status = '" + JobStatus.ENABLE + "' and job.job_net = 'N'";
+		BeanPropertyRowMapper<CornJob> rowMapper = new BeanPropertyRowMapper<CornJob>(CornJob.class);
+		return jdbctemplate.query(sql, rowMapper);
+	}
+
+	/**
+	 * disable job
+	 * 
+	 * @param jobName
+	 */
+	public void disableJob(final Long jobId) {
+		final String sql = "update t_job jb set jb.job_status = '" + JobStatus.DISABLE + "' where jb.list_id = ?";
+		jdbctemplate.execute(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				return con.prepareStatement(sql);
+			}
+		}, new PreparedStatementCallback<Object>() {
+			@Override
+			public Object doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+				ps.setLong(1, jobId);
+				ps.execute();
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * loading all enable timing jobs.
+	 * 
+	 * @return
+	 */
+	public List<CornJob> findAllTimingJob() {
+		JobSearchVO searchVO = new JobSearchVO();
+		searchVO.setDayend(false);
+		searchVO.setEnabled(true);
+		return findJobs(searchVO);
+	}
+
+	/**
+	 * 关闭接受提交batch job
 	 */
 	public void closeSubmit() {
 		servRuntime.setAccept(false);
@@ -95,7 +208,7 @@ public class JobService {
 		} catch (NoSuchJobExecutionException e) {
 			throw new JobException("stop job error, execution id is " + executionId, e);
 		} catch (JobExecutionNotRunningException e2) {
-			//ignore
+			// ignore
 		}
 		JobExecution jobExecution = jobExplorer.getJobExecution(executionId);
 		jobExecution.setEndTime(new Date());
@@ -132,7 +245,7 @@ public class JobService {
 		org.springframework.batch.core.Job jobBean = (org.springframework.batch.core.Job) context
 				.getBean(job.getJobName());
 		try {
-			JobParametersBuilder  builder = new JobParametersBuilder(parameters);
+			JobParametersBuilder builder = new JobParametersBuilder(parameters);
 			builder.addString(JOB_PARAMETER_SUBMT_TYPE, submitType);
 			jobLauncher.run(jobBean, builder.toJobParameters());
 		} catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
@@ -150,9 +263,9 @@ public class JobService {
 		if (JOB_SUBMIT_TYPE_ONLINE.equals(submitType)) {
 			if (!servRuntime.isAccept()) {
 				throw new JobException("not accept submit job.");
-			}	
+			}
 		}
-		 
+
 	}
 
 	// use for modular = true
@@ -168,4 +281,5 @@ public class JobService {
 	private JobOperator jobOpertate;
 	@Autowired
 	private JobExplorer jobExplorer;
+
 }

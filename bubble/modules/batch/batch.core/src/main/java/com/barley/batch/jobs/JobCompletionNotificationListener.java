@@ -16,11 +16,8 @@ import org.springframework.stereotype.Component;
 public class JobCompletionNotificationListener extends JobExecutionListenerSupport {
 	private static final Logger log = LoggerFactory.getLogger(JobCompletionNotificationListener.class);
 
-	private final JdbcTemplate jdbcTemplate;
-
 	@Autowired
 	public JobCompletionNotificationListener(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	@Override

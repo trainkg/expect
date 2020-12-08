@@ -1,6 +1,5 @@
 package com.barley.batch.core.dayend;
 
-import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.DateBuilder.evenMinuteDate;
 import static org.quartz.TriggerBuilder.newTrigger;
 
@@ -8,7 +7,6 @@ import java.util.Date;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -27,8 +25,6 @@ import com.barley.batch.prepare.Node;
 import jline.internal.Log;
 import lombok.Getter;
 import lombok.Setter;
-
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -68,7 +64,7 @@ public class DefaultDayendJobContext implements DayendJobContext, InitializingBe
 	/**
 	 * 队列大小
 	 */
-	private int queneSize = 10;
+	// private int queneSize = 10;
 
 	/**
 	 * 记录当前day end batch正在执行的队列
@@ -93,7 +89,8 @@ public class DefaultDayendJobContext implements DayendJobContext, InitializingBe
 		JobDataMap dataMap = new JobDataMap();
 		dataMap.putAsString(DayendJob.PARAM_KEY_DATE, processDate.getTime());
 		JobDetail jobDetail = JobBuilder.newJob(DayendJob.class).setJobData(dataMap)
-				.withIdentity(DAYEND_JOB_IDENTITY, DAYEND_JOB_GROUP).build();
+				.withIdentity(DAYEND_JOB_IDENTITY, DAYEND_JOB_GROUP).withDescription("bubble day end job")
+				.storeDurably(true).build();
 
 		Date runTime = evenMinuteDate(new Date());
 
@@ -113,6 +110,7 @@ public class DefaultDayendJobContext implements DayendJobContext, InitializingBe
 			 * } else { log.warn("quartz scheduler not start"); }
 			 */
 		} catch (SchedulerException e) {
+			log.error("day end job start error", e);
 			throw new JobException(e);
 		}
 	}
@@ -182,7 +180,7 @@ public class DefaultDayendJobContext implements DayendJobContext, InitializingBe
 	}
 
 	/**
-	 * 标记所有DAY END JOB已经完成提交
+	 * @Desc 标记所有DAY END JOB已经完成提交
 	 */
 	public void completeSubmit() {
 		completeSubmit = true;

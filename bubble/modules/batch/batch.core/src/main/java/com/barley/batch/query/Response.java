@@ -11,6 +11,7 @@ import lombok.Getter;
 public class Response<T> {
 
 	public static final int RESPONSE_CODE_SUCCESS = 1;
+	public static final int RESPONSE_CODE_FAILED = 0;
 	/**
 	 * 请求返回状态
 	 */

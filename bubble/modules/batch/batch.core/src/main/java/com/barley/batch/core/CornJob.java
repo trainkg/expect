@@ -19,7 +19,7 @@ public class CornJob implements Job, NodeData<Long>, Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Getter
 	@Setter
 	private Long listId;
@@ -30,6 +30,10 @@ public class CornJob implements Job, NodeData<Long>, Serializable {
 
 	@Setter
 	private Boolean jobNet;
+
+	@Setter
+	@Getter
+	private String jobDesc;
 
 	@Setter
 	@Getter
@@ -61,7 +65,15 @@ public class CornJob implements Job, NodeData<Long>, Serializable {
 	 */
 	@Getter
 	@Setter
-	private boolean dayEnd;
+	private Boolean dayendIndi;
+	
+	/**
+	 * 
+	 * 当前定义的batch是否支持停止
+	 */
+	@Getter
+	@Setter
+	private boolean allowStop;
 
 	@Getter
 	@Setter
