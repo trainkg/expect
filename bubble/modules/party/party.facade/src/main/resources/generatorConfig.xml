@@ -14,6 +14,9 @@
 			value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
 		<property name="xmlFormatter"
 			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		<property name="service.dir" value="com.barley.party.service" />
+		<property name="resource.dir" value="../party.resource/src/main/java" />
+							
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="com.barley.robot.mybatis.BubbleMybatisPlugin" />
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
@@ -74,31 +77,43 @@
 			mapperName="UserTypeMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		
 		<table tableName="T_USER" domainObjectName="User"
 			mapperName="UserMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		
 		<table tableName="t_organization" domainObjectName="Organization"
 			mapperName="OrganizationMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		
 		<table tableName="t_department" domainObjectName="Department"
 			mapperName="DepartmentMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		
 		<table tableName="t_employee" domainObjectName="Employee"
 			mapperName="EmployeeMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		
+		
+		<table tableName="t_test_party" domainObjectName="TestParty"
+			mapperName="TestPartyMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false"
+			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
+		</table>
 	</context>
 </generatorConfiguration>

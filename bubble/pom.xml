@@ -22,6 +22,7 @@
 		<module>modules/party</module>
 		<module>modules/security</module>
 		<module>modules/bizflow</module>
+		<module>modules/cms</module>
 		<module>applications</module>
 	</modules>
 	<build>
@@ -123,6 +124,7 @@
 						<artifactId>jetty-maven-plugin</artifactId>
 						<version>${jetty.web.version}</version>
 						<configuration>
+							<supportedPackagings>jar</supportedPackagings>
 							<httpConnector>
 								<port>8081</port>
 							</httpConnector>

@@ -32,13 +32,13 @@ public class UserTypeServiceImpl implements UserTypeService {
         short status = 1;
         searchvo.setTypeStatus(status);
         searchvo.pushToCriteria();
-        return daoUserType.selectByExample(searchvo);
+        return daoUserType.searchByCriteria(searchvo);
     }
 
     @Override
     public List<UserType> findAll() {
         UserTypeSearchVO searchvo = new UserTypeSearchVO();
-        return daoUserType.selectByExample(searchvo);
+        return daoUserType.searchByCriteria(searchvo);
     }
 
     @Override

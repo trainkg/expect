@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.barley.batch.core.CornJob;
 import com.barley.batch.core.JobException;
 import com.barley.batch.core.JobService;
 import com.barley.batch.query.GridResponse;

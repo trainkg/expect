@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         if (page != null) {
             pagesvo = PageHelper.startPage(page, pageSize);
         }
-        List<User> list = daoUser.selectByExample(searchvo);
+        List<User> list = daoUser.searchByCriteria(searchvo);
         PageInfo<User> pageInfo = new PageInfo<User>(list, pageSize);
         if (pagesvo != null) {
             pageInfo.setTotal(pagesvo.getTotal());

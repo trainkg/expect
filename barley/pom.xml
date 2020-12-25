@@ -43,7 +43,7 @@
 		<hibernate.validate.version>5.0.2.Final</hibernate.validate.version>
 		<freemarker.version>2.3.20</freemarker.version>
 		<ls.module.skip>true</ls.module.skip>
-		<jetty.web.version>9.2.6.v20141205</jetty.web.version>
+		<jetty.web.version>9.4.35.v20201120</jetty.web.version>
 		<mybatis>3.5.4</mybatis>
 		<pagehelper.version>5.1.11</pagehelper.version>
 		<mybatis.spring>2.0.4</mybatis.spring>

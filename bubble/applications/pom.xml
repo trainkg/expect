@@ -61,4 +61,8 @@
 			<email>peculiar.1@163.com</email>
 		</developer>
 	</developers>
+	<modules>
+		<module>app.cms</module>
+		<module>app.batch</module>
+	</modules>
 </project>	
