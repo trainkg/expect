@@ -82,6 +82,9 @@ public class ServiceImplGenerator extends BasicServiceResolver {
 		method.getBodyLines().add("if (page != null) {");
 		method.getBodyLines().add("pagesvo = PageHelper.startPage(page, pageSize);");
 		method.getBodyLines().add("}");
+		method.getBodyLines().add("if (searchvo instanceof CriteriaBuilder) {");
+		method.getBodyLines().add("((CriteriaBuilder) searchvo).build();");
+		method.getBodyLines().add("}");
 		method.getBodyLines().add("List<" + modalName + "> list = entityMapper.searchByCriteria(searchvo);");
 		method.getBodyLines()
 				.add("PageInfo<" + modalName + "> pageInfo = new PageInfo<" + modalName + ">(list, pageSize);");
@@ -91,6 +94,7 @@ public class ServiceImplGenerator extends BasicServiceResolver {
 		method.getBodyLines().add("return pageInfo;");
 		topLevelClass.addMethod(method);
 
+		topLevelClass.getImportedTypes().add(new FullyQualifiedJavaType("org.barley.mybatis.CriteriaBuilder"));
 		topLevelClass.getImportedTypes().add(new FullyQualifiedJavaType("com.github.pagehelper.Page"));
 		topLevelClass.getImportedTypes().add(new FullyQualifiedJavaType("com.github.pagehelper.PageHelper"));
 		topLevelClass.getImportedTypes().add(new FullyQualifiedJavaType("com.github.pagehelper.PageInfo"));

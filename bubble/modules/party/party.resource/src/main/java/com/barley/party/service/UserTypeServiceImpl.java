@@ -7,13 +7,14 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import java.util.List;
+import org.barley.mybatis.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.party.service.UserTypeBaseService create date 2020-12-26 12:52:22
+ * @version $ID: com.barley.party.service.UserTypeBaseService create date 2020-12-26 13:02:17
  */
 @Service
 @Transactional
@@ -100,6 +101,9 @@ public class UserTypeServiceImpl implements UserTypeService {
         Page<Object> pagesvo = null;
         if (page != null) {
             pagesvo = PageHelper.startPage(page, pageSize);
+        }
+        if (searchvo instanceof CriteriaBuilder) {
+            ((CriteriaBuilder) searchvo).build();
         }
         List<UserType> list = entityMapper.searchByCriteria(searchvo);
         PageInfo<UserType> pageInfo = new PageInfo<UserType>(list, pageSize);
