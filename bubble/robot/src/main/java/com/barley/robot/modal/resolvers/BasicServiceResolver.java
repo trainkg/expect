@@ -98,8 +98,35 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		addFindAllMethod(topLevelClass);
 		addFindByListIdMethod(topLevelClass);
 		addSearchBySearchVO(topLevelClass);
+		addSearchBySearchVOPage(topLevelClass);
 		service = topLevelClass;
 		return topLevelClass;
+	}
+
+	private void addSearchBySearchVOPage(Interface topLevelClass) {
+		Method method = generateSearchBySearchVOMethodPage(topLevelClass);
+		topLevelClass.addMethod(method);
+	}
+
+	protected Method generateSearchBySearchVOMethodPage(CompilationUnit topLevelClass) {
+		topLevelClass.getImportedTypes().add(searchvo.getType());
+		Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();
+		FullyQualifiedJavaType parameterType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
+		importedTypes.add(parameterType);
+		Method method = new Method("searchByVO");
+		method.setVisibility(JavaVisibility.PUBLIC);
+		method.setAbstract(true);
+		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
+		returnType.addTypeArgument(parameterType);
+		importedTypes.add(returnType);
+		method.setReturnType(returnType);
+		method.addParameter(new Parameter(searchvo.getType(), "searchVO")); //$NON-NLS-1$
+		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "page")); //$NON-NLS-1$
+		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageSize")); //$NON-NLS-1$
+		// 注释
+		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		topLevelClass.addImportedTypes(importedTypes);
+		return method;
 	}
 
 	protected void addFindByListIdMethod(Interface topLevelClass) {
@@ -173,7 +200,9 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		Method method = new Method("searchByVO");
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.setAbstract(true);
-		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
+//		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
+//		returnType.addTypeArgument(parameterType);
+		FullyQualifiedJavaType returnType = FullyQualifiedJavaType.getNewListInstance();
 		returnType.addTypeArgument(parameterType);
 		importedTypes.add(returnType);
 		method.setReturnType(returnType);
@@ -419,7 +448,6 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 	public String getExtendInterfaceJavaPath() {
 		String path = basicServiceDir + getSubPackage() + "."
 				+ introspectedTable.getFullyQualifiedTable().getDomainObjectName() + "Service";
-		Log.info("service top class is {}", path);
 		return path;
 	}
 

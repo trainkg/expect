@@ -1,5 +1,6 @@
 package com.barley.robot.modal.resolvers;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +13,13 @@ import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.JavaVisibility;
+import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.barley.robot.utils.DataFormatterUtils;
-
-import jline.internal.Log;
 
 /**
  * 
@@ -28,6 +30,7 @@ import jline.internal.Log;
  */
 public class SearchVOGenerator extends AbstractJavaGenerator {
 
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	/**
 	 * searchvo
 	 */
@@ -81,14 +84,95 @@ public class SearchVOGenerator extends AbstractJavaGenerator {
 		topLevelClass.getJavaDocLines().add(" * @version $ID: " + getJavaPath() + " create date " + DataFormatterUtils
 				.format(new Date(System.currentTimeMillis()), DataFormatterUtils.FMT_YYYY_MM_DD_HH_MM_SS));
 		topLevelClass.getJavaDocLines().add(" */");
+
+		// extend
+		if (introspectedTable.getExampleType() != null) {
+			topLevelClass.setSuperClass(introspectedTable.getExampleType());
+			topLevelClass.getImportedTypes().add(new FullyQualifiedJavaType(introspectedTable.getExampleType()));
+		}
+
+		createSearchBuild(topLevelClass);
+
 		commentGenerator.addJavaFileComment(topLevelClass);
 		return topLevelClass;
+	}
+
+	private void createSearchBuild(TopLevelClass topLevelClass) {
+		// CriteriaBuilder
+		FullyQualifiedJavaType interfazz = new FullyQualifiedJavaType("org.barley.mybatis.CriteriaBuilder");
+		topLevelClass.addSuperInterface(interfazz);
+		// add Implment
+
+		Method build = new Method("build");
+		build.setVisibility(JavaVisibility.PUBLIC);
+		build.setAbstract(false);
+
+		bulidBody(build, topLevelClass);
+
+		topLevelClass.addMethod(build);
+	}
+
+	/**
+	 * @see org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl
+	 * @param build
+	 */
+	private void bulidBody(Method build, TopLevelClass topLevelClass) {
+		build.getBodyLines().add("Criteria criteria = createCriteria();");
+		List<IntrospectedColumn> columns = getColumnsInThisClass();
+		for (IntrospectedColumn introspectedColumn : columns) {
+			String feildName = introspectedColumn.getJavaProperty();
+			introspectedColumn.getFullyQualifiedJavaType();
+			// String dbColumnName = introspectedColumn.getJdbcTypeName();
+			logger.info("feildName {}", feildName);
+			logger.info("java type {}", introspectedColumn.getFullyQualifiedJavaType());
+
+			// support list
+			if (Long.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (Boolean.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (String.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				topLevelClass.getImportedTypes()
+						.add(new FullyQualifiedJavaType("org.apache.commons.lang3.StringUtils"));
+				build.getBodyLines().add("");
+				build.getBodyLines().add("if(StringUtils.isNotEmpty(" + feildName + ")) {");
+				build.getBodyLines().add("criteria." + getMethodEqName(introspectedColumn) + "(" + feildName + ");");
+				build.getBodyLines().add("}");
+			}
+			if (Date.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (BigDecimal.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (Double.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (Integer.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (Float.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+			if (Short.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
+				addNormalBody(feildName, introspectedColumn, build);
+			}
+		}
+	}
+
+	private void addNormalBody(String feildName, IntrospectedColumn introspectedColumn, Method build) {
+		build.getBodyLines().add("");
+		build.getBodyLines().add("if(" + feildName + " != null) {");
+		build.getBodyLines().add("criteria." + getMethodEqName(introspectedColumn) + "(" + feildName + ");");
+		build.getBodyLines().add("}");
 	}
 
 	public String getJavaPath() {
 		String path = basicServiceDir + getSubPackage() + ".searchvo."
 				+ introspectedTable.getFullyQualifiedTable().getDomainObjectName() + "SearchVO";
-		Log.info("service top class is {}", path);
+		logger.info("service top class is {}", path);
 		return path;
 	}
 
@@ -135,5 +219,22 @@ public class SearchVOGenerator extends AbstractJavaGenerator {
 		field.setVisibility(JavaVisibility.PRIVATE);
 
 		return field;
+	}
+
+	/**
+	 * 
+	 * @set Method
+	 *      org.mybatis.generator.codegen.mybatis3.model.ExampleGenerator.getSetEqualMethod(IntrospectedColumn
+	 *      introspectedColumn)
+	 * @param introspectedColumn
+	 * @return
+	 */
+	private String getMethodEqName(IntrospectedColumn introspectedColumn) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(introspectedColumn.getJavaProperty());
+		sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+		sb.insert(0, "and"); //$NON-NLS-1$
+		sb.append("EqualTo");
+		return sb.toString();
 	}
 }

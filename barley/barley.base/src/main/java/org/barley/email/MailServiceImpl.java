@@ -1,9 +1,3 @@
-/*
- * 文件名称:          MailServiceImpl.java
- * 版权所有@ 2013——2015 中科曙光信息技术无锡有限公司，保留所有权利
- * 时间:             2015年11月20日 下午3:44:40
- */
-
 package org.barley.email;
 
 import java.io.IOException;
@@ -27,23 +21,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-/**
- * 类注释
- * 
- * <p>
- * <p>
- * 
- * @项目 mail.service.mail
- *     <p>
- * @作者: 华云佳
- *      <p>
- * @日期: 2015年11月20日
- *      <p>
- * @负责人: 华云佳
- *       <p>
- * @负责小组: <p>
- *        <p>
- */
 public class MailServiceImpl implements IMailService {
 
 	public static final String MAIL_DES_KEY = "$ZHU_JXKH_BEIJING$";
@@ -67,11 +44,9 @@ public class MailServiceImpl implements IMailService {
 	}
 
 	/**
-	 * @param freeMarkerConfigurer
-	 *            设置 freeMarkerConfigurer
+	 * @param freeMarkerConfigurer 设置 freeMarkerConfigurer
 	 */
-	public void setFreeMarkerConfigurer(
-			FreeMarkerConfigurer freeMarkerConfigurer) {
+	public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
 		this.freeMarkerConfigurer = freeMarkerConfigurer;
 	}
 
@@ -128,8 +103,7 @@ public class MailServiceImpl implements IMailService {
 	 */
 	private void sendHTML(MimeMessage mailMessage, Mail mail, String charSet)
 			throws MessagingException, IOException, TemplateException {
-		MimeMessageHelper htmlMimeMsg = new MimeMessageHelper(mailMessage,
-				Boolean.TRUE, charSet);
+		MimeMessageHelper htmlMimeMsg = new MimeMessageHelper(mailMessage, Boolean.TRUE, charSet);
 		getHtmlTemp(mail.getHtmlParamsMap(), mail.getTempName(), htmlMimeMsg);
 		htmlMimeMsg.setFrom(mail.getFrom());
 		if (testModel) {
@@ -155,14 +129,10 @@ public class MailServiceImpl implements IMailService {
 	 * @throws MessagingException
 	 * @throws TemplateException
 	 */
-	private void getHtmlTemp(Map<String, Object> params, String tempName,
-			MimeMessageHelper htmlMimeMsg) throws IOException,
-			MessagingException, TemplateException {
-		Template tpl = freeMarkerConfigurer.getConfiguration().getTemplate(
-				tempName);
-		htmlMimeMsg.setText(
-				FreeMarkerTemplateUtils.processTemplateIntoString(tpl, params),
-				true);
+	private void getHtmlTemp(Map<String, Object> params, String tempName, MimeMessageHelper htmlMimeMsg)
+			throws IOException, MessagingException, TemplateException {
+		Template tpl = freeMarkerConfigurer.getConfiguration().getTemplate(tempName);
+		htmlMimeMsg.setText(FreeMarkerTemplateUtils.processTemplateIntoString(tpl, params), true);
 	}
 
 	/**
@@ -203,25 +173,16 @@ public class MailServiceImpl implements IMailService {
 		mail.setTempName(Mail.MailTempList.TEMP.getValue());
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("content", content);
-		if (!StringUtils.isEmpty(url)) {/*
-			try {
-				// 有效时间控制
-				Calendar c = Calendar.getInstance();
-				c.add(Calendar.DAY_OF_MONTH, 7);
-				SimpleDateFormat sdf = new SimpleDateFormat(VALID_TIME_PETTEN);
-				url += "?jxtoken="
-						+ URLEncoder.encode(
-								DESUtil.encrypt(
-										idCode + sdf.format(c.getTime())
-												+ CODE_SUFFIX, MAIL_DES_KEY),
-								"ASCII");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			params.put("lj", "<a href=" + url + ">点击查看</a>");
-		*/}
-		params.put("detail", "<a href=" + url + ">" + url
-				+ "</a> <p>注意：链接有效时间7天,链接不要发送给其他人</p>");
+		if (!StringUtils.isEmpty(url)) {
+			/*
+			 * try { // 有效时间控制 Calendar c = Calendar.getInstance();
+			 * c.add(Calendar.DAY_OF_MONTH, 7); SimpleDateFormat sdf = new
+			 * SimpleDateFormat(VALID_TIME_PETTEN); url += "?jxtoken=" + URLEncoder.encode(
+			 * DESUtil.encrypt( idCode + sdf.format(c.getTime()) + CODE_SUFFIX,
+			 * MAIL_DES_KEY), "ASCII"); } catch (Exception e) { e.printStackTrace(); }
+			 * params.put("lj", "<a href=" + url + ">点击查看</a>");
+			 */}
+		params.put("detail", "<a href=" + url + ">" + url + "</a> <p>注意：链接有效时间7天,链接不要发送给其他人</p>");
 		// 测试环境
 		// String[] to = new String[]{"shaoshuai@sugon.com"};
 		// 生产环境
@@ -254,10 +215,8 @@ public class MailServiceImpl implements IMailService {
 	}
 
 	public static void main(String[] args) throws Exception {
-		System.out
-				.println(URLEncoder
-						.encode("?jxtoken=6pBVrh57KuJkGbib70i5mg+XiU4cR5TidiI9Ksxmeos5IjAafgycfQ==",
-								"ASCII"));
+		System.out.println(
+				URLEncoder.encode("?jxtoken=6pBVrh57KuJkGbib70i5mg+XiU4cR5TidiI9Ksxmeos5IjAafgycfQ==", "ASCII"));
 	}
 
 }
