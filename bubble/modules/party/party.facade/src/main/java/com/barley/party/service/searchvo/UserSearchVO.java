@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.party.service.searchvo.UserSearchVO create date 2020-12-27 14:50:38
+ * @version $ID: com.barley.party.service.searchvo.UserSearchVO create date 2020-12-27 15:11:34
  */
 public class UserSearchVO extends UserCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter

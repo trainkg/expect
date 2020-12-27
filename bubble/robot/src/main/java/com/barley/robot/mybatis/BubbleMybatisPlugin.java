@@ -139,8 +139,6 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 					files.add(gjf);
 				}
 			}
-
-			files.add(gjf);
 		}
 
 		// imples
@@ -162,7 +160,7 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 		// actions
 		BasicActionResolver actionGenerater = new BasicActionResolver(context.getProperty("resource.dir"),
 				introspectedTable, genertor.getServiceExt());
-		
+
 		actionGenerater.setSearchVO(genertor.getSearchvo());
 		units = actionGenerater.getCompilationUnits();
 		for (CompilationUnit compilationUnit : units) {

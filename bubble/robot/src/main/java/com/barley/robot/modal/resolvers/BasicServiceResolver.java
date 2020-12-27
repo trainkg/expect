@@ -125,7 +125,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "page")); //$NON-NLS-1$
 		method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageSize")); //$NON-NLS-1$
 		// 注释
-		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		// context.getCommentGenerator().addGeneralMethodComment(method,
+		// introspectedTable);
 		topLevelClass.addImportedTypes(importedTypes);
 		return method;
 	}
@@ -158,7 +159,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			method.setReturnType(parameterType);
 			method.addParameter(new Parameter(primaryKeyType, "keyId")); //$NON-NLS-1$
 			// 注释
-			context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+			// context.getCommentGenerator().addGeneralMethodComment(method,
+			// introspectedTable);
 
 			topLevelClass.addImportedTypes(importedTypes);
 			return method;
@@ -173,7 +175,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			method.setReturnType(parameterType);
 			method.addParameter(new Parameter(primarykeytype, "keyId")); //$NON-NLS-1$
 			// 注释
-			context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+			// context.getCommentGenerator().addGeneralMethodComment(method,
+			// introspectedTable);
 			importedTypes.add(primarykeytype);
 			topLevelClass.addImportedTypes(importedTypes);
 			return method;
@@ -210,7 +213,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		method.setReturnType(returnType);
 		method.addParameter(new Parameter(searchvo.getType(), "searchVO")); //$NON-NLS-1$
 		// 注释
-		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		// context.getCommentGenerator().addGeneralMethodComment(method,
+		// introspectedTable);
 		topLevelClass.addImportedTypes(importedTypes);
 		return method;
 	}
@@ -237,7 +241,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		type.addTypeArgument(parameterType);
 		method.setReturnType(type);
 		// 注释
-		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		// context.getCommentGenerator().addGeneralMethodComment(method,
+		// introspectedTable);
 		topLevelClass.addImportedTypes(importedTypes);
 		return method;
 	}
@@ -264,7 +269,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		method.setReturnType(parameterType);
 		method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
 		// 注释
-		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		// context.getCommentGenerator().addGeneralMethodComment(method,
+		// introspectedTable);
 
 		topLevelClass.addImportedTypes(importedTypes);
 		return method;
@@ -296,7 +302,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			method.setAbstract(true);
 			method.addParameter(new Parameter(primaryKeyType, "keyId")); //$NON-NLS-1$
 			// 注释
-			context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+			// context.getCommentGenerator().addGeneralMethodComment(method,
+			// introspectedTable);
 
 			unit.addImportedTypes(importedTypes);
 			return method;
@@ -310,7 +317,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			method.setAbstract(true);
 			method.addParameter(new Parameter(primarykeytype, "keyId")); //$NON-NLS-1$
 			// 注释
-			context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+			// context.getCommentGenerator().addGeneralMethodComment(method,
+			// introspectedTable);
 			importedTypes.add(primarykeytype);
 			unit.addImportedTypes(importedTypes);
 			return method;
@@ -344,7 +352,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		method.setReturnType(parameterType);
 		method.addParameter(new Parameter(parameterType, "record")); //$NON-NLS-1$
 		// 注释
-		context.getCommentGenerator().addGeneralMethodComment(method, introspectedTable);
+		// context.getCommentGenerator().addGeneralMethodComment(method,
+		// introspectedTable);
 		topLevelClass.addImportedTypes(importedTypes);
 		return method;
 	}
