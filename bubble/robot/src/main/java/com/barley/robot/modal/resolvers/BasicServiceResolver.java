@@ -20,6 +20,7 @@ import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barley.robot.modal.CondtionInterface;
 import com.barley.robot.utils.DataFormatterUtils;
 
 import jline.internal.Log;
@@ -162,7 +163,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			topLevelClass.addImportedTypes(importedTypes);
 			return method;
 		} else if (introspectedTable.hasPrimaryKeyColumns()) {
-			FullyQualifiedJavaType primarykeytype = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
+			FullyQualifiedJavaType primarykeytype = introspectedTable.getPrimaryKeyColumns().get(0)
+					.getFullyQualifiedJavaType();
 			importedTypes.add(parameterType);
 
 			Method method = new Method("findByPrimaryKey");
@@ -275,7 +277,7 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 	 */
 	protected void addDeleteMethod(Interface topLevelClass) {
 		Method method = generateDeleteMetod(topLevelClass);
-		if(method != null) {
+		if (method != null) {
 			topLevelClass.addMethod(method);
 		}
 	}
@@ -299,7 +301,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			unit.addImportedTypes(importedTypes);
 			return method;
 		} else if (introspectedTable.hasPrimaryKeyColumns()) {
-			FullyQualifiedJavaType primarykeytype = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
+			FullyQualifiedJavaType primarykeytype = introspectedTable.getPrimaryKeyColumns().get(0)
+					.getFullyQualifiedJavaType();
 			importedTypes.add(parameterType);
 
 			Method method = new Method("delete");
@@ -314,7 +317,7 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 		}
 
 		return null;
-	
+
 	}
 
 	protected void addCreateMethod(Interface topLevelClass) {
@@ -401,7 +404,8 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 	private Interface getInterfaceExtShell(Interface interfazz) {
 		CommentGenerator commentGenerator = context.getCommentGenerator();
 		FullyQualifiedJavaType type = new FullyQualifiedJavaType(getExtendInterfaceJavaPath());
-		Interface topLevelClass = new Interface(type);
+		CondtionInterface topLevelClass = new CondtionInterface(type);
+		topLevelClass.setOverride(false);
 		topLevelClass.setVisibility(JavaVisibility.PUBLIC);
 		commentGenerator.addJavaFileComment(topLevelClass);
 		topLevelClass.getSuperInterfaceTypes().add(interfazz.getType());

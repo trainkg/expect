@@ -1,20 +1,22 @@
 package com.barley.party.service;
 
+import java.util.List;
+
+import org.barley.mybatis.CriteriaBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.barley.party.mappers.UserMapper;
 import com.barley.party.modal.User;
 import com.barley.party.service.searchvo.UserSearchVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import java.util.List;
-import org.barley.mybatis.CriteriaBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.party.service.UserBaseService create date 2020-12-26 13:02:17
+ * @version $ID: com.barley.party.service.UserBaseService create date 2020-12-27 12:09:54
  */
 @Service
 @Transactional
@@ -112,4 +114,5 @@ public class UserServiceImpl implements UserService {
         }
         return pageInfo;
     }
+
 }

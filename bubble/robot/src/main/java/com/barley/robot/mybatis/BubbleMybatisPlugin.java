@@ -1,5 +1,6 @@
 package com.barley.robot.mybatis;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -9,6 +10,7 @@ import org.mybatis.generator.api.GeneratedKotlinFile;
 import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
+import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.Interface;
@@ -22,15 +24,34 @@ import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.Context;
 import org.mybatis.generator.config.PropertyRegistry;
+import org.mybatis.generator.exception.ShellException;
+import org.mybatis.generator.internal.DefaultShellCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barley.robot.modal.ConditonTopClass;
+import com.barley.robot.modal.CondtionInterface;
+import com.barley.robot.modal.resolvers.BasicActionResolver;
 import com.barley.robot.modal.resolvers.BasicServiceResolver;
 import com.barley.robot.modal.resolvers.ServiceImplGenerator;
 
 public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+
+	public boolean existFile(GeneratedJavaFile gjf, ShellCallback shellCallback) {
+		File directory;
+		try {
+			directory = shellCallback.getDirectory(gjf.getTargetProject(), gjf.getTargetPackage());
+			File targetFile = new File(directory, gjf.getFileName());
+			if (targetFile.exists()) {
+				return true;
+			}
+		} catch (ShellException e) {
+			throw new RuntimeException(e);
+		}
+		return false;
+	}
 
 	@Override
 	public boolean validate(List<String> warnings) {
@@ -39,25 +60,6 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 				logger.info("bubble: {}", string);
 			}
 		}
-		return true;
-	}
-
-	@Override
-	public boolean modelFieldGenerated(Field field, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn,
-			IntrospectedTable introspectedTable, ModelClassType modelClassType) {
-		logger.info("execute modelFieldGenerated");
-		field.addJavaDocLine("/**bubble field comments*/");
-		return true;
-	}
-
-	/**
-	 *  
-	 */
-	@Override
-	public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-		logger.info("execute modelBaseRecordClassGenerated");
-		topLevelClass.addJavaDocLine("//bubble java doc");
-		topLevelClass.addFileCommentLine("//bubble comment line");
 		return true;
 	}
 
@@ -100,6 +102,8 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
 		logger.info("execute contextGenerateAdditionalJavaFiles table name {} {} ",
 				introspectedTable.getTableConfiguration().getTableName(), introspectedTable.getTableType());
+
+		DefaultShellCallback shellback = new DefaultShellCallback(false);
 		// service
 		List<GeneratedJavaFile> files = new ArrayList<GeneratedJavaFile>();
 		// services
@@ -114,6 +118,28 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 			GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit,
 					context.getJavaModelGeneratorConfiguration().getTargetProject(),
 					context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING), context.getJavaFormatter());
+
+			if (!existFile(gjf, shellback)) {
+				files.add(gjf);
+			} else {
+
+				boolean override = true;
+
+				if (compilationUnit instanceof CondtionInterface) {
+					override = ((CondtionInterface) compilationUnit).isOverride();
+				}
+
+				if (compilationUnit instanceof ConditonTopClass) {
+					override = ((ConditonTopClass) compilationUnit).isOverride();
+				}
+
+				if (!override) {
+					logger.warn(" file exist, no generate. {} ", gjf);
+				} else {
+					files.add(gjf);
+				}
+			}
+
 			files.add(gjf);
 		}
 
@@ -125,9 +151,29 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 		for (CompilationUnit compilationUnit : units) {
 			GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit, implGenereator.getProject(),
 					context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING), context.getJavaFormatter());
-			files.add(gjf);
+
+			if (!existFile(gjf, shellback)) {
+				files.add(gjf);
+			} else {
+				logger.warn(" file exist, no generate. {} ", gjf);
+			}
 		}
 
+		// actions
+		BasicActionResolver actionGenerater = new BasicActionResolver(context.getProperty("resource.dir"),
+				introspectedTable, genertor.getServiceExt());
+		
+		actionGenerater.setSearchVO(genertor.getSearchvo());
+		units = actionGenerater.getCompilationUnits();
+		for (CompilationUnit compilationUnit : units) {
+			GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit, actionGenerater.getProject(),
+					context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING), context.getJavaFormatter());
+			if (!existFile(gjf, shellback)) {
+				files.add(gjf);
+			} else {
+				logger.warn(" file exist, no generate. {} ", gjf);
+			}
+		}
 		return files;
 	}
 

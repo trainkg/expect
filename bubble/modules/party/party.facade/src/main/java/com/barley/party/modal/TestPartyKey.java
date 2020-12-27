@@ -16,7 +16,6 @@ public class TestPartyKey extends AutomaticEntityImpl implements Serializable {
      *
      * @mbg.generated
      */
-    /**bubble field comments*/
     private String state;
 
     /**
@@ -26,7 +25,6 @@ public class TestPartyKey extends AutomaticEntityImpl implements Serializable {
      *
      * @mbg.generated
      */
-    /**bubble field comments*/
     private String country;
 
     /**

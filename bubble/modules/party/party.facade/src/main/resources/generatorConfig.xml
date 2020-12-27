@@ -15,6 +15,7 @@
 		<property name="xmlFormatter"
 			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
 		<property name="service.dir" value="com.barley.party.service" />
+		<property name="controller.dir" value="com.barley.party.controller" />
 		<property name="resource.dir" value="../party.resource/src/main/java" />
 							
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />

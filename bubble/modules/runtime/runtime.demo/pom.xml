@@ -7,17 +7,17 @@
   </parent>
   <artifactId>runtime.demo</artifactId>
   <dependencies>
-  	<dependency>
+  	<!-- <dependency>
   		<groupId>org.barley</groupId>
   		<artifactId>batch.core</artifactId>
   		<version>${ls.version}</version>
-  	</dependency>
+  	</dependency> -->
   	<dependency>
   		<groupId>org.barley</groupId>
   		<artifactId>config.resourse</artifactId>
   		<version>${ls.version}</version>
   	</dependency>
-  	<!-- <dependency>
+  	<dependency>
   		<groupId>org.barley</groupId>
   		<artifactId>party.resource</artifactId>
   		<version>${ls.version}</version>
@@ -36,7 +36,7 @@
   				<artifactId>slf4j-log4j12</artifactId>
   			</exclusion>
   		</exclusions>
-  	</dependency> -->
+  	</dependency>
   	<dependency>
   		<groupId>org.codehaus.groovy</groupId>
   		<artifactId>groovy-all</artifactId>

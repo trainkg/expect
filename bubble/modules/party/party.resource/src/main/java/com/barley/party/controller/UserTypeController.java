@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barley.party.modal.UserType;
-import com.barley.party.services.UserTypeService;
+import com.barley.party.service.UserTypeService;
 
 /**
  * User控制器
@@ -25,55 +25,55 @@ import com.barley.party.services.UserTypeService;
 @RequestMapping("/usertype")
 public class UserTypeController {
 
-    /**
-     * 
-     * @param userId
-     * @return
-     */
-    @ResponseBody
-    @GetMapping("/retrive/{typeId}")
-    public UserType searchUserType(@PathVariable short typeId) {
-        return seuserType.findById(typeId);
-    }
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/retrive/{typeId}")
+	public UserType searchUserType(@PathVariable short typeId) {
+		return seuserType.findByPrimaryKey(typeId);
+	}
 
-    /**
-     * 
-     * @param searchvo
-     * @param page
-     * @param pageSize
-     * @return
-     */
-    @GetMapping("/list")
-    @ResponseBody
-    public List<UserType> typeList(@RequestParam(required = false, name = "all", defaultValue = "1") short all) {
-        if(all == 1) {
-            return seuserType.findAll();
-        }else {
-            return seuserType.findAllActive();    
-        }
-    }
+	/**
+	 * 
+	 * @param searchvo
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	@GetMapping("/list")
+	@ResponseBody
+	public List<UserType> typeList(@RequestParam(required = false, name = "all", defaultValue = "1") short all) {
+		if (all == 1) {
+			return seuserType.findAll();
+		} else {
+			return seuserType.findAllActive();
+		}
+	}
 
-    /**
-     * 
-     * @param userId
-     */
-    @PostMapping("/remove")
-    @ResponseBody
-    public void inactiveUserType(@RequestParam short userTypeId) {
-        seuserType.deleteById(userTypeId);
-    }
+	/**
+	 * 
+	 * @param userId
+	 */
+	@PostMapping("/remove")
+	@ResponseBody
+	public void inactiveUserType(@RequestParam short userTypeId) {
+		seuserType.delete(userTypeId);
+	}
 
-    /**
-     * 信息维护
-     * 
-     * @param userId
-     */
-    @PostMapping("/inactive")
-    @ResponseBody
-    public void maintanenceType(@ModelAttribute UserType type) {
-        seuserType.updateUserType(type);
-    }
+	/**
+	 * 信息维护
+	 * 
+	 * @param userId
+	 */
+	@PostMapping("/inactive")
+	@ResponseBody
+	public void maintanenceType(@ModelAttribute UserType type) {
+		seuserType.update(type);
+	}
 
-    @Autowired
-    private UserTypeService seuserType;
+	@Autowired
+	private UserTypeService seuserType;
 }

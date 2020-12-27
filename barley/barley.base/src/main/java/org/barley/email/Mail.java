@@ -3,27 +3,10 @@ package org.barley.email;
 import java.io.Serializable;
 import java.util.Map;
 
-/**
- * 类注释
- * 
- * <p>
- * <p>
- * 
- * @项目 mail.api.mail
- *     <p>
- * @作者: 华云佳
- *      <p>
- * @日期: 2015年11月20日
- *      <p>
- * @负责人: 华云佳
- *       <p>
- * @负责小组: <p>
- *        <p>
- */
 public class Mail implements Serializable {
 	/**
-     * 
-     */
+	 * 
+	 */
 	private static final long serialVersionUID = -3481041523992174242L;
 
 	/**
@@ -91,8 +74,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param to
-	 *            设置 to
+	 * @param to 设置 to
 	 */
 	public void setTo(String[] to) {
 		this.to = to;
@@ -106,8 +88,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param cc
-	 *            设置 cc
+	 * @param cc 设置 cc
 	 */
 	public void setCc(String[] cc) {
 		this.cc = cc;
@@ -121,8 +102,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param title
-	 *            设置 title
+	 * @param title 设置 title
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -136,8 +116,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param message
-	 *            设置 message
+	 * @param message 设置 message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -151,8 +130,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param isHtml
-	 *            设置 isHtml
+	 * @param isHtml 设置 isHtml
 	 */
 	public void setHtml(boolean isHtml) {
 		this.isHtml = isHtml;
@@ -166,8 +144,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param tempName
-	 *            设置 tempName
+	 * @param tempName 设置 tempName
 	 */
 	public void setTempName(String tempName) {
 		this.tempName = tempName;
@@ -181,8 +158,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param htmlParamsMap
-	 *            设置 htmlParamsMap
+	 * @param htmlParamsMap 设置 htmlParamsMap
 	 */
 	public void setHtmlParamsMap(Map<String, Object> htmlParamsMap) {
 		this.htmlParamsMap = htmlParamsMap;
@@ -196,8 +172,7 @@ public class Mail implements Serializable {
 	}
 
 	/**
-	 * @param from
-	 *            设置 from
+	 * @param from 设置 from
 	 */
 	public void setFrom(String from) {
 		this.from = from;

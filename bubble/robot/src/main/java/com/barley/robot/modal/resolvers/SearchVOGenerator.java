@@ -123,8 +123,8 @@ public class SearchVOGenerator extends AbstractJavaGenerator {
 			String feildName = introspectedColumn.getJavaProperty();
 			introspectedColumn.getFullyQualifiedJavaType();
 			// String dbColumnName = introspectedColumn.getJdbcTypeName();
-			logger.info("feildName {}", feildName);
-			logger.info("java type {}", introspectedColumn.getFullyQualifiedJavaType());
+//			logger.info("feildName {}", feildName);
+//			logger.info("java type {}", introspectedColumn.getFullyQualifiedJavaType());
 
 			// support list
 			if (Long.class.getName().equals(introspectedColumn.getFullyQualifiedJavaType().toString())) {
