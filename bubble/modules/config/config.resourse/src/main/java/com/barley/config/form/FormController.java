@@ -17,7 +17,7 @@ import com.barley.config.form.layout.SimpleRenderConfig;
  * @author peculiar.1@163.com
  * @version $ID: ConfigBaseController.java, V1.0.0 2019年10月20日 下午10:04:22 $
  */
-@RestController
+@RestController("origFormController")
 @RequestMapping(path = "/form")
 public class FormController {
         

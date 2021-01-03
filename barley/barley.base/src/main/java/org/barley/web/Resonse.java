@@ -1,10 +1,3 @@
-/*
- * 文件名称:          AjaxResult.java
- * 版权所有@ 2013-2014 无锡城市云计算中心有限公司，保留所有权利
- * 编译器:           JDK1.7.0_25
- * 时间:             上午10:31:38
- */
-
 package org.barley.web;
 
 public class Resonse {

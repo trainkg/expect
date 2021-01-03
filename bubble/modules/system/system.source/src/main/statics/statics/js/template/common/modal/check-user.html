@@ -1,0 +1,49 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+       <div class="modal-header">
+        <button type="button" class="close a-close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title"><@=title@></h4>
+      </div>
+   <div class="modal-body">
+     <div class="row-fluid">
+        <table class="" >
+          <tr>
+            <td style="width:46%">
+              <div class="wrapBox">
+                <div class="m-tabpanels">
+                  <div id="tab2" class="m-tabpanel" style="max-height: 180px;overflow-x: hidden; overflow-y: auto;">
+                    <table class="m-table m-table-nbd a-content" id="userTable">
+                      <tbody>
+                        <@_.each(initData,function(item){@>
+                            <tr class="a-row">
+                                <td class="cola" data-id="<@=item.id@>">
+                                  <@if(_.contains(expertIds,item.id)){@> 
+									         <input class="u-radio" type='radio' name="users" value='<@=item.name@>' checked/>
+									    <@}else{@>
+									        <input class="u-radio" type='radio' name="users" value='<@=item.name@>'/>
+									    <@}@>
+                                </td>
+                                <td><@=item.name@></td>
+                            </tr>
+                        <@})@>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+         <div> 
+         </div>
+      </div>
+      </div>
+    <div class="modal-footer">
+   		<@=extHtml@>
+	    <a href="javascript:;" class="btn btn-primary a-submit"><@=buttBindName@></a>
+	    <a href="javascript:;" class="btn a-close">取消</a>
+  	</div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

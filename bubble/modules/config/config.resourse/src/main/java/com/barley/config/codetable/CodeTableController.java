@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
  * @author peculiar.1@163.com
  * @version $ID: ConfigBaseController.java, V1.0.0 2019年10月20日 下午10:04:22 $
  */
-@RestController
+@RestController("origCodeTableController")
 @RequestMapping(path = "/codetable")
 public class CodeTableController {
 	
 	/**
-	 * 加载code table定义
+	 * 	加载code table定义
+	 * 
 	 * @param codeKey
 	 * @return
 	 */
 	@GetMapping("/{codeKey}")
 	@ResponseBody
-	public List<CodeTableItem> loadingCodeTable(@PathVariable String codeKey){
+	public List<CodeTableItem> loadingCodeTable(@PathVariable String codeKey) {
 		return codeManager.loadCodeTable(codeKey);
 	}
-	
+
 	@Autowired
 	private CodeTableManager codeManager;
 }

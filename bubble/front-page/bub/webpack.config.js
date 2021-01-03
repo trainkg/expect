@@ -12,6 +12,7 @@ function resolve(dir) {
 module.exports = {
   devServer: {
     host: 'localhost',
+    disableHostCheck: true,
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,

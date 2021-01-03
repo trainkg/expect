@@ -1,0 +1,52 @@
+<table class="" >
+  <tr>
+    <td style="width:46%">
+      <div class="wrapBox">
+    <!--     <@if(searchFlg == 1){@>
+            <div class="u-schBox">
+              <input type="text" class="txt" placeholder="输入需要搜索的条件" id="searchCondition" value="<@=searchCondition?searchCondition:''@>">
+              <a href="javascript:;" class="sch" id="searchButt"><i class="icon icon-search"></i></a>
+            </div>
+        <@}@> -->
+        <div class="m-tabpanels">
+          <div id="tab2" class="m-tabpanel" style="max-height: 228px;overflow-x: hidden; overflow-y: auto;">
+            <table class="m-table m-table-nbd a-content" id="leftTable">
+              <thead>
+                <tr class="a-row">
+                    <th class="cola">
+                        <input class="u-checkbox all-checkbox" type='checkbox' value=''/>
+                    </th>
+                    <th>请选择</th>
+                </tr>
+              </thead>
+              <tbody>
+                <@_.each(initData,function(item){@>
+                    <tr class="a-row">
+                        <td class="cola" data-realtion = "<@=item.relationId@>">
+                            <input class="u-checkbox" type='checkbox' value='<@=item.id@>'/>
+                        </td>
+                        <td><@=item.name@></td>
+                    </tr>
+                <@})@>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </td>
+    <td style="width: 8%;text-align: center;">
+      <div class="op">
+        <ul>
+        <li>
+          <button type="button" id="selectItemButt">&gt;&gt;</button>
+        </li>
+        <li>
+          <button type="button" id="removeItemButt">&lt;&lt;</button>
+        </li>
+        </ul>
+      </div>
+    </td>
+    <td class="" style="width:46%" id="selectedItemModel">
+    </td>
+  </tr>
+</table>

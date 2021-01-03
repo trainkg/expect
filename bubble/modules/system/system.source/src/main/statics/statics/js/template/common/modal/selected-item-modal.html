@@ -1,0 +1,18 @@
+  <div class="wrapBox">
+    <div class="m-tabpanels">
+      <div id="tab2" class="m-tabpanel" style="max-height: 228px;overflow-x: hidden; overflow-y: auto;">
+        <table class="m-table m-table-nbd a-content" id="rightTable">
+          <tbody>
+            <@_.each(selectedObjArr,function(item){@>
+                <tr class="a-row">
+                    <td class="cola" data-name = '<@=item.name@>' data-relationId="<@=item.relationId@>">
+                        <input class="u-checkbox" type='checkbox' value='<@=item.id@>'/>
+                    </td>
+                    <td><@=item.name@></td>
+                </tr>
+            <@})@>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

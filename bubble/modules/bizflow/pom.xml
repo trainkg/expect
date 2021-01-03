@@ -18,6 +18,20 @@
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
 			<version>${activiti}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>de.odysseus.juel</groupId>
+					<artifactId>juel-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>de.odysseus.juel</groupId>
+					<artifactId>juel-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>de.odysseus.juel</groupId>
+					<artifactId>juel-spi</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>

@@ -1,0 +1,50 @@
+<style>
+<!--
+    input[type="file"]{width:80px;}
+	.inputFilePosition{top:0;left:0;width:80px;height:28px;opacity:0;filter:alpha(opacity=0);-moz-opacity:0;position:absolute;}
+	/*模拟textarea*/
+    .simulateTextarea {width: 200px; min-height: 90px; max-height: 120px; _height: 90px; margin-left: auto; margin-right: auto; margin-bottom: 10px; padding: 3px; outline: 0; border: 1px solid #ccc; word-wrap: break-word; overflow-x: hidden; overflow-y: auto;}
+-->
+</style>
+<script type="text/javascript" src="<@=_ZSQ.cp@>/statics/zsq/plupload-2.1.2/js/plupload.full.min.js"></script>
+<!-- layer -->
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close a-close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		  <h4>批量导入文件</h4>
+		</div>
+		<form class="a-form form-horizontal" method="post" id="inputFileForm">
+		<div class="modal-body">
+		   <div class="control-group" id="uploader">
+		       <a id = "goOnAd" href="javascript:;"><button id="browseFile" type="button">选择文件</button></a>
+		       <a href="javascript:;" id="uploadFile"><button type="button">开始上传</button></a><br/>
+		       <div id="file_list">
+		            <!-- <input type="file" class="loadFile" autocomplete="off"  name="files" id="uploadFile" /><br/> -->
+		       </div>
+		       <!-- <h5>请选择需要导入的文件:</h5> <div class="u-uploadbox simulateTextarea" style="width:520px;">
+		           <ul id="inputKlpList">
+		           </ul>
+		       </div> -->
+		   </div>
+		</div>
+		<div class="modal-footer">
+		  <!-- <div id="inputFileHiddArea" style="position:absolute;">
+		      <a href="javascript:;" class="btn"  id="selectDoc">选择文档</a>
+		      <input type="file" class="f-pa inputFilePosition" id="fileInput" name="file"/>
+		  </div> -->
+		  <!-- hidden area -->
+		  <input name="declareTaskId" type="hidden" value="<@=declareTaskId@>"/>
+          <input name="nomAttachId" type="hidden" value="<@=nomAttachId@>"/>
+		  <!-- hidden area -->
+		  <div>
+		      <button type="button" class="btn btn-primary a-submit" id="inputFileButt" style="margin-right:10px;" data-loading-text="正在上传" autocomplete="off">确定</button>
+		      <a href="javascript:;" class="btn a-close">取消</a>
+		  </div>
+		</div>
+		</form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

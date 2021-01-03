@@ -1,0 +1,42 @@
+<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close a-close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">选择<@=title@></h4>
+      </div>
+      <div class="modal-body">
+         <div class="row-fluid">
+	    <!--   <div class="h3">请选择您需要添加的<@=title@>：</div> -->
+			 <@if(dropDownFlg == 1){@>
+			 <div id="dropDownModel">
+				 <form action="#" class="form-horizontal" role="form">
+					 <div class="form-group">
+						 <label class="col-sm-3 control-label">学校类型：</label>
+						 <div class="col-sm-5">
+							 <select name="typeId" id="projectSelect" class="form-control">
+								 <@_.each(projects,function(entity){@>
+								 	<option value="<@=entity.id@>"><@=entity.name@></option>
+								 <@})@>
+							 </select>
+						 </div>
+					 </div>
+					 <input type="hidden" name="p" value="-1">
+					 <input type="hidden" name="count" value="-1">
+				 </form>
+			 </div>
+			 <@}@>
+	      <div id="checkListTableModel">
+	      <!-- 列表table -->
+	      <!-- 列表table -->
+	      </div>
+	    </div>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:;" class="btn btn-primary a-submit"><@=buttBindName@></a>
+   		 <a href="javascript:;" class="btn a-close">取消</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- <div class="modal-backdrop"></div> -->

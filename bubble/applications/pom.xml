@@ -64,5 +64,6 @@
 	<modules>
 		<module>app.cms</module>
 		<module>app.batch</module>
+		<module>app.wchat</module>
 	</modules>
 </project>	

@@ -77,6 +77,8 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 				return;
 			}
 			paramType = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
+		} else {
+			return;
 		}
 		Parameter param = new Parameter(paramType, "keyObj");
 		String domain = "qrybykey";
@@ -180,6 +182,8 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 				return;
 			}
 			paramType = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
+		} else {
+			return;
 		}
 		Parameter param = new Parameter(paramType, "keyObj");
 		String domain = "rmbykey";

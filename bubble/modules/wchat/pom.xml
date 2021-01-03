@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.barley</groupId>
+		<artifactId>bubble</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
+	</parent>
+	<artifactId>bubble.wchat</artifactId>
+	<packaging>pom</packaging>
+	<modules>
+		<module>wchat.corp</module>
+	</modules>
+	
+	
+	<!-- 微信小程序：weixin-java-miniapp
+		微信支付：weixin-java-pay
+		微信开放平台：weixin-java-open
+		公众号（包括订阅号和服务号）：weixin-java-mp
+		企业号/企业微信：weixin-java-cp -->
+	<dependencies>
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-cp</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+	</dependencies>
+</project>

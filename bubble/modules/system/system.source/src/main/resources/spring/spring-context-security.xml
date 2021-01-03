@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- springSecurityFilterChain -->
+	
+	<http pattern="/favicon.ico" security="none"></http>
+	<http pattern="/favicons.ico" security="none"></http>
+	<http pattern="/login.htm" security="none"></http>
+	<http pattern="/statics/**/*.css" security="none"></http>
+	<http pattern="/**/*.css" security="none"></http>
+	<http pattern="/**/*.js" security="none"></http>
+	<http pattern="/**/*.js.map" security="none"></http>
+	<http pattern="/**/*.png" security="none"></http>
+	<http pattern="/**/*.gif" security="none"></http>
+	<http pattern="/**/*.jpg" security="none"></http>
+	
+	<!-- 
+		form-login: property
+		authentication-failure-handler-ref="baleyUrlAuthenticationFailureHandler"
+	 -->
+	<!-- <b:bean name="baleyUrlAuthenticationFailureHandler" class="com.barley.system.auth.spring.BaleyUrlAuthenticationFailureHandler"></b:bean> -->
+	
+	<http>
+		<csrf disabled="true"/>
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<form-login login-page="/login.htm" 
+					default-target-url="/home.htm" 
+					always-use-default-target="true"
+					authentication-failure-url="/login.htm?error"/>
+		<logout logout-url="/bubble/logout" logout-success-url="/bubble/logout/success" />
+	</http>
+
+	<!-- <user-service>
+		<user name="user" password="{noop}password"
+			authorities="ROLE_USER" />
+	</user-service> -->
+	 
+	<b:bean name="bubbleUserService" class="com.barley.system.auth.spring.BarleyUserDetailService"></b:bean>
+	<b:bean name="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></b:bean>
+	
+	<authentication-manager>
+		<authentication-provider user-service-ref="bubbleUserService" >
+			<password-encoder ref="BCryptPasswordEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+	
+</b:beans>

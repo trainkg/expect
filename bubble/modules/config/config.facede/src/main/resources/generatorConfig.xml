@@ -16,7 +16,8 @@
 		MyBatis3：默认的值，生成基于 MyBatis3.x 以上版本的内容，包括XXXBySample MyBatis3Simple：类似 MyBatis3，不生成 
 		XXXBySample MyBatis3DynamicSql、Ibatis2Java2、Ibatis2Java5 introspectedColumnImpl：值为类的全限定名，用于扩展 
 		MBG -->
-	<context id="DMySQLTables" defaultModelType="conditional" targetRuntime="com.barley.robot.mybatis.IntrospectedTableBubbleImpl">
+	<context id="DMySQLTables" defaultModelType="conditional"
+		targetRuntime="com.barley.robot.mybatis.IntrospectedTableBubbleImpl">
 		<!--默认false，为true 将分隔SQL关键字(如果它们在表中用作列名)。 MBG维护了不同数据库的SQL关键字列表(SqlReservedWords)，如特定关键字不在MBG的列表中，可使用<columnOverride>分隔 -->
 		<property name="autoDelimitKeywords" value="false" />
 
@@ -36,14 +37,22 @@
 		<property name="xmlFormatter"
 			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
 
+		<property name="service.dir"
+			value="com.barley.config.service" />
+		<property name="controller.dir"
+			value="com.barley.config.controller" />
+		<property name="resource.dir"
+			value="../config.resourse/src/main/java" />
+
 		<!-- 插件，让实体类实现序列化接口 -->
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="com.barley.robot.mybatis.BubbleMybatisPlugin" />
-		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+		<plugin
+			type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
 			<property name="replaceString" value="Criteria" />
 		</plugin>
-		
+
 		<commentGenerator>
 			<!-- 指定 MBG 是否去除生成代码中的注释 -->
 			<property name="suppressAllComments" value="false" />
@@ -63,7 +72,8 @@
 		<!-- javaTypeResolver：处理数据库中的类型到 Java 中的类型，默认使用 org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl 
 			type：指定用户提供的 Java Type Resolver。该类必须实现 org.mybatis.generator.api.JavaTypeResolver 
 			接口，并必须有公共默认构造函数。可写 DEFAULT -->
-		<javaTypeResolver type="com.barley.robot.mybatis.JavaTypeResolverBubbleImpl">
+		<javaTypeResolver
+			type="com.barley.robot.mybatis.JavaTypeResolverBubbleImpl">
 			<!-- forceBigDecimals：MBG 是否强制对 DECIMAL 和 NUMERIC 字段使用 java.math.BigDecimal，而不是在可能时替换整数类型 
 				true：如果数据库列的类型为 DECIMAL 或 NUMERIC，则 Java 类型解析程序将始终使用 java.math.BigDecimal 
 				false：默认， scale > 0 或 length > 18 使用 BigDecimal scale = 0 且 length [10,18] 
@@ -166,16 +176,13 @@
 			mapperName="CodeTableMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
-		</table>
-		<table tableName="T_MODULE" domainObjectName="Module"
-			mapperName="ModuleMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		<table tableName="t_form" domainObjectName="Form"
 			mapperName="FormMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 		<table tableName="t_form_feild" domainObjectName="FormFeild"
 			mapperName="FormFeildMapper" enableDeleteByExample="false"
@@ -186,6 +193,7 @@
 			mapperName="FeildTypeMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"
 			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
 		</table>
 	</context>
 </generatorConfiguration>
