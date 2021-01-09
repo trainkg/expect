@@ -15,15 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * 
  * 
- * 
- * 
  * @author peculiar.1@163.com
  * @version $ID: BaleyUrlAuthenticationFailureHandler.java, V1.0.0 2021年1月2日
  *          上午10:35:02 $
  */
 @Slf4j
-public class BaleyUrlAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
+public class UrlAuthenticationFailureHandler implements AuthenticationFailureHandler {
+	
+	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {

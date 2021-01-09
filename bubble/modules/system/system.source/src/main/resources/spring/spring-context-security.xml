@@ -24,23 +24,19 @@
 	 -->
 	<!-- <b:bean name="baleyUrlAuthenticationFailureHandler" class="com.barley.system.auth.spring.BaleyUrlAuthenticationFailureHandler"></b:bean> -->
 	
-	<http>
+	
+	<http entry-point-ref="delegatingAuthenticationEntryPoint">
+		<custom-filter ref="accessChannelFilter" before="FIRST"/>
+		<expression-handler ref="blyWebSecurityExpressionHandler"/>
 		<csrf disabled="true"/>
+		<intercept-url pattern="/department/**" access="isAuthenticated() and hasRole('TS_ROLE_1') and hasAuthPerm('TEST')"/>
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 		<form-login login-page="/login.htm" 
-					default-target-url="/home.htm" 
-					always-use-default-target="true"
-					authentication-failure-url="/login.htm?error"/>
-		<logout logout-url="/bubble/logout" logout-success-url="/bubble/logout/success" />
+					authentication-success-handler-ref="barleyAuthenticationSuccessHandler"
+					/>
+		<logout invalidate-session="true" delete-cookies="JSESSIONID" success-handler-ref="blyLogoutHandler"/>
+		<session-management invalid-session-url="/login.htm" />
 	</http>
-
-	<!-- <user-service>
-		<user name="user" password="{noop}password"
-			authorities="ROLE_USER" />
-	</user-service> -->
-	 
-	<b:bean name="bubbleUserService" class="com.barley.system.auth.spring.BarleyUserDetailService"></b:bean>
-	<b:bean name="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></b:bean>
 	
 	<authentication-manager>
 		<authentication-provider user-service-ref="bubbleUserService" >
@@ -48,4 +44,5 @@
 		</authentication-provider>
 	</authentication-manager>
 	
+	<!-- <custom-filter ref="" position="FIRST"/> -->
 </b:beans>

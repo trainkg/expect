@@ -4,7 +4,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.barley.system.application.LoginContext;
-import com.barley.system.service.app.LoginService;
 
 /**
  * 
@@ -101,17 +97,14 @@ public class LoginController {
 				}
 			}
 
-			LoginContext context = buildLoginContext(session, userId);
-			servLogin.login(context);
+			/*
+			 * LoginContext context = buildLoginContext(session, userId);
+			 * servLogin.login(context);
+			 */
 		}
 	}
 
-	private LoginContext buildLoginContext(HttpSession session, String userId) {
-		LoginContext context = new LoginContext();
-		context.setUserId(userId);
-		context.setSession(session);
-		return context;
-	}
+	
 
 	private boolean validateToken(LoginForm form, String userId) {
 		return false;
@@ -123,7 +116,5 @@ public class LoginController {
 
 	private LoginFormValidator validate = new LoginFormValidator();
 
-	@Autowired
-	private LoginService servLogin;
 
 }

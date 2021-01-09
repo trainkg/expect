@@ -26,7 +26,7 @@ import com.barley.system.service.base.SysUserService;
  * @author peculiar.1@163.com
  * @version $ID: BarleyUserDetailService.java, V1.0.0 2021年1月1日 下午9:20:30 $
  */
-public class BarleyUserDetailService implements UserDetailsService {
+public class UserDetailService implements UserDetailsService {
 
 	/**
 	 * PROFILE
@@ -109,7 +109,7 @@ public class BarleyUserDetailService implements UserDetailsService {
 		auths.add(new SimpleGrantedAuthority(AUTHORITY_TYPE_ROLE + rolewapper.getRole().getName()));
 		if (rolewapper.getPermissions() != null) {
 			rolewapper.getPermissions().forEach(permission -> {
-				SimpleGrantedAuthority auth = new SimpleGrantedAuthority(AUTHORITY_TYPE_PREM + rolewapper.getRole().getName());
+				SimpleGrantedAuthority auth = new SimpleGrantedAuthority(AUTHORITY_TYPE_PREM + permission.getCode());
 				if(!auths.contains(auth)) {
 					auths.add(auth);
 				}

@@ -21,7 +21,7 @@ public class SessionsLoginHanlder implements LoginHandler {
 	public void login(LoginContext context) throws LoginException {
 		log.info("SessionsLoginHanlder execute");
 		CurrentUser user = buildCurrentUser(context);
-		context.getSession().setAttribute(LoginConstants.SESSION_KEY, user);
+		context.getRequest().getSession().setAttribute(LoginConstants.SESSION_KEY, user);
 	}
 
 	private CurrentUser buildCurrentUser(LoginContext context) {

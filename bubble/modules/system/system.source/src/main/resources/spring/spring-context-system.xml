@@ -19,9 +19,13 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
        ">
-
 	
-  	<bean name="loginSessionHandler" class="com.barley.system.controller.app.handler.SessionsLoginHanlder"></bean>
+	<bean name="sysObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+		<property name="failOnEmptyBeans" value="false" />
+	</bean>
+				
+	<bean name="blyLogoutHandler"  class="com.barley.system.auth.spring.BlyLogoutSuccessHandler"/>
+	<bean name="loginSessionHandler" class="com.barley.system.controller.app.handler.SessionsLoginHanlder"></bean>
 	<bean name="delegatingLoginHander" class="com.barley.system.controller.app.handler.DelegatingLoginHander">
 		<property name="handlers">
 			<list>
@@ -29,4 +33,48 @@
 			</list>
 		</property>
 	</bean>
+	<bean name="barleyAuthenticationSuccessHandler" class="com.barley.system.auth.spring.AuthenticationSuccessHandler">
+		<property name="successHanlder" ref="delegatingLoginHander"></property>
+		<property name="alwaysUseDefaultTargetUrl" value="true"></property>
+		<property name="defaultTargetUrl" value="/home.htm"></property>
+		
+	</bean>
+	<bean name="blyWebSecurityExpressionHandler" class="com.barley.system.auth.spring.BlyWebSecurityExpressionHandler">
+		<property name="defaultRolePrefix" value="$R_"></property>
+		<property name="defaultPremPrefix" value="$P_"></property>
+	</bean>
+	
+	<bean name="accessChannelFilter" class="com.barley.system.auth.spring.AccessChannelFilter"></bean>
+	
+	<bean name="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<constructor-arg value="/login.htm"/>
+	</bean>
+	
+	<bean name="jsonAuthenticationEntryPoint" class="com.barley.system.auth.spring.JsonAuthenticationEntryPoint">
+		<property name="objectMapper" ref="sysObjectMapper"></property>
+	</bean>
+	
+	<bean name="authRequestMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+		<constructor-arg value="/**"></constructor-arg>
+	</bean>
+	
+	<!-- @see  org.springframework.security.web.util.matcher.ELRequestMatcherContext -->
+	<bean name="elrequestMatcher" class="org.springframework.security.web.util.matcher.ELRequestMatcher">
+		<constructor-arg value="hasHeader('User-Agent','MSIE')"></constructor-arg>
+	</bean>
+	
+	<bean name="delegatingAuthenticationEntryPoint" class="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint">
+		<constructor-arg>
+			<map>
+				<entry key-ref="elrequestMatcher" value-ref="loginUrlAuthenticationEntryPoint" />
+				<entry key-ref="authRequestMatcher" value-ref="jsonAuthenticationEntryPoint" />
+			</map>
+		</constructor-arg>
+		<property name="defaultEntryPoint" ref="loginUrlAuthenticationEntryPoint" />
+	</bean>
+	
+	<bean name="bubbleUserService" class="com.barley.system.auth.spring.UserDetailService"></bean>
+	<bean name="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+  	
+  	<import resource="spring-context-security.xml"/>
 </beans>

@@ -101,7 +101,6 @@
 	<import resource="classpath*:spring/spring-context-override.xml"/>
 	<import resource="classpath*:spring/spring-context-mybatis.xml"/>
 	<import resource="classpath*:spring/spring-context-system.xml"/>
-	<import resource="classpath*:spring/spring-context-security.xml"/>
 	<import resource="classpath*:config/activti-spring-context.xml"/>
 	
 	<!-- 使用固定的格式，自动加载 -->
