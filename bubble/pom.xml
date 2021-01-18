@@ -23,7 +23,6 @@
 		<module>modules/security</module>
 		<module>modules/bizflow</module>
 		<module>modules/cms</module>
-		<module>applications</module>
 	</modules>
 	<build>
 		<resources>
@@ -64,18 +63,6 @@
 			<artifactId>barley.ls</artifactId>
 			<version>${ls.version}</version>
 			<type>pom</type>
-		</dependency>
-		<!-- <dependency> <groupId>org.barley</groupId> <artifactId>runtime.web</artifactId> 
-			<version>${project.version}</version> <classifier>statics</classifier> <type>war</type> 
-			<scope>runtime</scope> </dependency> -->
-
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-keyvalue</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
 		</dependency>
 	</dependencies>
 
