@@ -76,16 +76,17 @@
 				</file>
 			</activation>
 			<dependencies>
-				<dependency>
+				<!-- <dependency>
 					<groupId>org.barley</groupId>
 					<artifactId>runtime.pom</artifactId>
 					<version>${project.version}</version>
 					<type>pom</type>
-				</dependency>
+				</dependency> -->
 				<dependency>
 					<groupId>org.barley</groupId>
 					<artifactId>robot</artifactId>
 					<version>${project.version}</version>
+					<scope>compile</scope>
 				</dependency>
 			</dependencies>
 		</profile>

@@ -12,5 +12,6 @@
   	<module>config.facede</module>
   	<module>config.resourse</module>
   	<module>config.pom.xml</module>
+  	<module>autoconfigurate</module>
   </modules>
 </project>

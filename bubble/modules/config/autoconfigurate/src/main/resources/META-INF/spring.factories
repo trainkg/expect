@@ -1,0 +1,1 @@
+com.barley.bubble.autoconfigurate.EnableBubbleConfig=com.barley.bubble.autoconfigurate.config.ConfigAutoConfiguration

@@ -32,5 +32,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency> -->
+		<dependency>
+			<groupId>org.barley</groupId>
+			<artifactId>config.resourse</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
