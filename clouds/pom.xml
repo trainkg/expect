@@ -68,9 +68,6 @@
 		</developer>
 	</developers>
 	<modules>
-		<module>app.cms</module>
-		<module>app.batch</module>
-		<module>app.wchat</module>
 		<module>cloud.core</module>
 		<module>cloud.config</module>
 		<module>test</module>
