@@ -17,6 +17,7 @@
 	<modules>
 		<module>robot</module>
 		<module>distribution</module>
+		<module>modules/system</module>
 		<module>modules/config</module>
 		<module>modules/runtime</module>
 		<module>modules/party</module>
