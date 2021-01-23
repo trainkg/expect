@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.mapping.FetchType;
 
-import com.barley.system.modal.Permission;
 import com.barley.system.modal.Role;
 import com.barley.system.modal.RoleWapper;
 import com.barley.system.vo.RoleCriteria;
