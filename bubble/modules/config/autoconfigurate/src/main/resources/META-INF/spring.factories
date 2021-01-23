@@ -1,1 +1,1 @@
-com.barley.bubble.autoconfigurate.EnableBubbleConfig=com.barley.bubble.autoconfigurate.config.ConfigAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.barley.bubble.autoconfigurate.config.ConfigAutoConfiguration
