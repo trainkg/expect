@@ -55,7 +55,7 @@ public class DBCodeTable implements CodeTable {
 			String table =  codeTable.getTableName();
 			String seachParams = "";
 			// replace original conditions.
-			if(!StringUtils.isEmpty(condtions)) {
+			if(!StringUtils.hasLength(condtions)) {
 				seachParams = condtions;
 			}
 			String querySql = "select "+ value +" from " + table + " " + seachParams;
@@ -66,7 +66,7 @@ public class DBCodeTable implements CodeTable {
 	}
 
 	public String getTableName() {
-		if (StringUtils.isEmpty(tableName)) {
+		if (StringUtils.hasLength(tableName)) {
 			return DEFAULT_TABLE_NAME;
 		}
 		return this.tableName;
