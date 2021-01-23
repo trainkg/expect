@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+  		http://www.springframework.org/schema/cache https://www.springframework.org/schema/cache/spring-cache.xsd">
+	<!-- 激活 @Async and @Scheduled 注解特性 -->
+	<task:annotation-driven/>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">   
+	     <property name="basename" value="app" />
+	     <property name="defaultEncoding" value="UTF-8"/>
+	     <property name="useCodeAsDefaultMessage" value="true" />
+    </bean>
+	
+  	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="default"></property>
+				</bean>
+				<bean
+					class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="CA_CODE_TABLE"></property>
+				</bean>
+			</set>
+		</property>
+	</bean>
+	
+	<!-- 激活缓存 -->
+	<cache:annotation-driven/>
+	
+	<import resource="classpath*:spring/spring-context-override.xml"/>
+	<import resource="classpath*:spring/spring-context-mybatis.xml"/>
+	<import resource="classpath*:spring/spring-context-system.xml"/>
+	<import resource="classpath*:config/activti-spring-context.xml"/>
+	
+	<!-- 使用固定的格式，自动加载 -->
+	<!-- <import resource="classpath*:spring/spring-quartz.xml"/> -->
+	<import resource="classpath*:spring/*-spring-context.xml"/>
+</beans>
