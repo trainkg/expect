@@ -17,8 +17,8 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="source_id" jdbcType="VARCHAR" property="sourceId" />
     <result column="spell" jdbcType="VARCHAR" property="spell" />
-    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
-    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="user_status" jdbcType="SMALLINT" property="userStatus" />
+    <result column="user_type" jdbcType="SMALLINT" property="userType" />
     <result column="insert_by" jdbcType="BIGINT" property="insertBy" />
     <result column="update_by" jdbcType="BIGINT" property="updateBy" />
     <result column="insert_time" jdbcType="TIMESTAMP" property="insertTime" />
@@ -121,8 +121,8 @@
     values (#{id,jdbcType=VARCHAR}, #{activationTime,jdbcType=TIMESTAMP}, #{applicationTime,jdbcType=DATE}, 
       #{email,jdbcType=VARCHAR}, #{firstLoginTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
       #{loginName,jdbcType=VARCHAR}, #{loginTimes,jdbcType=INTEGER}, #{password,jdbcType=VARCHAR}, 
-      #{sourceId,jdbcType=VARCHAR}, #{spell,jdbcType=VARCHAR}, #{userStatus,jdbcType=INTEGER}, 
-      #{userType,jdbcType=INTEGER}, #{insertBy,jdbcType=BIGINT}, #{updateBy,jdbcType=BIGINT}, 
+      #{sourceId,jdbcType=VARCHAR}, #{spell,jdbcType=VARCHAR}, #{userStatus,jdbcType=SMALLINT}, 
+      #{userType,jdbcType=SMALLINT}, #{insertBy,jdbcType=BIGINT}, #{updateBy,jdbcType=BIGINT}, 
       #{insertTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{expired,jdbcType=CHAR}, 
       #{pwdExpired,jdbcType=CHAR}, #{locked,jdbcType=CHAR})
   </insert>
@@ -229,10 +229,10 @@
         #{spell,jdbcType=VARCHAR},
       </if>
       <if test="userStatus != null">
-        #{userStatus,jdbcType=INTEGER},
+        #{userStatus,jdbcType=SMALLINT},
       </if>
       <if test="userType != null">
-        #{userType,jdbcType=INTEGER},
+        #{userType,jdbcType=SMALLINT},
       </if>
       <if test="insertBy != null">
         #{insertBy,jdbcType=BIGINT},
@@ -295,10 +295,10 @@
         `spell` = #{spell,jdbcType=VARCHAR},
       </if>
       <if test="userStatus != null">
-        `user_status` = #{userStatus,jdbcType=INTEGER},
+        `user_status` = #{userStatus,jdbcType=SMALLINT},
       </if>
       <if test="userType != null">
-        `user_type` = #{userType,jdbcType=INTEGER},
+        `user_type` = #{userType,jdbcType=SMALLINT},
       </if>
       <if test="insertBy != null">
         `insert_by` = #{insertBy,jdbcType=BIGINT},
@@ -340,8 +340,8 @@
       `password` = #{password,jdbcType=VARCHAR},
       `source_id` = #{sourceId,jdbcType=VARCHAR},
       `spell` = #{spell,jdbcType=VARCHAR},
-      `user_status` = #{userStatus,jdbcType=INTEGER},
-      `user_type` = #{userType,jdbcType=INTEGER},
+      `user_status` = #{userStatus,jdbcType=SMALLINT},
+      `user_type` = #{userType,jdbcType=SMALLINT},
       `insert_by` = #{insertBy,jdbcType=BIGINT},
       `update_by` = #{updateBy,jdbcType=BIGINT},
       `insert_time` = #{insertTime,jdbcType=TIMESTAMP},

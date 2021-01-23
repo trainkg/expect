@@ -100,7 +100,22 @@
 			enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
-
+	
+		<table tableName="t_user_status" domainObjectName="UserStatus"
+			mapperName="UserStatusMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false"
+			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
+		</table>
+		
+		<table tableName="t_user_type" domainObjectName="UserType"
+			mapperName="UserTypeMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false"
+			delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
+			<property name="constants" value="true" />
+		</table>
+		
 		<table tableName="t_user" domainObjectName="SysUser"
 			mapperName="SysUserMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false"

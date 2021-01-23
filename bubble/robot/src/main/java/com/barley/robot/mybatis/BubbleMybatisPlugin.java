@@ -20,6 +20,7 @@ import com.barley.robot.modal.ConditonTopClass;
 import com.barley.robot.modal.CondtionInterface;
 import com.barley.robot.modal.resolvers.BasicActionResolver;
 import com.barley.robot.modal.resolvers.BasicServiceResolver;
+import com.barley.robot.modal.resolvers.ConstantsGenerator;
 import com.barley.robot.modal.resolvers.ServiceImplGenerator;
 
 public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter {
@@ -89,10 +90,13 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
 		logger.info("execute contextGenerateAdditionalJavaFiles table name {} {} ",
 				introspectedTable.getTableConfiguration().getTableName(), introspectedTable.getTableType());
+		List<GeneratedJavaFile> files = new ArrayList<GeneratedJavaFile>();
 
 		DefaultShellCallback shellback = new DefaultShellCallback(false);
+
+		generatorConstants(introspectedTable, shellback, files);
 		// service
-		List<GeneratedJavaFile> files = new ArrayList<GeneratedJavaFile>();
+
 		// services
 		BasicServiceResolver genertor = new BasicServiceResolver("", introspectedTable);
 		List<CompilationUnit> units = genertor.getCompilationUnits();
@@ -162,6 +166,18 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 		return files;
 	}
 
+	private void generatorConstants(IntrospectedTable introspectedTable, DefaultShellCallback shellback,
+			List<GeneratedJavaFile> files) {
+		ConstantsGenerator generator = new ConstantsGenerator(
+				context.getJavaModelGeneratorConfiguration().getTargetProject(), introspectedTable);
+
+		List<CompilationUnit> units = generator.getCompilationUnits();
+		for (CompilationUnit compilationUnit : units) {
+			GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit, generator.getProject(),
+					context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING), context.getJavaFormatter());
+			files.add(gjf);
+		}
+	}
 
 	/**
 	 * @see IntrospectedTable.initialized 设定当前插件对于这个table定义的影响
@@ -171,6 +187,5 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 		super.initialized(introspectedTable);
 		introspectedTable.setSelectByExampleStatementId("searchByCriteria");
 	}
-
 
 }

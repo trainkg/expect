@@ -77,12 +77,14 @@
 				</file>
 			</activation>
 			<dependencies>
-				<!-- <dependency>
+				<!-- 自动生成需要访问数据库 -->
+				<dependency>
 					<groupId>org.barley</groupId>
 					<artifactId>runtime.pom</artifactId>
 					<version>${project.version}</version>
 					<type>pom</type>
-				</dependency> -->
+					<scope>runtime</scope>
+				</dependency>
 				<dependency>
 					<groupId>org.barley</groupId>
 					<artifactId>robot</artifactId>
