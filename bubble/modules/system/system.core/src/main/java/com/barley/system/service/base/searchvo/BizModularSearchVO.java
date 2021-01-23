@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.searchvo.BizModularSearchVO create date 2021-01-03 11:09:28
+ * @version $ID: com.barley.system.service.base.searchvo.BizModularSearchVO create date 2021-01-23 17:05:39
  */
 public class BizModularSearchVO extends BizModularCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter
@@ -22,6 +22,22 @@ public class BizModularSearchVO extends BizModularCriteria implements org.barley
     @Setter
     private String describe;
 
+    @Getter
+    @Setter
+    private Long insertBy;
+
+    @Getter
+    @Setter
+    private Long updateBy;
+
+    @Getter
+    @Setter
+    private java.time.LocalDateTime insertTime;
+
+    @Getter
+    @Setter
+    private java.time.LocalDateTime updateTime;
+
     public void build() {
         Criteria criteria = createCriteria();
         
@@ -35,6 +51,14 @@ public class BizModularSearchVO extends BizModularCriteria implements org.barley
         
         if(StringUtils.isNotEmpty(describe)) {
             criteria.andDescribeEqualTo(describe);
+        }
+        
+        if(insertBy != null) {
+            criteria.andInsertByEqualTo(insertBy);
+        }
+        
+        if(updateBy != null) {
+            criteria.andUpdateByEqualTo(updateBy);
         }
     }
 

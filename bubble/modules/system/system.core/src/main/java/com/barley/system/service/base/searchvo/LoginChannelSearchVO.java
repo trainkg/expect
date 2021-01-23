@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.searchvo.LoginChannelSearchVO create date 2021-01-03 11:09:28
+ * @version $ID: com.barley.system.service.base.searchvo.LoginChannelSearchVO create date 2021-01-23 17:05:39
  */
 public class LoginChannelSearchVO extends LoginChannelCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter
@@ -22,6 +22,22 @@ public class LoginChannelSearchVO extends LoginChannelCriteria implements org.ba
     @Setter
     private String secret;
 
+    @Getter
+    @Setter
+    private Long insertBy;
+
+    @Getter
+    @Setter
+    private Long updateBy;
+
+    @Getter
+    @Setter
+    private java.time.LocalDateTime insertTime;
+
+    @Getter
+    @Setter
+    private java.time.LocalDateTime updateTime;
+
     public void build() {
         Criteria criteria = createCriteria();
         
@@ -35,6 +51,14 @@ public class LoginChannelSearchVO extends LoginChannelCriteria implements org.ba
         
         if(StringUtils.isNotEmpty(secret)) {
             criteria.andSecretEqualTo(secret);
+        }
+        
+        if(insertBy != null) {
+            criteria.andInsertByEqualTo(insertBy);
+        }
+        
+        if(updateBy != null) {
+            criteria.andUpdateByEqualTo(updateBy);
         }
     }
 

@@ -1,18 +1,25 @@
 package com.barley.robot.mybatis;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.mybatis.generator.api.ConnectionFactory;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
+import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.JDBCConnectionConfiguration;
 import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.exception.ShellException;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.mybatis.generator.internal.JDBCConnectionFactory;
+import org.mybatis.generator.internal.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +33,41 @@ import com.barley.robot.modal.resolvers.ServiceImplGenerator;
 public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+
+	/**
+	 * 打开插件配置的数据库连接
+	 * 
+	 * @param context
+	 * @return
+	 * @throws SQLException
+	 */
+	public static final Connection getConnection(Context context) throws SQLException {
+		ConnectionFactory connectionFactory;
+		JDBCConnectionConfiguration jdbcConnectionConfiguration = context.getJdbcConnectionConfiguration();
+		if (jdbcConnectionConfiguration != null) {
+			connectionFactory = new JDBCConnectionFactory(jdbcConnectionConfiguration);
+		} else {
+			connectionFactory = ObjectFactory.createConnectionFactory(context);
+		}
+		return connectionFactory.getConnection();
+	}
+	
+	/**
+	 * 关闭插件配置的数据库连接
+	 * 
+	 * @param context
+	 * @return
+	 * @throws SQLException
+	 */
+	public static final void closeConnection(Connection connection) {
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// ignore
+			}
+		}
+	}
 
 	public boolean existFile(GeneratedJavaFile gjf, ShellCallback shellCallback) {
 		File directory;
@@ -186,6 +228,22 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 	public void initialized(IntrospectedTable introspectedTable) {
 		super.initialized(introspectedTable);
 		introspectedTable.setSelectByExampleStatementId("searchByCriteria");
+	}
+
+	/**
+	 * 
+	 * 判断MAPPER存在的时候，不再生成, 防止后加的接口被覆盖
+	 */
+	@Override
+	public boolean clientGenerated(Interface interfaze, IntrospectedTable introspectedTable) {
+		GeneratedJavaFile gjf = new GeneratedJavaFile(interfaze,
+				context.getJavaModelGeneratorConfiguration().getTargetProject(),
+				context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING), context.getJavaFormatter());
+		DefaultShellCallback shellCallback = new DefaultShellCallback(false);
+		if (existFile(gjf, shellCallback)) {
+			return false;
+		}
+		return super.clientGenerated(interfaze, introspectedTable);
 	}
 
 }

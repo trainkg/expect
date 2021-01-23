@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Auto generate , don't modify this file.
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.LoginChannelBaseService create date 2021-01-03 11:09:28
+ * @version $ID: com.barley.system.service.base.LoginChannelBaseService create date 2021-01-23 17:05:39
  */
 public interface LoginChannelBaseService {
     LoginChannel create(LoginChannel record);

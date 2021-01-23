@@ -1,5 +1,6 @@
 package com.barley.system.vo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -461,6 +462,246 @@ public class LoginChannelCriteria {
 
         public Criteria andSecretNotBetween(String value1, String value2) {
             addCriterion("`secret` not between", value1, value2, "secret");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByIsNull() {
+            addCriterion("`insert_by` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByIsNotNull() {
+            addCriterion("`insert_by` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByEqualTo(Long value) {
+            addCriterion("`insert_by` =", value, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByNotEqualTo(Long value) {
+            addCriterion("`insert_by` <>", value, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByGreaterThan(Long value) {
+            addCriterion("`insert_by` >", value, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByGreaterThanOrEqualTo(Long value) {
+            addCriterion("`insert_by` >=", value, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByLessThan(Long value) {
+            addCriterion("`insert_by` <", value, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByLessThanOrEqualTo(Long value) {
+            addCriterion("`insert_by` <=", value, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByIn(List<Long> values) {
+            addCriterion("`insert_by` in", values, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByNotIn(List<Long> values) {
+            addCriterion("`insert_by` not in", values, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByBetween(Long value1, Long value2) {
+            addCriterion("`insert_by` between", value1, value2, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertByNotBetween(Long value1, Long value2) {
+            addCriterion("`insert_by` not between", value1, value2, "insertBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByIsNull() {
+            addCriterion("`update_by` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByIsNotNull() {
+            addCriterion("`update_by` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByEqualTo(Long value) {
+            addCriterion("`update_by` =", value, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByNotEqualTo(Long value) {
+            addCriterion("`update_by` <>", value, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByGreaterThan(Long value) {
+            addCriterion("`update_by` >", value, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByGreaterThanOrEqualTo(Long value) {
+            addCriterion("`update_by` >=", value, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByLessThan(Long value) {
+            addCriterion("`update_by` <", value, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByLessThanOrEqualTo(Long value) {
+            addCriterion("`update_by` <=", value, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByIn(List<Long> values) {
+            addCriterion("`update_by` in", values, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByNotIn(List<Long> values) {
+            addCriterion("`update_by` not in", values, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByBetween(Long value1, Long value2) {
+            addCriterion("`update_by` between", value1, value2, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateByNotBetween(Long value1, Long value2) {
+            addCriterion("`update_by` not between", value1, value2, "updateBy");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeIsNull() {
+            addCriterion("`insert_time` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeIsNotNull() {
+            addCriterion("`insert_time` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeEqualTo(LocalDateTime value) {
+            addCriterion("`insert_time` =", value, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("`insert_time` <>", value, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeGreaterThan(LocalDateTime value) {
+            addCriterion("`insert_time` >", value, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("`insert_time` >=", value, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeLessThan(LocalDateTime value) {
+            addCriterion("`insert_time` <", value, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("`insert_time` <=", value, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeIn(List<LocalDateTime> values) {
+            addCriterion("`insert_time` in", values, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("`insert_time` not in", values, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("`insert_time` between", value1, value2, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andInsertTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("`insert_time` not between", value1, value2, "insertTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIsNull() {
+            addCriterion("`update_time` is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIsNotNull() {
+            addCriterion("`update_time` is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeEqualTo(LocalDateTime value) {
+            addCriterion("`update_time` =", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("`update_time` <>", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThan(LocalDateTime value) {
+            addCriterion("`update_time` >", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("`update_time` >=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThan(LocalDateTime value) {
+            addCriterion("`update_time` <", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("`update_time` <=", value, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeIn(List<LocalDateTime> values) {
+            addCriterion("`update_time` in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("`update_time` not in", values, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("`update_time` between", value1, value2, "updateTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("`update_time` not between", value1, value2, "updateTime");
             return (Criteria) this;
         }
     }

@@ -926,52 +926,52 @@ public class SysUserCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusEqualTo(Integer value) {
+        public Criteria andUserStatusEqualTo(Short value) {
             addCriterion("`user_status` =", value, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusNotEqualTo(Integer value) {
+        public Criteria andUserStatusNotEqualTo(Short value) {
             addCriterion("`user_status` <>", value, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusGreaterThan(Integer value) {
+        public Criteria andUserStatusGreaterThan(Short value) {
             addCriterion("`user_status` >", value, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserStatusGreaterThanOrEqualTo(Short value) {
             addCriterion("`user_status` >=", value, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusLessThan(Integer value) {
+        public Criteria andUserStatusLessThan(Short value) {
             addCriterion("`user_status` <", value, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusLessThanOrEqualTo(Integer value) {
+        public Criteria andUserStatusLessThanOrEqualTo(Short value) {
             addCriterion("`user_status` <=", value, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusIn(List<Integer> values) {
+        public Criteria andUserStatusIn(List<Short> values) {
             addCriterion("`user_status` in", values, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusNotIn(List<Integer> values) {
+        public Criteria andUserStatusNotIn(List<Short> values) {
             addCriterion("`user_status` not in", values, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusBetween(Integer value1, Integer value2) {
+        public Criteria andUserStatusBetween(Short value1, Short value2) {
             addCriterion("`user_status` between", value1, value2, "userStatus");
             return (Criteria) this;
         }
 
-        public Criteria andUserStatusNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserStatusNotBetween(Short value1, Short value2) {
             addCriterion("`user_status` not between", value1, value2, "userStatus");
             return (Criteria) this;
         }
@@ -986,52 +986,52 @@ public class SysUserCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeEqualTo(Integer value) {
+        public Criteria andUserTypeEqualTo(Short value) {
             addCriterion("`user_type` =", value, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeNotEqualTo(Integer value) {
+        public Criteria andUserTypeNotEqualTo(Short value) {
             addCriterion("`user_type` <>", value, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeGreaterThan(Integer value) {
+        public Criteria andUserTypeGreaterThan(Short value) {
             addCriterion("`user_type` >", value, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andUserTypeGreaterThanOrEqualTo(Short value) {
             addCriterion("`user_type` >=", value, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeLessThan(Integer value) {
+        public Criteria andUserTypeLessThan(Short value) {
             addCriterion("`user_type` <", value, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andUserTypeLessThanOrEqualTo(Short value) {
             addCriterion("`user_type` <=", value, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeIn(List<Integer> values) {
+        public Criteria andUserTypeIn(List<Short> values) {
             addCriterion("`user_type` in", values, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeNotIn(List<Integer> values) {
+        public Criteria andUserTypeNotIn(List<Short> values) {
             addCriterion("`user_type` not in", values, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeBetween(Integer value1, Integer value2) {
+        public Criteria andUserTypeBetween(Short value1, Short value2) {
             addCriterion("`user_type` between", value1, value2, "userType");
             return (Criteria) this;
         }
 
-        public Criteria andUserTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andUserTypeNotBetween(Short value1, Short value2) {
             addCriterion("`user_type` not between", value1, value2, "userType");
             return (Criteria) this;
         }

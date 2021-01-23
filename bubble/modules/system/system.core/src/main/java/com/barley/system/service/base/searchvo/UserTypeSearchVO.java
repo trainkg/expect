@@ -7,20 +7,20 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.searchvo.UserTypeSearchVO create date 2021-01-23 14:30:29
+ * @version $ID: com.barley.system.service.base.searchvo.UserTypeSearchVO create date 2021-01-23 20:01:02
  */
 public class UserTypeSearchVO extends UserTypeCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter
     @Setter
-    private String typeName;
+    private String name;
 
     @Getter
     @Setter
-    private String typeCode;
+    private String code;
 
     @Getter
     @Setter
-    private Short typeStatus;
+    private Short status;
 
     @Getter
     @Setter
@@ -41,16 +41,16 @@ public class UserTypeSearchVO extends UserTypeCriteria implements org.barley.myb
     public void build() {
         Criteria criteria = createCriteria();
         
-        if(StringUtils.isNotEmpty(typeName)) {
-            criteria.andTypeNameEqualTo(typeName);
+        if(StringUtils.isNotEmpty(name)) {
+            criteria.andNameEqualTo(name);
         }
         
-        if(StringUtils.isNotEmpty(typeCode)) {
-            criteria.andTypeCodeEqualTo(typeCode);
+        if(StringUtils.isNotEmpty(code)) {
+            criteria.andCodeEqualTo(code);
         }
         
-        if(typeStatus != null) {
-            criteria.andTypeStatusEqualTo(typeStatus);
+        if(status != null) {
+            criteria.andStatusEqualTo(status);
         }
         
         if(insertBy != null) {

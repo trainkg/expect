@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.searchvo.SysUserSearchVO create date 2021-01-03 11:09:28
+ * @version $ID: com.barley.system.service.base.searchvo.SysUserSearchVO create date 2021-01-23 20:01:02
  */
 public class SysUserSearchVO extends SysUserCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter
@@ -52,11 +52,11 @@ public class SysUserSearchVO extends SysUserCriteria implements org.barley.mybat
 
     @Getter
     @Setter
-    private Integer userStatus;
+    private Short userStatus;
 
     @Getter
     @Setter
-    private Integer userType;
+    private Short userType;
 
     @Getter
     @Setter

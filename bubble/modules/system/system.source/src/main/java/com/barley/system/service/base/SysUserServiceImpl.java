@@ -92,7 +92,7 @@ public class SysUserServiceImpl implements SysUserService {
 		user.setLoginName("trainkg");
 		user.setId("00083961edb14be2873c864ffb0c1dd0");
 		user.setPassword("1234567");
-		user.setUserStatus(1);
+		user.setUserStatus((short)1);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return user;
 	}

@@ -19,7 +19,6 @@ public interface SysMessageMapper {
      *
      * @mbg.generated
      */
-    //插入方法
     int insert(SysMessage record);
 
     /**

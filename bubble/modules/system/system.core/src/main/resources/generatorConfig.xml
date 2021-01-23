@@ -5,27 +5,20 @@
 
 <generatorConfiguration>
 	<properties resource="hibernate.properties" />
-	<context id="DMySQLTables" defaultModelType="conditional"
-		targetRuntime="MyBatis3">
+	<context id="DMySQLTables" defaultModelType="conditional" targetRuntime="MyBatis3">
 		<property name="autoDelimitKeywords" value="false" />
 		<property name="beginningDelimiter" value="`" />
 		<property name="endingDelimiter" value="`" />
 		<property name="javaFileEncoding" value="UTF-8" />
-		<property name="javaFormatter"
-			value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
-		<property name="xmlFormatter"
-			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
-		<property name="service.dir"
-			value="com.barley.system.service.base" />
-		<property name="controller.dir"
-			value="com.barley.system.controller.base" />
-		<property name="resource.dir"
-			value="../system.source/src/main/java" />
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		<property name="service.dir" value="com.barley.system.service.base" />
+		<property name="controller.dir" value="com.barley.system.controller.base" />
+		<property name="resource.dir" value="../system.source/src/main/java" />
 
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="com.barley.robot.mybatis.BubbleMybatisPlugin" />
-		<plugin
-			type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
 			<property name="replaceString" value="Criteria" />
 		</plugin>
@@ -36,8 +29,7 @@
 			<property name="addRemarkComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection driverClass="${jdbc.className}"
-			connectionURL="${jdbc.url}" userId="${jdbc.username}"
+		<jdbcConnection driverClass="${jdbc.className}" connectionURL="${jdbc.url}" userId="${jdbc.username}"
 			password="${jdbc.password}" />
 
 		<javaTypeResolver type="DEFAULT">
@@ -45,27 +37,21 @@
 			<property name="useJSR310Types" value="true" />
 		</javaTypeResolver>
 
-		<javaModelGenerator
-			targetPackage="com.barley.system.modal" targetProject="src/main/java">
+		<javaModelGenerator targetPackage="com.barley.system.modal" targetProject="src/main/java">
 			<property name="constructorBased" value="false" />
 			<property name="enableSubPackages" value="false" />
 			<property name="immutable" value="false" />
-			<property name="rootClass"
-				value="org.barley.bo.AutomaticEntityImpl" />
+			<property name="rootClass" value="org.barley.bo.AutomaticEntityImpl" />
 			<property name="trimStrings" value="true" />
-			<property name="exampleTargetPackage"
-				value="com.barley.system.vo" />
+			<property name="exampleTargetPackage" value="com.barley.system.vo" />
 			<property name="exampleTargetProject" value="src/main/java" />
 		</javaModelGenerator>
 
-		<sqlMapGenerator
-			targetPackage="com.barley.system.mappers"
-			targetProject="src/main/java">
+		<sqlMapGenerator targetPackage="com.barley.system.mappers" targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 
-		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.barley.system.mappers"
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.barley.system.mappers"
 			targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 			<property name="exampleMethodVisibility" value="public" />
@@ -73,78 +59,57 @@
 			<property name="useLegacyBuilder" value="false" />
 		</javaClientGenerator>
 
-		<table tableName="T_MESSAGE" domainObjectName="SysMessage"
-			mapperName="SysMessageMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+		<table tableName="T_MESSAGE" domainObjectName="SysMessage" mapperName="SysMessageMapper"
+			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
 
-		<table tableName="t_module" domainObjectName="Module"
-			mapperName="ModuleMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+		<!-- <table tableName="t_module" domainObjectName="Module" mapperName="ModuleMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
 
-		<table tableName="t_biz_modular" domainObjectName="BizModular"
-			mapperName="BizModularMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+		<table tableName="t_biz_modular" domainObjectName="BizModular" mapperName="BizModularMapper"
+			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
 
-		<table tableName="t_login_channel"
-			domainObjectName="LoginChannel" mapperName="LoginChannelMapper"
-			enableDeleteByExample="false" enableCountByExample="false"
-			enableUpdateByExample="false" delimitAllColumns="true">
+		<table tableName="t_login_channel" domainObjectName="LoginChannel" mapperName="LoginChannelMapper"
+			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
-	
-		<table tableName="t_user_status" domainObjectName="UserStatus"
-			mapperName="UserStatusMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+
+		<table tableName="t_user_status" domainObjectName="UserStatus" mapperName="UserStatusMapper"
+			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
-		
-		<table tableName="t_user_type" domainObjectName="UserType"
-			mapperName="UserTypeMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+ 		-->
+		<table tableName="t_user_type" domainObjectName="UserType" mapperName="UserTypeMapper"
+			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 			<property name="constants" value="true" />
 		</table>
-		
-		<table tableName="t_user" domainObjectName="SysUser"
-			mapperName="SysUserMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+
+		<table tableName="t_user" domainObjectName="SysUser" mapperName="SysUserMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
 	</context>
 
-	<context id="authtables" defaultModelType="conditional"
-		targetRuntime="MyBatis3">
+	<context id="authtables" defaultModelType="conditional" targetRuntime="MyBatis3">
 		<property name="autoDelimitKeywords" value="false" />
 		<property name="beginningDelimiter" value="`" />
 		<property name="endingDelimiter" value="`" />
 		<property name="javaFileEncoding" value="UTF-8" />
-		<property name="javaFormatter"
-			value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
-		<property name="xmlFormatter"
-			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
-		<property name="service.dir"
-			value="com.barley.system.service.auth" />
-		<property name="controller.dir"
-			value="com.barley.system.controller.auth" />
-		<property name="resource.dir"
-			value="../system.source/src/main/java" />
+		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+		<property name="service.dir" value="com.barley.system.service.auth" />
+		<property name="controller.dir" value="com.barley.system.controller.auth" />
+		<property name="resource.dir" value="../system.source/src/main/java" />
 
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="com.barley.robot.mybatis.BubbleMybatisPlugin" />
-		<plugin
-			type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
 			<property name="replaceString" value="Criteria" />
 		</plugin>
@@ -155,8 +120,7 @@
 			<property name="addRemarkComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection driverClass="${jdbc.className}"
-			connectionURL="${jdbc.url}" userId="${jdbc.username}"
+		<jdbcConnection driverClass="${jdbc.className}" connectionURL="${jdbc.url}" userId="${jdbc.username}"
 			password="${jdbc.password}" />
 
 		<javaTypeResolver type="DEFAULT">
@@ -164,27 +128,22 @@
 			<property name="useJSR310Types" value="true" />
 		</javaTypeResolver>
 
-		<javaModelGenerator
-			targetPackage="com.barley.system.modal" targetProject="src/main/java">
+		<javaModelGenerator targetPackage="com.barley.system.modal" targetProject="src/main/java">
 			<property name="constructorBased" value="false" />
 			<property name="enableSubPackages" value="false" />
 			<property name="immutable" value="false" />
-			<property name="rootClass"
-				value="org.barley.bo.AutomaticEntityImpl" />
+			<property name="rootClass" value="org.barley.bo.AutomaticEntityImpl" />
 			<property name="trimStrings" value="true" />
-			<property name="exampleTargetPackage"
-				value="com.barley.system.vo" />
+			<property name="exampleTargetPackage" value="com.barley.system.vo" />
 			<property name="exampleTargetProject" value="src/main/java" />
 		</javaModelGenerator>
 
-		<sqlMapGenerator
-			targetPackage="com.barley.system.mappers"
-			targetProject="src/main/java">
+		<sqlMapGenerator targetPackage="com.barley.system.mappers" targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 
-		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.barley.system.mappers"
+		<!-- type="XMLMAPPER" 取消，采用自定义对象 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.barley.system.mappers"
 			targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 			<property name="exampleMethodVisibility" value="public" />
@@ -192,26 +151,19 @@
 			<property name="useLegacyBuilder" value="false" />
 		</javaClientGenerator>
 
-		<table tableName="t_role" domainObjectName="Role"
-			mapperName="RoleMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+		<!-- <table tableName="t_role" domainObjectName="Role" mapperName="RoleMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
 
-		<table tableName="t_permission" domainObjectName="Permission"
-			mapperName="PermissionMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
+		<table tableName="t_permission" domainObjectName="Permission" mapperName="PermissionMapper"
+			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
-		</table>
-		
-		<table tableName="t_group" domainObjectName="Group"
-			mapperName="GroupMapper" enableDeleteByExample="false"
-			enableCountByExample="false" enableUpdateByExample="false"
-			delimitAllColumns="true">
-			<property name="service.enabled" value="true" />
-		</table>
+		</table>-->
 
+		<table tableName="t_group" domainObjectName="Group" mapperName="GroupMapper" enableDeleteByExample="false"
+			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
+			<property name="service.enabled" value="true" />
+		</table>
 	</context>
 </generatorConfiguration>
