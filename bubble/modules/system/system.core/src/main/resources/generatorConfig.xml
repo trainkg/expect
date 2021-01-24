@@ -15,9 +15,11 @@
 		<property name="service.dir" value="com.barley.system.service.base" />
 		<property name="controller.dir" value="com.barley.system.controller.base" />
 		<property name="resource.dir" value="../system.source/src/main/java" />
-
+		<property name="front.bizmodel" value="basic"/>
+		<property name="front.basic.dir" value="D:\zsqworkspace\expect\bubble\front-page\bub\src\views"/>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="com.barley.robot.mybatis.BubbleMybatisPlugin" />
+		<plugin type="com.barley.robot.mybatis.FrontPlugin" />
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
 			<property name="replaceString" value="Criteria" />
@@ -106,9 +108,13 @@
 		<property name="service.dir" value="com.barley.system.service.auth" />
 		<property name="controller.dir" value="com.barley.system.controller.auth" />
 		<property name="resource.dir" value="../system.source/src/main/java" />
-
+		<property name="front.basic.dir" value="D:\zsqworkspace\expect\bubble\front-page\bub\src\views"/>
+		<property name="front.bizmodel" value="/basic"/>
+		
+		
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<plugin type="com.barley.robot.mybatis.BubbleMybatisPlugin" />
+		<plugin type="com.barley.robot.mybatis.FrontPlugin" />
 		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
 			<property name="searchString" value="Example$" />
 			<property name="replaceString" value="Criteria" />
@@ -164,6 +170,8 @@
 		<table tableName="t_group" domainObjectName="Group" mapperName="GroupMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
+			<property name="template.form" value="true" />
+			<property name="front.dir" value="group" />
 		</table>
 	</context>
 </generatorConfiguration>
