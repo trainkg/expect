@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FrontPlugin extends org.mybatis.generator.api.PluginAdapter {
 
-	public static List<AbstractFrontGenerator> generators = new ArrayList<AbstractFrontGenerator>();
+	public static List<AbstractFrontGenerator<?>> generators = new ArrayList<AbstractFrontGenerator<?>>();
 
 	static {
 		generators.add(new FormGenerator());
