@@ -86,10 +86,14 @@ public class ServiceImplGenerator extends BasicServiceResolver {
 		method.getBodyLines().add("((CriteriaBuilder) searchvo).build();");
 		method.getBodyLines().add("}");
 		method.getBodyLines().add("List<" + modalName + "> list = entityMapper.searchByCriteria(searchvo);");
-		method.getBodyLines()
-				.add("PageInfo<" + modalName + "> pageInfo = new PageInfo<" + modalName + ">(list, pageSize);");
+        method.getBodyLines().add("PageInfo<" + modalName + "> pageInfo = null;");
+        method.getBodyLines().add("if(pageSize != null) {");
+		method.getBodyLines().add("pageInfo = new PageInfo<" + modalName + ">(list, pageSize);");
 		method.getBodyLines().add("if (pagesvo != null) {");
 		method.getBodyLines().add("pageInfo.setTotal(pagesvo.getTotal());");
+		method.getBodyLines().add("}");
+		method.getBodyLines().add("}else {");
+		method.getBodyLines().add("pageInfo = new PageInfo<"+modalName+">(list);");
 		method.getBodyLines().add("}");
 		method.getBodyLines().add("return pageInfo;");
 		topLevelClass.addMethod(method);

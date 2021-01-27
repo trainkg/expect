@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.UserTypeBaseService create date 2021-01-23 16:09:53
+ * @version $ID: com.barley.system.service.base.UserTypeBaseService
  */
 @Service
 @Transactional
@@ -64,9 +64,14 @@ public class UserTypeServiceImpl implements UserTypeService {
             ((CriteriaBuilder) searchvo).build();
         }
         List<UserType> list = entityMapper.searchByCriteria(searchvo);
-        PageInfo<UserType> pageInfo = new PageInfo<UserType>(list, pageSize);
-        if (pagesvo != null) {
-            pageInfo.setTotal(pagesvo.getTotal());
+        PageInfo<UserType> pageInfo = null;
+        if(pageSize != null) {
+            pageInfo = new PageInfo<UserType>(list, pageSize);
+            if (pagesvo != null) {
+                pageInfo.setTotal(pagesvo.getTotal());
+            }
+        }else {
+            pageInfo = new PageInfo<UserType>(list);
         }
         return pageInfo;
     }

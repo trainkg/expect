@@ -1,7 +1,6 @@
 package com.barley.robot.modal.resolvers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.barley.robot.modal.CondtionInterface;
-import com.barley.robot.utils.DataFormatterUtils;
 
 import jline.internal.Log;
 
@@ -439,8 +437,7 @@ public class BasicServiceResolver extends AbstractJavaGenerator {
 			topLevelClass.getJavaDocLines().add(" * Auto generate , don't modify this file.");
 		}
 		topLevelClass.getJavaDocLines().add(" * @author peculiar.1@163.com");
-		topLevelClass.getJavaDocLines().add(" * @version $ID: " + getJavaPath() + " create date " + DataFormatterUtils
-				.format(new Date(System.currentTimeMillis()), DataFormatterUtils.FMT_YYYY_MM_DD_HH_MM_SS));
+		topLevelClass.getJavaDocLines().add(" * @version $ID: " + getJavaPath());
 		topLevelClass.getJavaDocLines().add(" */");
 	}
 

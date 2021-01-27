@@ -61,7 +61,7 @@ import reqwest from 'reqwest'
 const columns = [
   {
     title: '名称',
-    dataIndex: 'typeName',
+    dataIndex: 'name',
     sorter: false,
     width: '20%',
     scopedSlots: { customRender: 'typeName' }
@@ -69,13 +69,13 @@ const columns = [
 
   {
     title: '编号',
-    dataIndex: 'typeCode',
+    dataIndex: 'code',
     width: '20%',
     scopedSlots: { customRender: 'typeCode' }
   },
   {
     title: '状态',
-    dataIndex: 'typeStatus',
+    dataIndex: 'status',
     width: '20%',
     editable: false,
     scopedSlots: { customRender: 'typeStatus' }
@@ -191,7 +191,7 @@ export default {
     fetch(params = {}) {
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/usertype/list',
+        url: process.env.VUE_APP_URL + '/userType/query',
         method: 'get',
         data: {
           ...params
@@ -201,8 +201,8 @@ export default {
         const pagination = { ...this.pagination }
         // Read total count from server
         this.loading = false
-        this.data = data
-        this.cacheData = data.map(item => ({ ...item }))
+        this.data = data.data
+        this.cacheData = data.data.map(item => ({ ...item }))
         this.pagination = pagination
       })
     }

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.searchvo.LoginChannelSearchVO create date 2021-01-23 17:05:39
+ * @version $ID: com.barley.system.service.base.searchvo.LoginChannelSearchVO
  */
 public class LoginChannelSearchVO extends LoginChannelCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter

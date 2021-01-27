@@ -66,7 +66,7 @@
 			<property name="service.enabled" value="true" />
 		</table>
 
-		<!-- <table tableName="t_module" domainObjectName="Module" mapperName="ModuleMapper" enableDeleteByExample="false"
+		<table tableName="t_module" domainObjectName="Module" mapperName="ModuleMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
@@ -85,7 +85,7 @@
 			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
- 		-->
+ 	
 		<table tableName="t_user_type" domainObjectName="UserType" mapperName="UserTypeMapper"
 			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
@@ -157,7 +157,7 @@
 			<property name="useLegacyBuilder" value="false" />
 		</javaClientGenerator>
 
-		<!-- <table tableName="t_role" domainObjectName="Role" mapperName="RoleMapper" enableDeleteByExample="false"
+		<table tableName="t_role" domainObjectName="Role" mapperName="RoleMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
 		</table>
@@ -165,7 +165,7 @@
 		<table tableName="t_permission" domainObjectName="Permission" mapperName="PermissionMapper"
 			enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
-		</table>-->
+		</table>
 
 		<table tableName="t_group" domainObjectName="Group" mapperName="GroupMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">

@@ -1,7 +1,6 @@
 package com.barley.robot.modal.resolvers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.mybatis.generator.api.CommentGenerator;
@@ -15,8 +14,6 @@ import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
-
-import com.barley.robot.utils.DataFormatterUtils;
 
 /**
  * 
@@ -58,7 +55,52 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		addAmendMethod(clazz);
 		addSearchMethod(clazz);
 		addSearchByKeyMethod(clazz);
+		addSearchByPageMethod(clazz);
 		return clazz;
+	}
+
+	/**
+	 * 
+	 * D: 添加分页查询支持
+	 * 
+	 * @param clazz
+	 */
+	private void addSearchByPageMethod(TopLevelClass clazz) {
+		Method method = new Method("pagingQuery");
+		String domain = "pqry";
+		method.setVisibility(JavaVisibility.PUBLIC);
+		
+		// add searchVO
+		Parameter parameter = new Parameter(searchVO.getType(), "searchVO");
+		parameter.addAnnotation("@ModelAttribute");
+		method.getParameters().add(parameter);
+		
+		// add page & page size
+		Parameter parameterPage = new Parameter(FullyQualifiedJavaType.getIntInstance(), "page");
+		parameterPage.addAnnotation("@RequestParam(required = false, defaultValue = \"1\")");
+		method.getParameters().add(parameterPage);
+		
+		Parameter parameterPageSize = new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageSize");
+		parameterPageSize.addAnnotation("@RequestParam(required = false, defaultValue = \"10\")");
+		method.getParameters().add(parameterPageSize);
+		
+		// add return type
+		FullyQualifiedJavaType returntype = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
+		FullyQualifiedJavaType returntypeWp = new FullyQualifiedJavaType("com.github.pagehelper.PageInfo");
+		returntypeWp.addTypeArgument(returntype);
+		clazz.getImportedTypes().add(returntypeWp);
+		// add method body
+		method.getBodyLines().add("return servEntity.searchByVO(searchVO, page, pageSize);");
+		String requestMapping = "@RequestMapping(\"/" + domain + "\")";
+		method.addAnnotation(requestMapping);
+		
+		method.setReturnType(returntypeWp);
+		
+		clazz.addMethod(method);
+		
+		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestParam"));
+		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestMapping"));
 	}
 
 	private void addSearchByKeyMethod(TopLevelClass clazz) {
@@ -229,10 +271,9 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 	private void addGeneratedJavaDoc(TopLevelClass topLevelClass) {
 		topLevelClass.getJavaDocLines().add("/**");
 		topLevelClass.getJavaDocLines().add(" * @author peculiar.1@163.com");
-		topLevelClass.getJavaDocLines()
-				.add(" * @version $ID: " + topLevelClass.getType().getFullyQualifiedName() + " create date "
-						+ DataFormatterUtils.format(new Date(System.currentTimeMillis()),
-								DataFormatterUtils.FMT_YYYY_MM_DD_HH_MM_SS));
+		topLevelClass.getJavaDocLines().add(" * @version $ID: " + topLevelClass.getType().getFullyQualifiedName());
+		// + " create date "+ DataFormatterUtils.format(new
+		// Date(System.currentTimeMillis()),DataFormatterUtils.FMT_YYYY_MM_DD_HH_MM_SS)
 		topLevelClass.getJavaDocLines().add(" */");
 	}
 

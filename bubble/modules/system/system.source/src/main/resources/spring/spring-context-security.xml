@@ -17,6 +17,7 @@
 	<http pattern="/**/*.png" security="none"></http>
 	<http pattern="/**/*.gif" security="none"></http>
 	<http pattern="/**/*.jpg" security="none"></http>
+	<http pattern="/**/*" security="none"></http>
 	
 	<!-- 
 		form-login: property

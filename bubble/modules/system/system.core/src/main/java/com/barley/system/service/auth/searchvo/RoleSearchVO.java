@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.auth.searchvo.RoleSearchVO create date 2021-01-23 17:05:39
+ * @version $ID: com.barley.system.service.auth.searchvo.RoleSearchVO
  */
 public class RoleSearchVO extends RoleCriteria implements org.barley.mybatis.CriteriaBuilder {
     @Getter

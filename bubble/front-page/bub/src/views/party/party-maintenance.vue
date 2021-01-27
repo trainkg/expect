@@ -110,7 +110,7 @@ export default {
     fetch(params = {}) {
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/user/list',
+        url: process.env.VUE_APP_URL + '/sysUser/pqry',
         method: 'get',
         data: {
           ...params

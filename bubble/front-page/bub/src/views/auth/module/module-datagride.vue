@@ -24,7 +24,7 @@ import reqwest from 'reqwest'
 const columns = [
   {
     title: '名称',
-    dataIndex: 'modName',
+    dataIndex: 'name',
     sorter: false,
     width: '20%'
   },
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       data: [],
-      pagination: { pageSize: 1, totalCount: 0 },
+      pagination: { pageSize: 10, totalCount: 0 },
       loading: false,
       columns
     }
@@ -71,7 +71,7 @@ export default {
       console.log('params:', params)
       this.loading = true
       reqwest({
-        url: process.env.VUE_APP_URL + '/config/list',
+        url: process.env.VUE_APP_URL + '/module/pqry',
         method: 'get',
         data: {
           ...params
@@ -80,9 +80,9 @@ export default {
       }).then(data => {
         const pagination = { ...this.pagination }
         // Read total count from server
-        pagination.total = data.totalCount
+        pagination.total = data.total
         this.loading = false
-        this.data = data.results
+        this.data = data.list
         this.pagination = pagination
       })
     }

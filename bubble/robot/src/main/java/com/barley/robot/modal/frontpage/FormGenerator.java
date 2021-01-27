@@ -36,7 +36,12 @@ public class FormGenerator extends AbstractFrontGenerator<Map<String, Object>> {
 
 	@Override
 	protected String getFileName() {
-		return "/"+introspectedTable.getFullyQualifiedTable().getDomainObjectName().toLowerCase() + "-form.vue";
+		return "/" + introspectedTable.getFullyQualifiedTable().getDomainObjectName().toLowerCase() + "-form.vue";
+	}
+
+	@Override
+	String getTagName() {
+		return null;
 	}
 
 }

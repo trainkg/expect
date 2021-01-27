@@ -122,6 +122,13 @@ public abstract class AbstractFrontGenerator<T extends Object> {
 	abstract protected String getFileName();
 
 	/**
+	 * 
+	 * D： 获取生成文件对应的标签名
+	 * @return
+	 */
+	abstract String getTagName();
+
+	/**
 	 * <p>
 	 * 获取生成文件的位置, 目前先定义简单规则, 路径由基础路径+业务模块模块+模型目录+文件名称构成
 	 * </p>
@@ -157,7 +164,7 @@ public abstract class AbstractFrontGenerator<T extends Object> {
 					if (!created) {
 						throw new RuntimeException("create file failed.");
 					}
-					//file.createNewFile();
+					// file.createNewFile();
 				} catch (Exception e) {
 					throw new RuntimeException("create file failed.", e);
 				}

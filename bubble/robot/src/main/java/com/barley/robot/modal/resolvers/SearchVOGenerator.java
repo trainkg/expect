@@ -19,8 +19,6 @@ import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.barley.robot.utils.DataFormatterUtils;
-
 /**
  * 
  * Search VO 生成器
@@ -81,8 +79,7 @@ public class SearchVOGenerator extends AbstractJavaGenerator {
 		topLevelClass.setVisibility(JavaVisibility.PUBLIC);
 		topLevelClass.getJavaDocLines().add("/**");
 		topLevelClass.getJavaDocLines().add(" * @author peculiar.1@163.com");
-		topLevelClass.getJavaDocLines().add(" * @version $ID: " + getJavaPath() + " create date " + DataFormatterUtils
-				.format(new Date(System.currentTimeMillis()), DataFormatterUtils.FMT_YYYY_MM_DD_HH_MM_SS));
+		topLevelClass.getJavaDocLines().add(" * @version $ID: " + getJavaPath());
 		topLevelClass.getJavaDocLines().add(" */");
 
 		// extend

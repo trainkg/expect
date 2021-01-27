@@ -3,6 +3,7 @@ package com.barley.system.controller.base;
 import com.barley.system.modal.Module;
 import com.barley.system.service.base.ModuleService;
 import com.barley.system.service.base.searchvo.ModuleSearchVO;
+import com.github.pagehelper.PageInfo;
 import java.util.List;
 import org.barley.web.Resonse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.controller.base.ModuleController create date 2020-12-30 21:58:50
+ * @version $ID: com.barley.system.controller.base.ModuleController
  */
 @RestController
 @RequestMapping("/module")
@@ -49,5 +51,10 @@ public class ModuleController {
     @GetMapping("/qrybykey/{key}")
     public Module searchByKey(@PathVariable("key") Integer keyObj) {
         return servEntity.findByPrimaryKey(keyObj);
+    }
+
+    @RequestMapping("/pqry")
+    public PageInfo<Module> pagingQuery(@ModelAttribute ModuleSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        return servEntity.searchByVO(searchVO, page, pageSize);
     }
 }

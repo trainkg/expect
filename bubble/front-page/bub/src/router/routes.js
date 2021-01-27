@@ -62,5 +62,12 @@ const task = {
     { name: 'process-list', path: '/process', component: () => import('@/views/task/process-list') }
   ]
 }
-const routes = [index, system, auth, party, task]
+
+// robot
+const robot = {
+  path: '/robot',
+  name: 'robot',
+  component: () => import('@/views/robot'), props: (route) => ({ cid: route.query.cid })
+}
+const routes = [index, system, auth, party, task, robot]
 export default routes
