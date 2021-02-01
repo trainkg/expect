@@ -40,26 +40,6 @@
 		</authentication-provider>
 	</authentication-manager>
 
-	<b:bean name="barlyCorsConfiguration" class="org.springframework.web.cors.CorsConfiguration">
-		<b:property name="allowedOrigins">
-			<b:list>
-				<b:value>http://localhost:8080</b:value>
-			</b:list>
-		</b:property>
-		<b:property name="allowedMethods">
-			<b:list>
-				<b:value>*</b:value>
-			</b:list>
-		</b:property>
-	</b:bean>
-	<b:bean name="corsRequestMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
-		<b:constructor-arg value="/**"></b:constructor-arg>
-	</b:bean>
-	<b:bean id="corsSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
-		<b:property name="corsConfigurations">
-			<b:map>
-				<b:entry key-ref="corsRequestMatcher" value-ref="barlyCorsConfiguration"></b:entry>
-			</b:map>
-		</b:property>
+	<b:bean id="corsSource" class="com.barley.system.config.CORSConfig">
 	</b:bean>
 </b:beans>
