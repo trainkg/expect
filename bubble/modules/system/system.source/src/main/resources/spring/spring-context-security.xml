@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <b:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:b="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security.xsd">
 
 	<!-- springSecurityFilterChain -->
-	
+
 	<http pattern="/favicon.ico" security="none"></http>
 	<http pattern="/favicons.ico" security="none"></http>
 	<http pattern="/login.htm" security="none"></http>
@@ -17,33 +16,50 @@
 	<http pattern="/**/*.png" security="none"></http>
 	<http pattern="/**/*.gif" security="none"></http>
 	<http pattern="/**/*.jpg" security="none"></http>
-	<http pattern="/**/*" security="none"></http>
-	
-	<!-- 
-		form-login: property
-		authentication-failure-handler-ref="baleyUrlAuthenticationFailureHandler"
-	 -->
+	<!-- login是交给框架处理的，如果跳过所有的filter会导致无法登陆 -->
+	<!-- <http pattern="/**/*" security="none"></http> -->
+
+	<!-- form-login: property authentication-failure-handler-ref="baleyUrlAuthenticationFailureHandler" -->
 	<!-- <b:bean name="baleyUrlAuthenticationFailureHandler" class="com.barley.system.auth.spring.BaleyUrlAuthenticationFailureHandler"></b:bean> -->
-	
-	
 	<http entry-point-ref="delegatingAuthenticationEntryPoint">
-		<custom-filter ref="accessChannelFilter" before="FIRST"/>
-		<expression-handler ref="blyWebSecurityExpressionHandler"/>
-		<csrf disabled="true"/>
-		<intercept-url pattern="/department/**" access="isAuthenticated() and hasRole('TS_ROLE_1') and hasAuthPerm('TEST')"/>
+		<cors configuration-source-ref="corsSource" />
+		<custom-filter ref="accessChannelFilter" before="FIRST" />
+		<expression-handler ref="blyWebSecurityExpressionHandler" />
+		<csrf disabled="true" />
+		<intercept-url pattern="/department/**"
+			access="isAuthenticated() and hasRole('TS_ROLE_1') and hasAuthPerm('TEST')" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
-		<form-login login-page="/login.htm" 
-					authentication-success-handler-ref="barleyAuthenticationSuccessHandler"
-					/>
-		<logout invalidate-session="true" delete-cookies="JSESSIONID" success-handler-ref="blyLogoutHandler"/>
+		<form-login login-page="/login.htm" authentication-success-handler-ref="barleyAuthenticationSuccessHandler" />
+		<logout invalidate-session="true" delete-cookies="JSESSIONID" success-handler-ref="blyLogoutHandler" />
 		<session-management invalid-session-url="/login.htm" />
 	</http>
-	
+
 	<authentication-manager>
-		<authentication-provider user-service-ref="bubbleUserService" >
-			<password-encoder ref="BCryptPasswordEncoder"/>
+		<authentication-provider user-service-ref="bubbleUserService">
+			<password-encoder ref="BCryptPasswordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
-	
-	<!-- <custom-filter ref="" position="FIRST"/> -->
+
+	<b:bean name="barlyCorsConfiguration" class="org.springframework.web.cors.CorsConfiguration">
+		<b:property name="allowedOrigins">
+			<b:list>
+				<b:value>http://localhost:8080</b:value>
+			</b:list>
+		</b:property>
+		<b:property name="allowedMethods">
+			<b:list>
+				<b:value>*</b:value>
+			</b:list>
+		</b:property>
+	</b:bean>
+	<b:bean name="corsRequestMatcher" class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+		<b:constructor-arg value="/**"></b:constructor-arg>
+	</b:bean>
+	<b:bean id="corsSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">
+		<b:property name="corsConfigurations">
+			<b:map>
+				<b:entry key-ref="corsRequestMatcher" value-ref="barlyCorsConfiguration"></b:entry>
+			</b:map>
+		</b:property>
+	</b:bean>
 </b:beans>
