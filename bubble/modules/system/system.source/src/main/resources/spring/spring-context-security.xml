@@ -17,12 +17,12 @@
 	<http pattern="/**/*.gif" security="none"></http>
 	<http pattern="/**/*.jpg" security="none"></http>
 	<!-- login是交给框架处理的，如果跳过所有的filter会导致无法登陆 -->
-	<!-- <http pattern="/**/*" security="none"></http> -->
+	<http pattern="/**/*" security="none"></http>
 
 	<!-- form-login: property authentication-failure-handler-ref="baleyUrlAuthenticationFailureHandler" -->
 	<!-- <b:bean name="baleyUrlAuthenticationFailureHandler" class="com.barley.system.auth.spring.BaleyUrlAuthenticationFailureHandler"></b:bean> -->
 	<http entry-point-ref="delegatingAuthenticationEntryPoint">
-		<cors configuration-source-ref="corsSource" />
+		<!-- <cors configuration-source-ref="corsSource" /> -->
 		<custom-filter ref="accessChannelFilter" before="FIRST" />
 		<expression-handler ref="blyWebSecurityExpressionHandler" />
 		<csrf disabled="true" />
@@ -40,6 +40,6 @@
 		</authentication-provider>
 	</authentication-manager>
 
-	<b:bean id="corsSource" class="com.barley.system.config.CORSConfig">
-	</b:bean>
+	<!-- <b:bean id="corsSource" class="com.barley.system.config.CORSConfig">
+	</b:bean> -->
 </b:beans>

@@ -3,18 +3,18 @@
 ## 添加依赖
 例子：添加element-ui支持
 
-```
+```properties
 "dependencies": {
 "element-ui": "^2.13.1"
 }
 ```
 ## 安装依赖
-```
+```sh
 npm install
 ```
 
 ## 启动服务
-```
+```shell
 npm run serve
 ```
 ## vue.config.js

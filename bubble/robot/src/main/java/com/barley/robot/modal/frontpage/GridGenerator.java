@@ -1,182 +1,91 @@
 package com.barley.robot.modal.frontpage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
-import org.mybatis.generator.api.CommentGenerator;
-import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.Field;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.codegen.AbstractJavaGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.mybatis.generator.api.IntrospectedColumn;
 
-import com.barley.robot.mybatis.BubbleMybatisPlugin;
+import com.barley.robot.modal.frontpage.grid.ColumnConfig;
+import com.barley.robot.modal.frontpage.grid.ColumnConfigResolver;
+import com.barley.robot.modal.frontpage.grid.SimpleColumnConfigResolver;
+import com.barley.robot.modal.frontpage.grid.Table;
+import com.barley.robot.modal.frontpage.grid.Table.Column;
+import com.barley.robot.modal.frontpage.grid.TableWapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * D: 表格
  * 
+ * <p>
+ * 	表模型中那些数据是需要进入table中那些字段是进行对外展示， 在与数据层面，显示转换的逻辑是可以在前端执行，但是这样脱离了后端管理，所以我们尽量不再前端进行数据显示转换
+ * 	只是在前端进行相关的UI效果/样式方便的定义
+ * </p>
+ * @warn 不支持联合组件生成table
  * @author peculiar.1@163.com
  * @version $ID: SearchVOGenerator.java, V1.0.0 2020年12月22日 下午5:44:25 $
  */
-public class GridGenerator extends AbstractJavaGenerator {
+@Slf4j
+public class GridGenerator extends AbstractFrontGenerator<TableWapper> {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-	public static final String PROPERTY_SERVICE_ENABLED = "constants";
-
-	public GridGenerator(String project) {
-		super(project);
+	
+	public static final String PROPERTY_SERVICE_ENABLED = "template.grid";
+	private ColumnConfigResolver resolver = new SimpleColumnConfigResolver();
+	
+	@Override
+	protected String getTemplatePath() {
+		return "grids/basic-grid.ftl";
 	}
+	
+	
+	/**
+	 * 
+	 * loading table information
+	 */
+	@Override 
+	protected TableWapper getModel() {
+		Table table = new Table();
+		if(introspectedTable.getRules().generatePrimaryKeyClass()) {
+			throw new RuntimeException("不支持联合逐渐对象生成table");
+		}
+		table.setRowKey(introspectedTable.getPrimaryKeyColumns().get(0).getJavaProperty());
+		
+		List<Table.Column> listCol = new ArrayList<Table.Column>();
+		
+		List<IntrospectedColumn> introspectedColumns =  introspectedTable.getAllColumns();
+		for (IntrospectedColumn introspectedColumn : introspectedColumns) {
+			Column column = table.new Column();
+			ColumnConfig config = resolver.resolve(introspectedColumn);
+			if(config.isShowInTable()) {
+				column.setDataIndex(introspectedColumn.getJavaProperty());
+				column.setTitle(config.getTitle());
+				listCol.add(column);	
+			}
+		}
 
-	public GridGenerator(String project, IntrospectedTable introspectedTable) {
-		super(project);
-		setIntrospectedTable(introspectedTable);
-		setContext(introspectedTable.getContext());
+		table.setColumns(listCol.toArray(new Table.Column[] {}));
+		StringBuffer sb = new StringBuffer(introspectedTable.getFullyQualifiedTable().getDomainObjectName());
+		sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
+		return new TableWapper(table,sb.toString());
 	}
 
 	@Override
-	public List<CompilationUnit> getCompilationUnits() {
-
-		List<CompilationUnit> units = new ArrayList<CompilationUnit>();
-		String propertyValue = introspectedTable.getTableConfigurationProperty(PROPERTY_SERVICE_ENABLED);
-		if ("true".equalsIgnoreCase(propertyValue)) {
-			units.add(createRootClass());
-		}
-		return units;
+	protected String getFeatureConfigName() {
+		return PROPERTY_SERVICE_ENABLED;
 	}
 
-	private CompilationUnit createRootClass() {
-		Interface topClass = getTopLevelClassShell();
-		createConstants(topClass);
-		return topClass;
+	@Override
+	protected String getFileName() {
+		String fileName = "/commons/" + introspectedTable.getFullyQualifiedTable().getDomainObjectName().toLowerCase()
+				+ "-table.vue";
+		log.info("{} generate grid file name is {}", introspectedTable.getTableConfiguration().getTableName(),
+				fileName);
+		return fileName;
 	}
 
-	private void createConstants(Interface topClass) {
-		if (introspectedTable.getPrimaryKeyColumns().size() == 0) {
-			return;
-		}
-		Map<String, Object[]> constants = getConstants();
-
-		constants.keySet().forEach(key -> {
-			Field field = new Field("CONST_" + key.toUpperCase(),
-					introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType());
-			FullyQualifiedJavaType type = introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType();
-			Object value = constants.get(key)[0];
-			Object desc = constants.get(key)[1];
-			if (Long.class.getName().equals(type.toString())) {
-				field = new Field("CONST_" + key.toUpperCase(), new FullyQualifiedJavaType("long"));
-				field.setInitializationString(String.valueOf(value));
-			}
-
-			if (String.class.getName().equals(type.toString())) {
-				field = new Field("CONST_" + key.toUpperCase(), new FullyQualifiedJavaType("String"));
-				field.setInitializationString("\"" + String.valueOf(value) + "\"");
-			}
-
-			if (Integer.class.getName().equals(type.toString())) {
-				field = new Field("CONST_" + key.toUpperCase(), new FullyQualifiedJavaType("int"));
-				field.setInitializationString(String.valueOf(value));
-			}
-
-			if (Short.class.getName().equals(type.toString())) {
-				field = new Field("CONST_" + key.toUpperCase(), new FullyQualifiedJavaType("short"));
-				field.setInitializationString(String.valueOf(value));
-			}
-
-			field.getJavaDocLines().add("/**");
-			field.getJavaDocLines().add("* Describe: " + desc);
-			field.getJavaDocLines().add("*/");
-			field.setStatic(true);
-			field.setVisibility(JavaVisibility.PUBLIC);
-			field.setFinal(true);
-
-			topClass.addField(field);
-		});
-	}
-
-	protected Map<String, Object[]> getConstants() {
-
-		String name_key = "code";
-		String value_key = "list_id";
-		String desc_key = "name";
-
-		String cfgName = introspectedTable.getTableConfigurationProperty("const_name");
-		String cfgListId = introspectedTable.getTableConfigurationProperty("const_list_id");
-		String cfgCode = introspectedTable.getTableConfigurationProperty("const_code");
-
-		if (cfgName != null && !"".equals(cfgName)) {
-			desc_key = cfgName;
-		}
-
-		if (cfgListId != null && !"".equals(cfgListId)) {
-			value_key = cfgListId;
-		}
-
-		if (cfgCode != null && !"".equals(cfgCode)) {
-			name_key = cfgCode;
-		}
-
-		String name_key_1 = name_key;
-		String value_key_1 = value_key;
-		String desc_key_1 = desc_key;
-
-		Map<String, Object[]> retMap;
-		Connection connection = null;
-		try {
-			connection = BubbleMybatisPlugin.getConnection(context);
-			QueryRunner queryRunner = new QueryRunner();
-			String sql = "select * from " + introspectedTable.getTableConfiguration().getTableName();
-
-			retMap = queryRunner.query(connection, sql, new ResultSetHandler<Map<String, Object[]>>() {
-				@Override
-				public Map<String, Object[]> handle(ResultSet rs) throws SQLException {
-					Map<String, Object[]> map = new HashMap<String, Object[]>();
-					while (rs.next()) {
-						String key = rs.getString(name_key_1);
-						Object value = rs.getObject(value_key_1);
-						String desc = "";
-						try {
-							desc = rs.getString(desc_key_1);
-						} catch (Exception e) {
-						}
-						map.put(key, new Object[] { value, desc });
-					}
-					return map;
-				}
-			});
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		} finally {
-			BubbleMybatisPlugin.closeConnection(connection);
-		}
-		return retMap;
-	}
-
-	private Interface getTopLevelClassShell() {
-		CommentGenerator commentGenerator = context.getCommentGenerator();
-		FullyQualifiedJavaType type = new FullyQualifiedJavaType(getJavaPath());
-		Interface topLevelClass = new Interface(type);
-		topLevelClass.setVisibility(JavaVisibility.PUBLIC);
-
-		commentGenerator.addJavaFileComment(topLevelClass);
-		return topLevelClass;
-	}
-
-	public String getJavaPath() {
-		String path = context.getJavaModelGeneratorConfiguration().getTargetPackage() + "."
-				+ introspectedTable.getFullyQualifiedTable().getDomainObjectName() + "Conts";
-		logger.info("Conts top class is {}", path);
-		return path;
+	@Override
+	String getTagName() {
+		return null;
 	}
 
 }

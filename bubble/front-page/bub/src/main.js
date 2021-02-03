@@ -5,13 +5,18 @@ import 'ant-design-vue/dist/antd.css'
 import router from './router/index'
 import Vuex from 'vuex'
 import reqwest from 'reqwest'
+import request from './utils/request'
 import Barley from '@/plugin/barley'
 import '@/styles/index.scss' // global cs
 
+/**
+ * 安装插件
+ */
 Vue.use(Vuex)
 Vue.use(Barley)
 Vue.use(Antd)
 Vue.use(reqwest)
+Vue.use(request)
 Vue.config.productionTip = false
 
 new Vue({

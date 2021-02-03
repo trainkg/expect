@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.auth.PermissionBaseService create date 2020-12-30 21:58:50
+ * @version $ID: com.barley.system.service.auth.PermissionBaseService
  */
 @Service
 @Transactional
@@ -64,9 +64,14 @@ public class PermissionServiceImpl implements PermissionService {
             ((CriteriaBuilder) searchvo).build();
         }
         List<Permission> list = entityMapper.searchByCriteria(searchvo);
-        PageInfo<Permission> pageInfo = new PageInfo<Permission>(list, pageSize);
-        if (pagesvo != null) {
-            pageInfo.setTotal(pagesvo.getTotal());
+        PageInfo<Permission> pageInfo = null;
+        if(pageSize != null) {
+            pageInfo = new PageInfo<Permission>(list, pageSize);
+            if (pagesvo != null) {
+                pageInfo.setTotal(pagesvo.getTotal());
+            }
+        }else {
+            pageInfo = new PageInfo<Permission>(list);
         }
         return pageInfo;
     }

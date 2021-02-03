@@ -1,65 +1,48 @@
+<template>
+  <div id="robot-content">
+    <a-input-search placeholder="输入你的组件路径" v-model="component" size="middle" @search="changeComponent">
+      <a-button slot="enterButton">
+        打开组件
+      </a-button>
+    </a-input-search>
+    <div id="mount-point" style="margin-top:15px">
+      动态内容区域11
+    </div>
+  </div>
+</template>
 <script>
 // 静态导入， 后续js中可以访问到这个组件
-import userType1 from '@/views/party/user-type'
 import Vue from 'vue'
-Vue.component('component-fallback', {
-  template: `<div>This is not the component you're looking for</div>`
-})
-
-const getComponent = async path => {
-  /* I recomend having an switch with the possible components you will load, this
-     *   will allow you only load specific components.
-     */
-  console.log(path)
-  if (path == 1) {
-    console.log('====1')
-    return () => {
-      `<p>component 0</p>`
-    }
-  } else {
-    console.log('====2')
-    return async() => {
-      `<p>${path}</p>`
-    }
-  }
-}
-
 export default {
-  components: {
-    'userType1': userType1
-  },
-
-  props: ['cid'],
   data() {
     return {
-      componentIndex: 0,
-      component: 'component-fallback'
+      component: '@/views/party/user-type',
+      last: null
     }
   },
 
   methods: {
+    /**
+     *
+     */
     changeComponent() {
-      const newIndex = ++this.componentIndex
-      this.loadComponent(newIndex)
-    },
-
-    // returns the component
-    loadComponent(name) {
-      const componentFunc = getComponent(name)
-        .then(x => {
-          console.log(x)
-          this.component = x
-        })
-        .catch(e => {
-          this.component = 'component-fallback'
-        })
+      console.log(this.component)
+      const parent = this
+      //@/views/basic/group/group-form
+      //@/views/basic/group/commons/group-table
+      import('@/views/basic/group/commons/group-table').then((Component) => {
+        console.log(this)
+        if (parent.last) { parent.last.$destroy() }
+        console.log(Component.default)
+        const component = new Vue(Component.default)
+        parent.last = component
+        document.getElementById('mount-point').innerHTML = ''
+        // console.log(component.$el)
+        // component.$mount('#mount-point')
+        const componentDom = component.$mount()
+        document.getElementById('mount-point').appendChild(componentDom.$el)
+      })
     }
-  },
-  template: `
-        <div>
-            Component: {{componentIndex}} <button @click="changeComponent">change</button>
-            <component :is="component"></component>
-        </div>
-        `
+  }
 }
 </script>

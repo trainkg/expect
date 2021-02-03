@@ -170,6 +170,7 @@
 		<table tableName="t_group" domainObjectName="Group" mapperName="GroupMapper" enableDeleteByExample="false"
 			enableCountByExample="false" enableUpdateByExample="false" delimitAllColumns="true">
 			<property name="service.enabled" value="true" />
+			<property name="template.grid" value="true" />
 			<property name="template.form" value="true" />
 			<property name="front.dir" value="group" />
 		</table>

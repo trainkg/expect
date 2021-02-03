@@ -1,5 +1,12 @@
 package com.barley.system.service.auth;
 
+import java.util.List;
+
+import org.barley.mybatis.CriteriaBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.barley.system.mappers.GroupMapper;
 import com.barley.system.modal.Group;
 import com.barley.system.modal.GroupWapper;
@@ -8,11 +15,6 @@ import com.barley.system.service.auth.searchvo.GroupSearchVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import java.util.List;
-import org.barley.mybatis.CriteriaBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author peculiar.1@163.com
@@ -68,11 +70,17 @@ public class GroupServiceImpl implements GroupService {
 		if (searchvo instanceof CriteriaBuilder) {
 			((CriteriaBuilder) searchvo).build();
 		}
+		
 		List<Group> list = entityMapper.searchByCriteria(searchvo);
-		PageInfo<Group> pageInfo = new PageInfo<Group>(list, pageSize);
-		if (pagesvo != null) {
-			pageInfo.setTotal(pagesvo.getTotal());
-		}
+        PageInfo<Group> pageInfo = null;
+        if(pageSize != null) {
+            pageInfo = new PageInfo<Group>(list, pageSize);
+            if (pagesvo != null) {
+                pageInfo.setTotal(pagesvo.getTotal());
+            }
+        }else {
+            pageInfo = new PageInfo<Group>(list);
+        }
 		return pageInfo;
 	}
 

@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.IntrospectedTable;
+
+import com.barley.robot.SimpleClasspathXMLResover;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -50,7 +53,15 @@ public abstract class AbstractFrontGenerator<T extends Object> {
 		}
 
 	}
-
+	
+	/**
+	 * <p>获取XML配置文件路径,如果返回空,则当前生成器不支持XML方式配置</p>
+	 * @return
+	 */
+	protected String getXmlConfigPath() {
+		return null;
+	}
+	
 	/**
 	 * D: 获取模板位置
 	 * @return
@@ -137,6 +148,20 @@ public abstract class AbstractFrontGenerator<T extends Object> {
 	 */
 	protected String getGeneratorFilePath() {
 		return basicDir + getBizModelNamePath() + getModelNamePath() + getFileName();
+	}
+	
+	
+	/**
+	 * 获取配置对象
+	 * @param class1
+	 * @return
+	 */
+	protected Object getConfig(Class<?> class1) {
+		String configPath = getXmlConfigPath();
+		if(StringUtils.isNotBlank(configPath)) {
+			return new SimpleClasspathXMLResover(configPath, class1).parseXml();
+		}
+		return null;
 	}
 
 	/**

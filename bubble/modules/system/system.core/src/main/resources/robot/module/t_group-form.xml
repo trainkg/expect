@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<form>
+	<group showTitle="false" title="test2">
+		<feild>
+			<label>label0</label>
+		</feild>
+		<feild>
+			<label>label1</label>
+		</feild>
+		<feild>
+			<label>label2</label>
+		</feild>
+		<feild>
+			<label>label3</label>
+		</feild>
+	</group>
+	<group showTitle="false">
+		<feild>
+			<label>label0</label>
+		</feild>
+		<feild>
+			<label>label1</label>
+		</feild>
+		<feild>
+			<label>label2</label>
+		</feild>
+		<feild>
+			<label>label3</label>
+		</feild>
+	</group>
+</form>

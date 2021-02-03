@@ -20,7 +20,7 @@ public class CORSConfig implements FactoryBean<CorsConfigurationSource> {
 	@Override
 	public CorsConfigurationSource getObject() throws Exception {
 		CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080","http://localhost:9090"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
