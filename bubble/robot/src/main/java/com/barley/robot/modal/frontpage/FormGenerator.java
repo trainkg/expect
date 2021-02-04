@@ -46,7 +46,7 @@ public class FormGenerator extends AbstractFrontGenerator<FormConfig> {
 	private FormConfig extractConfigFrom(IntrospectedTable introspectedTable) {
 		FormConfig config = new FormConfig();
 		List<IntrospectedColumn> introspectedColumns = introspectedTable.getAllColumns();
-		for (IntrospectedColumn introspectedColumn : introspectedColumns) {
+		for (IntrospectedColumn introspectedColumn : introspectedColumns) { 
 			Feild feild = new Feild();
 			feild.setName(introspectedColumn.getJavaProperty());
 			feild.setLabel(splitStrategy.getTitle(introspectedColumn));

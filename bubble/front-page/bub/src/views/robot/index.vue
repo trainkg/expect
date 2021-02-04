@@ -1,11 +1,11 @@
 <template>
   <div id="robot-content">
-    <a-input-search placeholder="输入你的组件路径" v-model="component" size="middle" @search="changeComponent">
+    <a-input-search placeholder="输入你的组件路径" v-model="component" size="default" @search="changeComponent">
       <a-button slot="enterButton">
         打开组件
       </a-button>
     </a-input-search>
-    <div id="mount-point" style="margin-top:15px">
+    <div id="mount-point" style="margin:15px;">
       动态内容区域11
     </div>
   </div>
@@ -30,7 +30,8 @@ export default {
       const parent = this
       //@/views/basic/group/group-form
       //@/views/basic/group/commons/group-table
-      import('@/views/basic/group/commons/group-table').then((Component) => {
+      //@/views/basic/group/commons/group-table
+      import('@/views/basic/group/commons/group-form').then((Component) => {
         console.log(this)
         if (parent.last) { parent.last.$destroy() }
         console.log(Component.default)

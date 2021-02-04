@@ -13,11 +13,44 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * JAXB add annotation at get method.
  * 
+ * https://www.antdv.com/components/form-model-cn/
+ * 
  * @author peculiar.1@163.com
  * @version $ID: FormConfig.java, V1.0.0 2021年2月3日 下午4:02:30 $
  */
 @XmlRootElement(name = "form")
 public final class FormConfig {
+
+	/**
+	 * 布局方式
+	 */
+	private String layout = "horizontal";
+
+	/**
+	 * 
+	 * 栅格系统
+	 */
+	private String gutter = "16,8";
+
+	/**
+	 * 单行内元素数量
+	 */
+	private int feildNum = 4;
+
+	/**
+	 * 内容栅格宽度, 水平布局不需要指定
+	 */
+	private int wrapperCol = 14;
+
+	/**
+	 * label栅格宽度,水平布局不需要指定
+	 */
+	private int labelCol = 4;
+
+	/**
+	 * 隐藏所有表单项的必选标记
+	 */
+	private boolean hideRequiredMark = false;
 
 	private List<Group> groups = new ArrayList<FormConfig.Group>();
 	private List<Feild> fileds = new ArrayList<FormConfig.Feild>();
@@ -40,6 +73,60 @@ public final class FormConfig {
 		this.fileds = fileds;
 	}
 
+	@XmlAttribute
+	public String getLayout() {
+		return layout;
+	}
+
+	public void setLayout(String layout) {
+		this.layout = layout;
+	}
+
+	@XmlAttribute
+	public String getGutter() {
+		return gutter;
+	}
+
+	public void setGutter(String gutter) {
+		this.gutter = gutter;
+	}
+
+	@XmlAttribute
+	public int getFeildNum() {
+		return feildNum;
+	}
+
+	public void setFeildNum(int feildNum) {
+		this.feildNum = feildNum;
+	}
+
+	@XmlAttribute
+	public int getWrapperCol() {
+		return wrapperCol;
+	}
+
+	public void setWrapperCol(int wrapperCol) {
+		this.wrapperCol = wrapperCol;
+	}
+
+	@XmlAttribute
+	public void setLabelCol(int labelCol) {
+		this.labelCol = labelCol;
+	}
+
+	public int getLabelCol() {
+		return labelCol;
+	}
+
+	@XmlAttribute
+	public boolean isHideRequiredMark() {
+		return hideRequiredMark;
+	}
+
+	public void setHideRequiredMark(boolean hideRequiredMark) {
+		this.hideRequiredMark = hideRequiredMark;
+	}
+
 	/**
 	 * 
 	 * from group
@@ -51,26 +138,47 @@ public final class FormConfig {
 
 	public static class Group {
 
-		private String title;
-		private boolean showTitle;
+		private String key;
+		private String header;
+		private boolean active;
+		private boolean disabled;
+		private boolean showArrow;
 		private List<Feild> feilds = new ArrayList<FormConfig.Feild>();
 
-		public void setTitle(String title) {
-			this.title = title;
+		public void setHeader(String header) {
+			this.header = header;
 		}
 
 		@XmlAttribute
-		public String getTitle() {
-			return title;
+		public String getHeader() {
+			return header;
 		}
 
 		@XmlAttribute
-		public boolean isShowTitle() {
-			return showTitle;
+		public boolean isActive() {
+			return active;
 		}
 
-		public void setShowTitle(boolean showTitle) {
-			this.showTitle = showTitle;
+		public void setActive(boolean active) {
+			this.active = active;
+		}
+
+		@XmlAttribute
+		public boolean isDisabled() {
+			return disabled;
+		}
+
+		@XmlAttribute
+		public boolean isShowArrow() {
+			return showArrow;
+		}
+
+		public void setShowArrow(boolean showArrow) {
+			this.showArrow = showArrow;
+		}
+
+		public void setDisabled(boolean disabled) {
+			this.disabled = disabled;
 		}
 
 		public void setFeilds(List<Feild> feilds) {
@@ -80,6 +188,14 @@ public final class FormConfig {
 		@XmlElement(name = "feild")
 		public List<Feild> getFeilds() {
 			return feilds;
+		}
+
+		public void setKey(String key) {
+			this.key = key;
+		}
+
+		public String getKey() {
+			return key;
 		}
 	}
 
@@ -92,12 +208,20 @@ public final class FormConfig {
 	public static class Feild {
 
 		private String label;
-
 		private String type;
-
 		private String name;
-
 		private String config;
+		private String prop;
+		private String rules;
+		private boolean autoLink = true;
+		private boolean colon = true;
+		private String extra;
+		private String labelCol;
+		private boolean required = false;
+		/**
+		 * 默认只占一个元素位置
+		 */
+		private int feildSize = 1;
 
 		public String getLabel() {
 			return label;
@@ -125,6 +249,74 @@ public final class FormConfig {
 
 		public void setName(String name) {
 			this.name = name;
+		}
+
+		public String getExtra() {
+			return extra;
+		}
+
+		public String getLabelCol() {
+			return labelCol;
+		}
+
+		public String getProp() {
+			return prop;
+		}
+
+		public String getRules() {
+			return rules;
+		}
+
+		public boolean isAutoLink() {
+			return autoLink;
+		}
+
+		public boolean isColon() {
+			return colon;
+		}
+
+		public boolean isRequired() {
+			return required;
+		}
+
+		public void setAutoLink(boolean autoLink) {
+			this.autoLink = autoLink;
+		}
+
+		public void setColon(boolean colon) {
+			this.colon = colon;
+		}
+
+		public void setExtra(String extra) {
+			this.extra = extra;
+		}
+
+		public void setLabelCol(String labelCol) {
+			this.labelCol = labelCol;
+		}
+
+		public void setProp(String prop) {
+			this.prop = prop;
+		}
+
+		public void setRequired(boolean required) {
+			this.required = required;
+		}
+
+		public void setRules(String rules) {
+			this.rules = rules;
+		}
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
+		public int getFeildSize() {
+			return feildSize;
+		}
+
+		public void setFeildSize(int feildSize) {
+			this.feildSize = feildSize;
 		}
 	}
 

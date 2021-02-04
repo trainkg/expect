@@ -17,7 +17,7 @@ public class Jaxb2Test {
 		FormConfig config = new FormConfig();
 		Group group1 = new Group();
 		
-		group1.setTitle("test1");
+		group1.setHeader("test1");
 		for (int i = 0; i < 4; i++) {
 			Feild feild1 = new Feild();
 			feild1.setLabel("label"+i);
@@ -28,7 +28,7 @@ public class Jaxb2Test {
 		
 		
 		Group group2 = new Group();
-		group1.setTitle("test2");
+		group1.setHeader("test2");
 		for (int i = 0; i < 4; i++) {
 			Feild feild1 = new Feild();
 			feild1.setLabel("label"+i);

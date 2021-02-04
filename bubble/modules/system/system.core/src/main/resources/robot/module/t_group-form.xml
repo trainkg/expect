@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<form>
-	<group showTitle="false" title="test2">
+<form feildNum="4" gutter="16,8" hideRequiredMark="false" labelCol="4" layout="horizontal" wrapperCol="14">
+	<group active="false" disabled="false" header="test2" showArrow="false">
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label0</label>
+			<required>false</required>
 		</feild>
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label1</label>
+			<required>false</required>
 		</feild>
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label2</label>
+			<required>false</required>
 		</feild>
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label3</label>
+			<required>false</required>
 		</feild>
 	</group>
-	<group showTitle="false">
+	<group active="false" disabled="false" showArrow="false">
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label0</label>
+			<required>false</required>
 		</feild>
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label1</label>
+			<required>false</required>
 		</feild>
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label2</label>
+			<required>false</required>
 		</feild>
 		<feild>
+			<autoLink>true</autoLink>
+			<colon>true</colon>
+			<feildSize>1</feildSize>
 			<label>label3</label>
+			<required>false</required>
 		</feild>
 	</group>
 </form>
