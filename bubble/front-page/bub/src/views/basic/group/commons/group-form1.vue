@@ -1,5 +1,5 @@
 <template>
-  <a-form-model :model="form" :wrapper-col="wrapperCol" layout="vertical">
+  <a-form-model :model="form"  layout="vertical">
     <a-collapse v-model="activeKey" :expand-icon-position="left">
       <a-collapse-panel key="1" header="This is panel header 1">
         <a-icon slot="extra" type="setting" />
@@ -103,7 +103,7 @@
 
     <a-row :gutter="[16,8]">
       <a-col :span="12">
-        <a-form-model-item label="Activity time">
+        <a-form-model-item label="Activity t11me">
           <a-date-picker
             v-model="form.date1"
             show-time

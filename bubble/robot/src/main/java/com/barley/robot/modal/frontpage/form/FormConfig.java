@@ -52,8 +52,15 @@ public final class FormConfig {
 	 */
 	private boolean hideRequiredMark = false;
 
+	/**
+	 * 是否自动 加载域
+	 * 
+	 * 当设定为true的时候，会自动从数据读取对象模型，并且当和XML配置文件冲突的时候，优先使用XML配置
+	 */
+	private boolean autoLoadFeild = Boolean.TRUE;
+
 	private List<Group> groups = new ArrayList<FormConfig.Group>();
-	private List<Feild> fileds = new ArrayList<FormConfig.Feild>();
+	private List<Field> fields = new ArrayList<FormConfig.Field>();
 
 	@XmlElement(name = "group")
 	public List<Group> getGroups() {
@@ -64,13 +71,13 @@ public final class FormConfig {
 		this.groups = groups;
 	}
 
-	@XmlElement(name = "feild")
-	public List<Feild> getFileds() {
-		return fileds;
+	@XmlElement(name = "field")
+	public List<Field> getFields() {
+		return fields;
 	}
 
-	public void setFileds(List<Feild> fileds) {
-		this.fileds = fileds;
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
 	}
 
 	@XmlAttribute
@@ -126,6 +133,16 @@ public final class FormConfig {
 	public void setHideRequiredMark(boolean hideRequiredMark) {
 		this.hideRequiredMark = hideRequiredMark;
 	}
+	
+	
+	@XmlAttribute
+	public boolean isAutoLoadFeild() {
+		return autoLoadFeild;
+	}
+	
+	public void setAutoLoadFeild(boolean autoLoadFeild) {
+		this.autoLoadFeild = autoLoadFeild;
+	}
 
 	/**
 	 * 
@@ -143,7 +160,7 @@ public final class FormConfig {
 		private boolean active;
 		private boolean disabled;
 		private boolean showArrow;
-		private List<Feild> feilds = new ArrayList<FormConfig.Feild>();
+		private List<Field> fields = new ArrayList<FormConfig.Field>();
 
 		public void setHeader(String header) {
 			this.header = header;
@@ -181,19 +198,20 @@ public final class FormConfig {
 			this.disabled = disabled;
 		}
 
-		public void setFeilds(List<Feild> feilds) {
-			this.feilds = feilds;
+		public void setFields(List<Field> fields) {
+			this.fields = fields;
 		}
 
-		@XmlElement(name = "feild")
-		public List<Feild> getFeilds() {
-			return feilds;
+		@XmlElement(name = "field")
+		public List<Field> getFields() {
+			return fields;
 		}
 
 		public void setKey(String key) {
 			this.key = key;
 		}
 
+		@XmlAttribute
 		public String getKey() {
 			return key;
 		}
@@ -205,7 +223,7 @@ public final class FormConfig {
 	 * @author peculiar.1@163.com
 	 * @version $ID: FormConfig.java, V1.0.0 2021年2月3日 下午4:09:23 $
 	 */
-	public static class Feild {
+	public static class Field {
 
 		private String label;
 		private String type;
@@ -213,6 +231,7 @@ public final class FormConfig {
 		private String config;
 		private String prop;
 		private String rules;
+		private String defaultValue;
 		private boolean autoLink = true;
 		private boolean colon = true;
 		private String extra;
@@ -317,6 +336,14 @@ public final class FormConfig {
 
 		public void setFeildSize(int feildSize) {
 			this.feildSize = feildSize;
+		}
+
+		public void setDefaultValue(String defaultValue) {
+			this.defaultValue = defaultValue;
+		}
+
+		public String getDefaultValue() {
+			return defaultValue;
 		}
 	}
 
