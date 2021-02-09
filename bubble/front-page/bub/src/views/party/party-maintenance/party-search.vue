@@ -41,7 +41,7 @@ export default {
       e.preventDefault()
       this.form.validateFields((error, values) => {
         if (!error) {
-          this.$emit('form-search', this.form.getFieldsValue())
+          this.$emit('formsearch', this.form.getFieldsValue())
         }
       })
     },

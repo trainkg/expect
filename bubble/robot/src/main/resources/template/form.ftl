@@ -1,3 +1,4 @@
+<#include "./form/form-feild.ftl"/>
 <#compress>
 <!--form 表单配置参考 https://www.antdv.com/components/form-model-cn/ -->
 <template>
@@ -15,56 +16,18 @@
   <#list formConfig.groups as group>
       <a-collapse-panel key="${group.key!0}" header="${group.header!'header'}" >
       <a-icon slot="extra" type="setting" />
-      <#assign x=0>
-      <#if formConfig.layout == "vertical">
-      <a-row :gutter="[${formConfig.gutter}]">
-      </#if>
-  	  <#list group.fields as field>
-  	  <#if formConfig.layout == "vertical">
-  	    <a-col :span="${24 / formConfig.feildNum * field.feildSize}">
-  	  </#if>  
-	  	  <a-form-model-item label="${field.label!'label'}">
-	  	    <a-input v-model="form.${field.name!''}" required="${field.required?string("true","false")}" />
-	  	  </a-form-model-item>
-	  <#if formConfig.layout == "vertical">	  
-  	  	</a-col>
-  	  </#if>
-  	  <#if formConfig.layout == "vertical">	
- 	  <#if field_has_next>
- 	  <#assign x = x + field.feildSize>
-	  <#if (x >= formConfig.feildNum)>
-	  </a-row>
-	  <a-row :gutter="[${formConfig.gutter}]">
-	  <#assign x=0>	  
-	  </#if>
-  	  </#if>
-  	  </#if>
-  	  </#list>
-  	  <#if formConfig.layout == "vertical">
-  	  </a-row>
-  	  </#if>
-  	  
+      <@mfield formConfig=formConfig fields=group.fields/>
   	  
   	  <#if formConfig.layout == "horizontal">
   	  <!-- 水平布局中,在面板中的按钮 -->
   	  <a-form-model-item :wrapper-col="{ span: wrapperCol.span, offset: labelCol.span }">
-         <a-button type="primary" @click="onSubmit">
-             Create
-         </a-button>
-         <a-button style="margin-left: 10px;">
-             Cancel
-         </a-button>
+         <#include "./form/form-button.ftl"/>
       </a-form-model-item>
   	  </#if>
   	  
   	  <#if formConfig.layout == "inline">
   	  <a-form-model-item>
-         <a-button type="primary" @click="onSubmit">
-             Create
-         </a-button>
-         <a-button style="margin-left: 10px;">
-             Cancel
-         </a-button>
+         <#include "./form/form-button.ftl"/>
       </a-form-model-item>
   	  </#if>
       </a-collapse-panel>
@@ -74,77 +37,33 @@
   </#if>
   
   
-<!-- 独立字段生成 -->
-  	<#assign x=0>
-    <#if formConfig.layout == "vertical">
-    <a-row :gutter="[${formConfig.gutter}]">
-    </#if>
-	<#list formConfig.fields as field>
-	<#if formConfig.layout == "vertical">
-	<a-col :span="${24 / formConfig.feildNum * field.feildSize}">
-	</#if>  
- 	<a-form-model-item label="${field.label!'label'}">
- 	  <a-input v-model="form.${field.name!''}" required="${field.required?string("true","false")}" />
- 	</a-form-model-item>
- 	<#if formConfig.layout == "vertical">	  
-	</a-col>
-	</#if>
-	<#if formConfig.layout == "vertical">	
-	<#if field_has_next>
-	<#assign x = x + field.feildSize>
-	<#if (x >= formConfig.feildNum)>
-	</a-row>
-	<a-row :gutter="[${formConfig.gutter}]">
-	<#assign x=0>	  
-	</#if>
-	</#if>
-	</#if>
-	</#list>
-	<#if formConfig.layout == "vertical">
-	</a-row>
-  	</#if>
-  
+  <!-- 独立字段生成 -->
+  <#if formConfig.fields?size != 0>
+  <@mfield formConfig=formConfig fields=formConfig.fields/>
+  </#if>
   
    <!-- form button -->
   <#if formConfig.layout == "horizontal" && !hasGroup>
   <a-form-model-item :wrapper-col="{ span: wrapperCol.span, offset: labelCol.span }">
-    <a-space size="50">
-       <a-button type="primary" @click="onSubmit">
-         Create
-       </a-button>
-       <a-button style="margin-left: 10px;">
-         Cancel
-       </a-button>
-     </a-space>
+    <#include "./form/form-button.ftl"/>
    </a-form-model-item>
   <#elseif formConfig.layout == "vertical">
   <!-- 位置放在最下面 -->
   <a-form-model-item style="text-align: center;margin-top: 15px">
-  	<a-space size="50">
-       <a-button type="primary" @click="onSubmit">
-         Create
-       </a-button>
-       <a-button style="margin-left: 10px;">
-         Cancel
-       </a-button>
-     </a-space>
+  	<#include "./form/form-button.ftl"/>
    </a-form-model-item>
   <#elseif formConfig.layout == "inline" && !hasGroup>
   <a-form-model-item>
-  	<a-space size="50">
-       <a-button type="primary" @click="onSubmit">
-         Create
-       </a-button>
-       <a-button style="margin-left: 10px;">
-         Cancel
-       </a-button>
-     </a-space>
+  	<#include "./form/form-button.ftl"/>
    </a-form-model-item>
   </#if>
   </a-form-model>
 </template>
 <script>
 
+
+import router from '@/router/index'
+import {createData} from '@/api/base'
 export default {
   data() {
     return {
@@ -161,6 +80,12 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!', this.form)
+      createData('${beanName}', this.form).then((rs) => {
+        // 提示消息
+        this.$message.info('提交成功')
+        // 页面跳转, 根据实际调整
+        router.push('index')
+      })
     }
   }
 }

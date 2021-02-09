@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="form" type="formConfig"/>
+
+  <xs:complexType name="formConfig" final="extension restriction">
+    <xs:sequence>
+      <xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="group" type="group" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="autoLoadFeild" type="xs:boolean" use="required"/>
+    <xs:attribute name="feildNum" type="xs:int" use="required"/>
+    <xs:attribute name="gutter" type="xs:string"/>
+    <xs:attribute name="hideRequiredMark" type="xs:boolean" use="required"/>
+    <xs:attribute name="labelCol" type="xs:int" use="required"/>
+    <xs:attribute name="layout" type="xs:string"/>
+    <xs:attribute name="wrapperCol" type="xs:int" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="field">
+    <xs:sequence>
+      <xs:element name="autoLink" type="xs:boolean"/>
+      <xs:element name="colon" type="xs:boolean"/>
+      <xs:element name="config" type="xs:string" minOccurs="0"/>
+      <xs:element name="defaultValue" type="xs:string" minOccurs="0"/>
+      <xs:element name="extra" type="xs:string" minOccurs="0"/>
+      <xs:element name="feildSize" type="xs:int"/>
+      <xs:element name="label" type="xs:string" minOccurs="0"/>
+      <xs:element name="labelCol" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="prop" type="xs:string" minOccurs="0"/>
+      <xs:element name="required" type="xs:boolean"/>
+      <xs:element name="rules" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="group">
+    <xs:sequence>
+      <xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="active" type="xs:boolean" use="required"/>
+    <xs:attribute name="disabled" type="xs:boolean" use="required"/>
+    <xs:attribute name="header" type="xs:string"/>
+    <xs:attribute name="key" type="xs:string"/>
+    <xs:attribute name="showArrow" type="xs:boolean" use="required"/>
+  </xs:complexType>
+</xs:schema>
+

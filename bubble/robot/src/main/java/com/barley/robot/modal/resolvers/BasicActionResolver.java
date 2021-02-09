@@ -72,7 +72,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		
 		// add searchVO
 		Parameter parameter = new Parameter(searchVO.getType(), "searchVO");
-		parameter.addAnnotation("@ModelAttribute");
+		parameter.addAnnotation("@RequestBody");
 		method.getParameters().add(parameter);
 		
 		// add page & page size
@@ -98,7 +98,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		
 		clazz.addMethod(method);
 		
-		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestParam"));
 		clazz.getImportedTypes().add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestMapping"));
 	}
@@ -134,9 +134,9 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 
 			param.addAnnotation("@PathVariable(\"key\")");
 		} else {
-			param.addAnnotation("@ModelAttribute");
+			param.addAnnotation("@RequestBody");
 			clazz.getImportedTypes()
-					.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+					.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 		}
 		method.getParameters().add(param);
 		method.getBodyLines().add("return servEntity.findByPrimaryKey(keyObj);");
@@ -153,7 +153,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@RequestMapping(\"/query\")");
 		Parameter parameter = new Parameter(searchVO.getType(), "searchVO");
-		parameter.addAnnotation("@ModelAttribute");
+		parameter.addAnnotation("@RequestBody");
 		method.getParameters().add(parameter);
 		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("org.barley.web.Resonse");
 		method.setReturnType(returnType);
@@ -166,7 +166,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		clazz.getImportedTypes().add(returnType);
 		clazz.getImportedTypes().add(new FullyQualifiedJavaType("java.util.List"));
 		clazz.getImportedTypes()
-				.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+				.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 	}
 
 	private void addAmendMethod(TopLevelClass clazz) {
@@ -175,7 +175,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		method.addAnnotation("@RequestMapping(\"/update\")");
 		Parameter parameter = new Parameter(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()),
 				"record");
-		parameter.addAnnotation("@ModelAttribute");
+		parameter.addAnnotation("@RequestBody");
 		method.getParameters().add(parameter);
 		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("org.barley.web.Resonse");
 		method.setReturnType(returnType);
@@ -185,7 +185,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		clazz.getImportedTypes().add(parameter.getType());
 		clazz.getImportedTypes().add(returnType);
 		clazz.getImportedTypes()
-				.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+				.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 	}
 
 	private void addCreateMethod(TopLevelClass clazz) {
@@ -194,7 +194,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		method.addAnnotation("@RequestMapping(\"/create\")");
 		Parameter parameter = new Parameter(new FullyQualifiedJavaType(introspectedTable.getBaseRecordType()),
 				"record");
-		parameter.addAnnotation("@ModelAttribute");
+		parameter.addAnnotation("@RequestBody");
 		method.getParameters().add(parameter);
 
 		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("org.barley.web.Resonse");
@@ -205,7 +205,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		clazz.getImportedTypes().add(parameter.getType());
 		clazz.getImportedTypes().add(returnType);
 		clazz.getImportedTypes()
-				.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+				.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 	}
 
 	private void addDeleteMethod(TopLevelClass clazz) {
@@ -239,9 +239,9 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 
 			param.addAnnotation("@PathVariable(\"key\")");
 		} else {
-			param.addAnnotation("@ModelAttribute");
+			param.addAnnotation("@RequestBody");
 			clazz.getImportedTypes()
-					.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.ModelAttribute"));
+					.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 		}
 		method.getParameters().add(param);
 		method.getBodyLines().add("servEntity.delete(keyObj);");

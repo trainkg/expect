@@ -22,7 +22,8 @@ service.interceptors.request.use(
 
     // 所有请求默认是json格式，除了上传文件，不用表单
     config.headers['Content-Type'] = 'application/json; charset=UTF-8'
-
+    // 如果使用表单，使用如下方式
+    // 'Content-Type': 'application/x-www-form-urlencoded'
     // Do something before request is sent
     /* if (store.getters.token) {
       // 让每个请求携带token-- ['Authorization']为自定义key 请根据实际情况自行修改

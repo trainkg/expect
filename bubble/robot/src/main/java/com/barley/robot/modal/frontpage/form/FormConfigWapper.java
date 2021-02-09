@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.barley.web.utils.JsonMapper;
 
 import com.barley.robot.modal.frontpage.form.FormConfig.Field;
-import com.barley.robot.modal.frontpage.form.FormConfig.Group;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Getter;
@@ -29,6 +28,13 @@ public final class FormConfigWapper {
 	@Getter
 	@Setter
 	private FormConfig formConfig;
+	
+	/**
+	 * 	JAVA 模型名称（用于controller路径中）
+	 */
+	@Setter
+	@Getter
+	private String beanName;
 
 	public FormConfigWapper(FormConfig formConfig) {
 		this.formConfig = formConfig;
@@ -44,15 +50,6 @@ public final class FormConfigWapper {
 		return formConfig.getGroups().size() > 0;
 	}
 
-	/**
-	 * 
-	 * 获取单个元素占位长度
-	 * 
-	 * @return
-	 */
-	public int getSingleFeildCols() {
-		return 24 / formConfig.getFeildNum();
-	}
 
 	/**
 	 * 获取可编辑列表
@@ -98,37 +95,6 @@ public final class FormConfigWapper {
 			return "";
 		}
 		return StringUtils.join(keys, ',');
-	}
-
-	/**
-	 * 
-	 * 配置中是否包含指定的列
-	 * 
-	 * @param javaProperty
-	 * @return
-	 */
-	public boolean contain(String javaProperty) {
-
-		boolean contain = false;
-		for (Field field : formConfig.getFields()) {
-			if (javaProperty.equalsIgnoreCase(field.getName())) {
-				contain = true;
-			}
-		}
-
-		if (contain)
-			return contain;
-
-		for (Group group : formConfig.getGroups()) {
-			for (Field field : group.getFields()) {
-				if (javaProperty.equalsIgnoreCase(field.getName())) {
-					contain = true;
-				}
-			}
-
-		}
-
-		return contain;
 	}
 
 	/**

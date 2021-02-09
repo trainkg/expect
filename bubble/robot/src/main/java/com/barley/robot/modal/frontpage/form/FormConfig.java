@@ -6,6 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * 
@@ -61,7 +62,48 @@ public final class FormConfig {
 
 	private List<Group> groups = new ArrayList<FormConfig.Group>();
 	private List<Field> fields = new ArrayList<FormConfig.Field>();
+	
+	/**
+	 * 
+	 * 获取单个元素占位长度
+	 * 
+	 * @return
+	 */
+	public int getSingleFeildCols() {
+		return 24 / getFeildNum();
+	}
+	
+	/**
+	 * 
+	 * 配置中是否包含指定的列
+	 * 
+	 * @param javaProperty
+	 * @return
+	 */
+	public boolean contain(String javaProperty) {
 
+		boolean contain = false;
+		for (Field field : getFields()) {
+			if (javaProperty.equalsIgnoreCase(field.getName())) {
+				contain = true;
+			}
+		}
+
+		if (contain)
+			return contain;
+
+		for (Group group : getGroups()) {
+			for (Field field : group.getFields()) {
+				if (javaProperty.equalsIgnoreCase(field.getName())) {
+					contain = true;
+				}
+			}
+
+		}
+
+		return contain;
+	}
+	
 	@XmlElement(name = "group")
 	public List<Group> getGroups() {
 		return groups;

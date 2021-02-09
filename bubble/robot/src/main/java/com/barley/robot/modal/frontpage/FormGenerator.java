@@ -38,6 +38,9 @@ public class FormGenerator extends AbstractFrontGenerator<FormConfigWapper> {
 		FormConfig config = (FormConfig) getConfig(FormConfig.class);
 		List<IntrospectedColumn> primarykey = introspectedTable.getPrimaryKeyColumns();
 		FormConfigWapper wapper = new FormConfigWapper(config);
+		StringBuffer sb = new StringBuffer(introspectedTable.getFullyQualifiedTable().getDomainObjectName());
+		sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
+		wapper.setBeanName(sb.toString());
 		if (config == null) {
 			config = extractConfigFrom(introspectedTable);
 		} else {
@@ -50,7 +53,7 @@ public class FormGenerator extends AbstractFrontGenerator<FormConfigWapper> {
 					if(primarykey.contains(introspectedColumn)) {
 						continue;
 					}
-					boolean contain = wapper.contain(introspectedColumn.getJavaProperty());
+					boolean contain = config.contain(introspectedColumn.getJavaProperty());
 					if(!contain) {
 						Field feild = new Field();
 						feild.setName(introspectedColumn.getJavaProperty());

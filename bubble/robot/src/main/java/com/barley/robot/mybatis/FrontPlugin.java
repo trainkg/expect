@@ -9,6 +9,7 @@ import org.mybatis.generator.api.IntrospectedTable;
 import com.barley.robot.modal.frontpage.AbstractFrontGenerator;
 import com.barley.robot.modal.frontpage.FormGenerator;
 import com.barley.robot.modal.frontpage.GridGenerator;
+import com.barley.robot.modal.frontpage.PickerGenerator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +29,7 @@ public class FrontPlugin extends org.mybatis.generator.api.PluginAdapter {
 	static {
 		generators.add(new FormGenerator());
 		generators.add(new GridGenerator());
+		generators.add(new PickerGenerator());
 	}
 
 	/**

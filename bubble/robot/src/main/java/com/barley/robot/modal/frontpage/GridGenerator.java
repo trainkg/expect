@@ -1,15 +1,8 @@
 package com.barley.robot.modal.frontpage;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.mybatis.generator.api.IntrospectedColumn;
-
-import com.barley.robot.modal.frontpage.grid.ColumnConfig;
-import com.barley.robot.modal.frontpage.grid.ColumnConfigResolver;
-import com.barley.robot.modal.frontpage.grid.SimpleColumnConfigResolver;
+import com.barley.robot.modal.frontpage.grid.DefaultTableProvider;
 import com.barley.robot.modal.frontpage.grid.Table;
-import com.barley.robot.modal.frontpage.grid.Table.Column;
+import com.barley.robot.modal.frontpage.grid.TableProvider;
 import com.barley.robot.modal.frontpage.grid.TableWapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +23,7 @@ public class GridGenerator extends AbstractFrontGenerator<TableWapper> {
 
 	
 	public static final String PROPERTY_SERVICE_ENABLED = "template.grid";
-	private ColumnConfigResolver resolver = new SimpleColumnConfigResolver();
+	private TableProvider provider = new DefaultTableProvider();
 	
 	@Override
 	protected String getTemplatePath() {
@@ -44,26 +37,7 @@ public class GridGenerator extends AbstractFrontGenerator<TableWapper> {
 	 */
 	@Override 
 	protected TableWapper getModel() {
-		Table table = new Table();
-		if(introspectedTable.getRules().generatePrimaryKeyClass()) {
-			throw new RuntimeException("不支持联合逐渐对象生成table");
-		}
-		table.setRowKey(introspectedTable.getPrimaryKeyColumns().get(0).getJavaProperty());
-		
-		List<Table.Column> listCol = new ArrayList<Table.Column>();
-		
-		List<IntrospectedColumn> introspectedColumns =  introspectedTable.getAllColumns();
-		for (IntrospectedColumn introspectedColumn : introspectedColumns) {
-			Column column = table.new Column();
-			ColumnConfig config = resolver.resolve(introspectedColumn);
-			if(config.isShowInTable()) {
-				column.setDataIndex(introspectedColumn.getJavaProperty());
-				column.setTitle(config.getTitle());
-				listCol.add(column);	
-			}
-		}
-
-		table.setColumns(listCol.toArray(new Table.Column[] {}));
+		Table table = provider.retriveTable(introspectedTable);
 		StringBuffer sb = new StringBuffer(introspectedTable.getFullyQualifiedTable().getDomainObjectName());
 		sb.setCharAt(0, Character.toLowerCase(sb.charAt(0)));
 		return new TableWapper(table,sb.toString());

@@ -1,6 +1,11 @@
 package com.barley.robot.modal.frontpage.grid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.barley.web.utils.JsonMapper;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -44,5 +49,14 @@ public class TableWapper {
 	public String getColumnJSON() {
 		JsonMapper jsonMapper = JsonMapper.nonEmptyMapper();
 		return jsonMapper.toJson(getTable().getColumns());
+	}
+	
+	public String getColumnFeildJSON() {
+		JsonMapper jsonMapper = new JsonMapper(Include.ALWAYS);
+		Map<String, String> map = new HashMap<String, String>();
+		for (int i = 0; i < getTable().getColumns().length; i++) {
+			map.put(getTable().getColumns()[i].getDataIndex(), null);
+		}
+		return jsonMapper.toJson(map);
 	}
 }

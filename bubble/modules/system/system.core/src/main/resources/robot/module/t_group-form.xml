@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<form feildNum="4" gutter="16,8" hideRequiredMark="false" labelCol="4" layout="horizontal" wrapperCol="14">
+<form autoLoadFeild="true" feildNum="4" gutter="16,8" hideRequiredMark="false" labelCol="4" layout="vertical"
+	wrapperCol="14">
+	<group active="false" disabled="false" header="test1" key="1" showArrow="false">
+	</group>
 </form>

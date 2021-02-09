@@ -31,7 +31,7 @@ export default {
       //@/views/basic/group/group-form
       //@/views/basic/group/commons/group-table
       //@/views/basic/group/commons/group-table
-      import('@/views/basic/group/commons/group-form').then((Component) => {
+      import('@/views/basic/group/commons/group-picker').then((Component) => {
         console.log(this)
         if (parent.last) { parent.last.$destroy() }
         console.log(Component.default)
