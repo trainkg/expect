@@ -1,55 +1,60 @@
 <!-- search panel -->
 <template>
-  <a-collapse v-model="activeKey" expand-icon-position="left">
-    <!-- search panel -->
-    <a-collapse-panel key="search" header="查询条件">
-      <a-row :gutter="[16,8]">
-        <a-col :span="6">
-          <a-form-model-item label="名称">
-            <a-input v-model="form.name" required="false" />
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="6">
-          <a-form-model-item label="描述">
-            <a-input v-model="form.descibe" required="false" />
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="6">
-          <a-form-model-item label="状态">
-            <a-input v-model="form.status" required="false" />
-          </a-form-model-item>
-        </a-col>
-      </a-row>
-      <a-row style="text-align: right">
-        <a-button-group>
-          <a-button type="primary" @click="fetch">
-            查询
-          </a-button>
-          <a-button @click="reset">
-            重置
-          </a-button>
-        </a-button-group>
-      </a-row>
-    </a-collapse-panel>
-    <!-- result panel -->
-    <a-collapse-panel key="result" header="结果列表">
-      <a-icon slot="extra" type="setting" />
-      <a-table
-        :row-key="record => record.listId"
-        :columns="columns"
-        :data-source="data"
-        :loading="loading"
-        :bordered="true"
-        size="middle"
-        :row-selection="rowSelection"
-        :pagination="pagination"
-        @change="handleTableChange"
-      />
-      <a-button type="primary" @click="onSubmit">
-        选中
-      </a-button>
-    </a-collapse-panel>
-  </a-collapse>
+  <div>
+    <a-modal v-model="visible" title="选择器" ok-text="确认" cancel-text="取消" @ok="onSubmit">
+      <a-collapse v-model="activeKey" expand-icon-position="left">
+        <!-- search panel -->
+        <a-collapse-panel key="search" header="查询条件">
+          <a-row :gutter="[16,8]">
+            <a-col :span="6">
+              <a-form-model-item label="名称">
+                <a-input v-model="form.name" required="false" />
+              </a-form-model-item>
+            </a-col>
+            <a-col :span="6">
+              <a-form-model-item label="描述">
+                <a-input v-model="form.descibe" required="false" />
+              </a-form-model-item>
+            </a-col>
+            <a-col :span="6">
+              <a-form-model-item label="状态">
+                <a-input v-model="form.status" required="false" />
+              </a-form-model-item>
+            </a-col>
+          </a-row>
+          <a-row style="text-align: right">
+            <a-button-group>
+              <a-button type="primary" @click="fetch">
+                查询
+              </a-button>
+              <a-button @click="reset">
+                重置
+              </a-button>
+            </a-button-group>
+          </a-row>
+        </a-collapse-panel>
+        <!-- result panel -->
+        <a-collapse-panel key="result" header="结果列表">
+          <a-icon slot="extra" type="setting" />
+          <a-table
+            :row-key="record => record.listId"
+            :columns="columns"
+            :data-source="data"
+            :loading="loading"
+            :bordered="true"
+            size="middle"
+            :scroll="{ y: 240 }"
+            :row-selection="rowSelection"
+            :pagination="pagination"
+            @change="handleTableChange"
+          />
+        </a-collapse-panel>
+      </a-collapse>
+    </a-modal>
+    <a-button type="primary" @click="openPicker">
+      打开picker
+    </a-button>
+  </div>
 </template>
 
 <script>
@@ -58,6 +63,7 @@
  */
 import { pageSearchData } from '@/api/base'
 const columns = [{ 'dataIndex': 'name', 'title': '名称' }, { 'dataIndex': 'descibe', 'title': '描述' }, { 'dataIndex': 'status', 'title': '状态' }]
+const _initForm = { 'descibe': null, 'name': null, 'status': null }
 
 export default {
   props: {
@@ -66,11 +72,12 @@ export default {
     },
     pageSize: {
       type: Number,
-      default: 4
+      default: 10
     }
   },
   data() {
     return {
+      visible: false,
       activeKey: ['search', 'result'],
       data: [],
       columns,
@@ -120,7 +127,7 @@ export default {
       })
     },
     reset() {
-
+      this.form = { ..._initForm }
     },
     /**
      * 提供table自身事件监听处理
@@ -150,11 +157,13 @@ export default {
       if (this.$data.selectedRowKeys.length === 0) {
         this.$message.warn('选择项为空')
       } else {
-        console.log(this.$data.selectedRowKeys)
-        console.log(this.$props.multiple ? 'checkbox' : 'radio')
         // 事件传播
         this.$emit('selectItems', this.$data.selectedRowKeys)
+        this.visible = false
       }
+    },
+    openPicker() {
+      this.visible = true
     }
   }
 }

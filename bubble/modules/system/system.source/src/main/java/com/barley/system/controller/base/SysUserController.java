@@ -8,8 +8,8 @@ import java.util.List;
 import org.barley.web.Resonse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +25,7 @@ public class SysUserController {
     private SysUserService servEntity;
 
     @RequestMapping("/create")
-    public Resonse create(@ModelAttribute SysUser record) {
+    public Resonse create(@RequestBody SysUser record) {
         servEntity.create(record);
         return Resonse.newSucessResult("create success");
     }
@@ -37,13 +37,13 @@ public class SysUserController {
     }
 
     @RequestMapping("/update")
-    public Resonse maintenance(@ModelAttribute SysUser record) {
+    public Resonse maintenance(@RequestBody SysUser record) {
         servEntity.update(record);
         return Resonse.newSucessResult("update success");
     }
 
     @RequestMapping("/query")
-    public Resonse query(@ModelAttribute SysUserSearchVO searchVO) {
+    public Resonse query(@RequestBody SysUserSearchVO searchVO) {
         List<SysUser> results = servEntity.searchByVO(searchVO);
         return Resonse.newSucessResult("query success",results);
     }
@@ -54,7 +54,7 @@ public class SysUserController {
     }
 
     @RequestMapping("/pqry")
-    public PageInfo<SysUser> pagingQuery(@ModelAttribute SysUserSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
+    public PageInfo<SysUser> pagingQuery(@RequestBody SysUserSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return servEntity.searchByVO(searchVO, page, pageSize);
     }
 }

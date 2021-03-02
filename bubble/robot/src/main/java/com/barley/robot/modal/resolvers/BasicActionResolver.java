@@ -72,7 +72,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		
 		// add searchVO
 		Parameter parameter = new Parameter(searchVO.getType(), "searchVO");
-		parameter.addAnnotation("@RequestBody");
+		parameter.addAnnotation("@RequestBody(required = false)");
 		method.getParameters().add(parameter);
 		
 		// add page & page size
@@ -134,7 +134,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 
 			param.addAnnotation("@PathVariable(\"key\")");
 		} else {
-			param.addAnnotation("@RequestBody");
+			param.addAnnotation("@RequestBody(required = false)");
 			clazz.getImportedTypes()
 					.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 		}
@@ -153,7 +153,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.addAnnotation("@RequestMapping(\"/query\")");
 		Parameter parameter = new Parameter(searchVO.getType(), "searchVO");
-		parameter.addAnnotation("@RequestBody");
+		parameter.addAnnotation("@RequestBody(required = false)");
 		method.getParameters().add(parameter);
 		FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("org.barley.web.Resonse");
 		method.setReturnType(returnType);
@@ -239,7 +239,7 @@ public class BasicActionResolver extends AbstractJavaGenerator {
 
 			param.addAnnotation("@PathVariable(\"key\")");
 		} else {
-			param.addAnnotation("@RequestBody");
+			param.addAnnotation("@RequestBody(required = false)");
 			clazz.getImportedTypes()
 					.add(new FullyQualifiedJavaType("org.springframework.web.bind.annotation.RequestBody"));
 		}

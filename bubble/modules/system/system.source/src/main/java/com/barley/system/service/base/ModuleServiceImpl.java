@@ -1,16 +1,18 @@
 package com.barley.system.service.base;
 
+import java.util.List;
+
+import org.barley.mybatis.CriteriaBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.barley.system.mappers.ModuleMapper;
 import com.barley.system.modal.Module;
 import com.barley.system.service.base.searchvo.ModuleSearchVO;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import java.util.List;
-import org.barley.mybatis.CriteriaBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author peculiar.1@163.com
@@ -64,9 +66,14 @@ public class ModuleServiceImpl implements ModuleService {
             ((CriteriaBuilder) searchvo).build();
         }
         List<Module> list = entityMapper.searchByCriteria(searchvo);
-        PageInfo<Module> pageInfo = new PageInfo<Module>(list, pageSize);
-        if (pagesvo != null) {
-            pageInfo.setTotal(pagesvo.getTotal());
+        PageInfo<Module> pageInfo = null;
+        if(pageSize != null) {
+            pageInfo = new PageInfo<Module>(list, pageSize);
+            if (pagesvo != null) {
+                pageInfo.setTotal(pagesvo.getTotal());
+            }
+        }else {
+            pageInfo = new PageInfo<Module>(list);
         }
         return pageInfo;
     }

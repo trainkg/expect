@@ -8,8 +8,8 @@ import java.util.List;
 import org.barley.web.Resonse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +25,7 @@ public class ModuleController {
     private ModuleService servEntity;
 
     @RequestMapping("/create")
-    public Resonse create(@ModelAttribute Module record) {
+    public Resonse create(@RequestBody(required = false) Module record) {
         servEntity.create(record);
         return Resonse.newSucessResult("create success");
     }
@@ -37,13 +37,13 @@ public class ModuleController {
     }
 
     @RequestMapping("/update")
-    public Resonse maintenance(@ModelAttribute Module record) {
+    public Resonse maintenance(@RequestBody(required = false) Module record) {
         servEntity.update(record);
         return Resonse.newSucessResult("update success");
     }
 
     @RequestMapping("/query")
-    public Resonse query(@ModelAttribute ModuleSearchVO searchVO) {
+    public Resonse query(@RequestBody(required = false) ModuleSearchVO searchVO) {
         List<Module> results = servEntity.searchByVO(searchVO);
         return Resonse.newSucessResult("query success",results);
     }
@@ -54,7 +54,7 @@ public class ModuleController {
     }
 
     @RequestMapping("/pqry")
-    public PageInfo<Module> pagingQuery(@ModelAttribute ModuleSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
+    public PageInfo<Module> pagingQuery(@RequestBody(required = false) ModuleSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return servEntity.searchByVO(searchVO, page, pageSize);
     }
 }
