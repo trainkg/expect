@@ -16,65 +16,73 @@ import com.github.pagehelper.PageInfo;
 
 /**
  * @author peculiar.1@163.com
- * @version $ID: com.barley.system.service.base.ModuleBaseService create date 2020-12-30 21:58:50
+ * @version $ID: com.barley.system.service.base.ModuleBaseService create date
+ *          2020-12-30 21:58:50
  */
 @Service
 @Transactional
 public class ModuleServiceImpl implements ModuleService {
-    @Autowired
-    protected ModuleMapper entityMapper;
+	@Autowired
+	protected ModuleMapper entityMapper;
 
-    public Module create(Module record) {
-        entityMapper.insert(record);
-        return record;
-    }
+	public Module create(Module record) {
+		entityMapper.insert(record);
+		return record;
+	}
 
-    public void delete(Integer keyId) {
-        entityMapper.deleteByPrimaryKey(keyId);
-    }
+	public void delete(Integer keyId) {
+		entityMapper.deleteByPrimaryKey(keyId);
+	}
 
-    public Module update(Module record) {
-        entityMapper.updateByPrimaryKey(record);
-        return record;
-    }
+	public Module update(Module record) {
+		entityMapper.updateByPrimaryKey(record);
+		return record;
+	}
 
-    public List<Module> findAll() {
-        ModuleSearchVO searchvo = new ModuleSearchVO();
-        return entityMapper.searchByCriteria(searchvo);
-    }
+	public List<Module> findAll() {
+		ModuleSearchVO searchvo = new ModuleSearchVO();
+		return entityMapper.searchByCriteria(searchvo);
+	}
 
-    public Module findByPrimaryKey(Integer keyId) {
-        Module entity = entityMapper.selectByPrimaryKey(keyId);
-        return entity;
-    }
+	public Module findByPrimaryKey(Integer keyId) {
+		Module entity = entityMapper.selectByPrimaryKey(keyId);
+		return entity;
+	}
 
-    public List<Module> searchByVO(ModuleSearchVO searchVO) {
-        PageInfo<Module> pageInfo = internalfindBySearchVO(searchVO, null, null);
-        return pageInfo.getList();
-    }
+	public List<Module> searchByVO(ModuleSearchVO searchVO) {
+		if (searchVO.getParentId() != null && searchVO.isLoadSub()) {
+			Module module = findByPrimaryKey(searchVO.getParentId());
+			if (module != null) {
+				searchVO.setPath(module.getPath());
+				searchVO.setParentId(null);
+			}
+		}
+		PageInfo<Module> pageInfo = internalfindBySearchVO(searchVO, null, null);
+		return pageInfo.getList();
+	}
 
-    public PageInfo<Module> searchByVO(ModuleSearchVO searchVO, int page, int pageSize) {
-        return internalfindBySearchVO(searchVO, page, pageSize);
-    }
+	public PageInfo<Module> searchByVO(ModuleSearchVO searchVO, int page, int pageSize) {
+		return internalfindBySearchVO(searchVO, page, pageSize);
+	}
 
-    protected PageInfo<Module> internalfindBySearchVO(ModuleSearchVO searchvo, Integer page, Integer pageSize) {
-        Page<Object> pagesvo = null;
-        if (page != null) {
-            pagesvo = PageHelper.startPage(page, pageSize);
-        }
-        if (searchvo instanceof CriteriaBuilder) {
-            ((CriteriaBuilder) searchvo).build();
-        }
-        List<Module> list = entityMapper.searchByCriteria(searchvo);
-        PageInfo<Module> pageInfo = null;
-        if(pageSize != null) {
-            pageInfo = new PageInfo<Module>(list, pageSize);
-            if (pagesvo != null) {
-                pageInfo.setTotal(pagesvo.getTotal());
-            }
-        }else {
-            pageInfo = new PageInfo<Module>(list);
-        }
-        return pageInfo;
-    }
+	protected PageInfo<Module> internalfindBySearchVO(ModuleSearchVO searchvo, Integer page, Integer pageSize) {
+		Page<Object> pagesvo = null;
+		if (page != null) {
+			pagesvo = PageHelper.startPage(page, pageSize);
+		}
+		if (searchvo instanceof CriteriaBuilder) {
+			((CriteriaBuilder) searchvo).build();
+		}
+		List<Module> list = entityMapper.searchByCriteria(searchvo);
+		PageInfo<Module> pageInfo = null;
+		if (pageSize != null) {
+			pageInfo = new PageInfo<Module>(list, pageSize);
+			if (pagesvo != null) {
+				pageInfo.setTotal(pagesvo.getTotal());
+			}
+		} else {
+			pageInfo = new PageInfo<Module>(list);
+		}
+		return pageInfo;
+	}
 }

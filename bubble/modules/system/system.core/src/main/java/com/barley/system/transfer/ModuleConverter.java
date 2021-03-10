@@ -12,9 +12,19 @@ import com.barley.pub.BasicTreeConverter;
  */
 public class ModuleConverter extends BasicTreeConverter<RelModule> {
 
+	private Integer rootId;
+
+	public ModuleConverter(Integer rootId) {
+		this.rootId = rootId;
+	}
+
 	@Override
 	public boolean isRoot(RelModule t) {
-		return t.getParentId() == null || t.getParentId().intValue() == 0;
+		if (rootId != null) {
+			return t.getParentId().intValue() == rootId;
+		} else {
+			return t.getParentId() == null || t.getParentId().intValue() == 0;
+		}
 	}
 
 	@Override

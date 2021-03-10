@@ -19,7 +19,6 @@ public interface ModuleMapper {
      *
      * @mbg.generated
      */
-    //插入方法
     int insert(Module record);
 
     /**

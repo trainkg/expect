@@ -17,11 +17,11 @@ public abstract class BasicTreeConverter<T> implements TreeConverter<T> {
 	 */
 	@Override
 	public List<T> conversion(List<T> target) {
-		if (target == null || target.isEmpty()) {
-			throw new IllegalArgumentException("target must have data.");
-		}
-		
 		List<T> rs = new ArrayList<T>();
+		
+		if (target == null || target.isEmpty()) {
+			return rs;
+		}
 		
 		for (T t : target) {
 			if(isRoot(t)) {

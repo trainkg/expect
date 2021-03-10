@@ -63,7 +63,7 @@ public class ModuleController {
 	 */
 	@RequestMapping("/query")
 	public Resonse query(@RequestBody(required = false) ModuleSearchVO searchVO) {
-		ModuleConverter converter = new ModuleConverter();
+		ModuleConverter converter = new ModuleConverter(searchVO.getParentId());
 		List<Module> results = servEntity.searchByVO(searchVO);
 		List<RelModule> modules = RelModule.transfer(results);
 		List<RelModule> modulesTrs = converter.conversion(modules);

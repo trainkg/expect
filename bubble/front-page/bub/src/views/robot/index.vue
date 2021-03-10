@@ -1,6 +1,8 @@
 <template>
   <a-layout>
-    <a-layout-sider width="200" style="background: #fff" />
+    <a-layout-sider width="200" style="background: #fff">
+      <navbar parent-id="7" load-sub="1" />
+    </a-layout-sider>
     <a-layout style="padding: 0 12px 12px;">
       <router-view>
         <pageContent />
@@ -35,12 +37,12 @@ export default {
     }
   },
   created() {
-    this.loadingModule()
+    // this.loadingModule()
   },
   methods: {
     loadingModule() {
       // 7 robot
-      const search = { parentId: 7 }
+      const search = { parentId: 11 }
       searchData('module', search).then((rs) => {
         this.modules = rs.data.data
       })
