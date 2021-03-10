@@ -63,11 +63,17 @@ const task = {
   ]
 }
 
+function loadRobotChildren() {
+  return [
+    { name: 'test-c', path: '/create', component: () => import('@/views/basic/group/commons/group-table') }
+  ]
+}
 // robot
 const robot = {
   path: '/robot',
   name: 'robot',
-  component: () => import('@/views/robot'), props: (route) => ({ cid: route.query.cid })
+  component: () => import('@/views/robot'), props: (route) => ({ cid: route.query.cid }),
+  children: loadRobotChildren()
 }
 const routes = [index, system, auth, party, task, robot]
 export default routes

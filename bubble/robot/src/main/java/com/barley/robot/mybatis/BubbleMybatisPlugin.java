@@ -23,7 +23,7 @@ import org.mybatis.generator.internal.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.barley.robot.modal.ConditonTopClass;
+import com.barley.robot.modal.CondtionTopClass;
 import com.barley.robot.modal.CondtionInterface;
 import com.barley.robot.modal.resolvers.BasicActionResolver;
 import com.barley.robot.modal.resolvers.BasicServiceResolver;
@@ -162,8 +162,8 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 					override = ((CondtionInterface) compilationUnit).isOverride();
 				}
 
-				if (compilationUnit instanceof ConditonTopClass) {
-					override = ((ConditonTopClass) compilationUnit).isOverride();
+				if (compilationUnit instanceof CondtionTopClass) {
+					override = ((CondtionTopClass) compilationUnit).isOverride();
 				}
 
 				if (!override) {
@@ -227,6 +227,7 @@ public class BubbleMybatisPlugin extends org.mybatis.generator.api.PluginAdapter
 	@Override
 	public void initialized(IntrospectedTable introspectedTable) {
 		super.initialized(introspectedTable);
+		// 改变查询方法的默认命名
 		introspectedTable.setSelectByExampleStatementId("searchByCriteria");
 	}
 

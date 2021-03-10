@@ -6,14 +6,14 @@
     <template v-for="item in modules">
       <a-menu-item v-if="item.modules.length === 0" :key="item.listId">
         <router-link :to="item.uri">
-          {{ item.name }} {{ item.listId }}
+          {{ item.name }}
         </router-link>
       </a-menu-item>
       <a-sub-menu v-if="item.modules.length > 0">
         <span slot="title"><a-icon type="apartment" />{{ item.name }}</span>
         <a-menu-item v-for="subItem in item.modules" :key="subItem.listId">
           <router-link :to="subItem.uri">
-            {{ subItem.name }} {{ subItem.listId }}
+            {{ subItem.name }}
           </router-link>
         </a-menu-item>
       </a-sub-menu>

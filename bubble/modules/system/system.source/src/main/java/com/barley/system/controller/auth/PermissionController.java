@@ -25,7 +25,7 @@ public class PermissionController {
     private PermissionService servEntity;
 
     @RequestMapping("/create")
-    public Resonse create(@RequestBody Permission record) {
+    public Resonse create(@RequestBody(required = false) Permission record) {
         servEntity.create(record);
         return Resonse.newSucessResult("create success");
     }
@@ -37,13 +37,13 @@ public class PermissionController {
     }
 
     @RequestMapping("/update")
-    public Resonse maintenance(@RequestBody Permission record) {
+    public Resonse maintenance(@RequestBody(required = false) Permission record) {
         servEntity.update(record);
         return Resonse.newSucessResult("update success");
     }
 
     @RequestMapping("/query")
-    public Resonse query(@RequestBody PermissionSearchVO searchVO) {
+    public Resonse query(@RequestBody(required = false) PermissionSearchVO searchVO) {
         List<Permission> results = servEntity.searchByVO(searchVO);
         return Resonse.newSucessResult("query success",results);
     }
@@ -54,7 +54,7 @@ public class PermissionController {
     }
 
     @RequestMapping("/pqry")
-    public PageInfo<Permission> pagingQuery(@RequestBody PermissionSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
+    public PageInfo<Permission> pagingQuery(@RequestBody(required = false) PermissionSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return servEntity.searchByVO(searchVO, page, pageSize);
     }
 }

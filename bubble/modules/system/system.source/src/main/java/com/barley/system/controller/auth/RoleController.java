@@ -25,7 +25,7 @@ public class RoleController {
     private RoleService servEntity;
 
     @RequestMapping("/create")
-    public Resonse create(@RequestBody Role record) {
+    public Resonse create(@RequestBody(required = false) Role record) {
         servEntity.create(record);
         return Resonse.newSucessResult("create success");
     }
@@ -37,13 +37,13 @@ public class RoleController {
     }
 
     @RequestMapping("/update")
-    public Resonse maintenance(@RequestBody Role record) {
+    public Resonse maintenance(@RequestBody(required = false) Role record) {
         servEntity.update(record);
         return Resonse.newSucessResult("update success");
     }
 
     @RequestMapping("/query")
-    public Resonse query(@RequestBody RoleSearchVO searchVO) {
+    public Resonse query(@RequestBody(required = false) RoleSearchVO searchVO) {
         List<Role> results = servEntity.searchByVO(searchVO);
         return Resonse.newSucessResult("query success",results);
     }
@@ -54,7 +54,7 @@ public class RoleController {
     }
 
     @RequestMapping("/pqry")
-    public PageInfo<Role> pagingQuery(@RequestBody RoleSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
+    public PageInfo<Role> pagingQuery(@RequestBody(required = false) RoleSearchVO searchVO, @RequestParam(required = false, defaultValue = "1") int page, @RequestParam(required = false, defaultValue = "10") int pageSize) {
         return servEntity.searchByVO(searchVO, page, pageSize);
     }
 }

@@ -19,6 +19,8 @@ import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barley.robot.modal.CondtionTopClass;
+
 /**
  * 
  * Search VO 生成器
@@ -75,7 +77,8 @@ public class SearchVOGenerator extends AbstractJavaGenerator {
 	private TopLevelClass getTopLevelClassShell() {
 		CommentGenerator commentGenerator = context.getCommentGenerator();
 		FullyQualifiedJavaType type = new FullyQualifiedJavaType(getJavaPath());
-		TopLevelClass topLevelClass = new TopLevelClass(type);
+		CondtionTopClass topLevelClass = new CondtionTopClass(type);
+		topLevelClass.setOverride(false);
 		topLevelClass.setVisibility(JavaVisibility.PUBLIC);
 		topLevelClass.getJavaDocLines().add("/**");
 		topLevelClass.getJavaDocLines().add(" * @author peculiar.1@163.com");

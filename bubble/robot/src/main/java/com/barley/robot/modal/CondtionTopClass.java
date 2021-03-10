@@ -3,15 +3,15 @@ package com.barley.robot.modal;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
-public class ConditonTopClass extends TopLevelClass {
+public class CondtionTopClass extends TopLevelClass {
 
 	private boolean override;
 
-	public ConditonTopClass(FullyQualifiedJavaType type) {
+	public CondtionTopClass(FullyQualifiedJavaType type) {
 		super(type);
 	}
 
-	public ConditonTopClass(String typeName) {
+	public CondtionTopClass(String typeName) {
 		super(typeName);
 	}
 
