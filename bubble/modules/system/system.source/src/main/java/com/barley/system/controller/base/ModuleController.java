@@ -19,6 +19,9 @@ import com.barley.system.transfer.RelModule;
 import com.github.pagehelper.PageInfo;
 
 /**
+ * 
+ * 
+ * 
  * @author peculiar.1@163.com
  * @version $ID: com.barley.system.controller.base.ModuleController
  */
@@ -65,9 +68,13 @@ public class ModuleController {
 	public Resonse query(@RequestBody(required = false) ModuleSearchVO searchVO) {
 		ModuleConverter converter = new ModuleConverter(searchVO.getParentId());
 		List<Module> results = servEntity.searchByVO(searchVO);
-		List<RelModule> modules = RelModule.transfer(results);
-		List<RelModule> modulesTrs = converter.conversion(modules);
-		return Resonse.newSucessResult("query success", modulesTrs);
+		if (!searchVO.isFlatResult()) {
+			List<RelModule> modules = RelModule.transfer(results);
+			List<RelModule> modulesTrs = converter.conversion(modules);
+			return Resonse.newSucessResult("query success", modulesTrs);
+		} else {
+			return Resonse.newSucessResult("query success", results);
+		}
 	}
 
 	@GetMapping("/qrybykey/{key}")
