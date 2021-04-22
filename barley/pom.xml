@@ -41,7 +41,7 @@
 		<freemarker.version>2.3.20</freemarker.version>
 		<ls.module.skip>true</ls.module.skip>
 		<jetty.web.version>9.4.35.v20201120</jetty.web.version>
-		<mybatis>3.5.4</mybatis>
+		<mybatis>3.5.6</mybatis>
 		<pagehelper.version>5.1.11</pagehelper.version>
 		<mybatis.spring>2.0.4</mybatis.spring>
 		<mysql.version>8.0.20</mysql.version>
